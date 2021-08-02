@@ -3,16 +3,15 @@
   "version": "0.5.0",
   "description": "Croquet Virtual DOM Documentation",
   "scripts": {
-    "start": "npm-watch",
+    "start": "npx npm-watch",
     "build": "npx jsdoc -c jsdoc.json -d build",
-    "watch": "npm-watch"
+    "watch": "npx npm-watch"
   },
   "watch": {
     "build": {
       "patterns": [
-        "../../authoring/apiDoc/top.md",
-        "../../authoring/apiDoc/element-doc.js",
-        "../../authoring/apiDoc/tutorials/*",
+        "./top.md",
+        "./element-doc.js",
         "./jsdoc.json"
       ],
       "ignore": [
