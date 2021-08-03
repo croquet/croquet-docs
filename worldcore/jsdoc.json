@@ -2,12 +2,11 @@
   "source": {
     "include": [
         "./top.md",
-        "./element-doc.js"
+        "./actor-doc.js"
     ]
   },
   "opts": {
     "access": ["public"],
-    "tutorials": "../../authoring/apiDoc/tutorials",
     "template": "../template",
     "encoding": "utf8",
     "recurse": false,
@@ -37,8 +36,8 @@
     "sort": false,
     "disqus": "",
     "meta": {
-      "title": "Croquet Virtual DOM @CROQUET_VERSION@ Class References",
-      "description": "Documentation for the Croquet Virtual DOM Framework",
+      "title": "Croquet Worldcore Overview",
+      "description": "Documentation for the Croquet Worldcore Framework",
       "keyword": "croquet,"
     },
     "search": true,
@@ -46,6 +45,6 @@
     "typedefs": true,
     "removeQuotes": "none",
     "scripts": [],
-    "menuHome": "Home: <b>Croquet Virtual DOM</b>"
+    "menuHome": "Home: <b>Croquet Worldcore</b>"
   }
 }

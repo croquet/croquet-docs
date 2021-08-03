@@ -1,5 +1,5 @@
 /**
- Elements represent the xxxxxx adaptation of the HTML Document Object Model to Croquet. While basic API are model after the [DOM spec](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), it has Croquet-specific features. On the other hand, it omits some types elements in the standard.
+ Elements represent the xxxxxxaaaabbbbcccc adaptation of the HTML Document Object Model to Croquet. While basic API are model after the [DOM spec](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), it has Croquet-specific features. On the other hand, it omits some types elements in the standard.
 
 Elements are created and appended to the "top" element to form a tree. For each Element model object, a corresponding ElementView object is created.  Further more, for each ElementView object instanciates the corresponding native DOM element.
 When some code updates a property on an the Element model, the framework applies the change to the native DOM element.  The View side code can manipulate the View object as well as the native DOM element
@@ -19,7 +19,8 @@ Element has several subclasses for custom DOM element types. There are subclasse
  @public
  @hideconstructor
  */
-class Element {
+
+class Elementtt {
     /**
        The virtualized `CSSStyleDeclaration` object for the receiver. It has `setProperty()` `getPropertyValue()`, and `removeProperty()` (A subset of spec described in [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration)).
 
@@ -28,7 +29,7 @@ class Element {
        @type {Style}
      */
 
-    get style() {}
+    get styles() {}
 
     /**
        The `classList` of the receiver. The `classList` object has `add()`, `remove()`, `replace()`, and `contains()`. (a subset of spec described in [classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)).
@@ -103,7 +104,7 @@ class Element {
        @example this.addEventListener("click", "onClick"); // onClick is the name of a method
     */
 
-    addEventListener(eventType, methodName, useCapture) {}
+    addEventListenerrrr(eventType, methodName, useCapture) {}
 
     /**
        Remove the specified event listener from the element.
@@ -313,7 +314,7 @@ class Element {
  @public
  @hideconstructor
 */
-class ElementView {
+class ElementViewaa {
     /**
        The corresponding model (Element).
        @type {Element}

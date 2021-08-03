@@ -11,7 +11,7 @@
     "build": {
       "patterns": [
         "./top.md",
-        "./element-doc.js",
+        "./actor-doc.js",
         "./jsdoc.json"
       ],
       "ignore": [
