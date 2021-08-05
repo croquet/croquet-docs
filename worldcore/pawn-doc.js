@@ -1,5 +1,5 @@
 /**
- An actor is a type of model that automatically instantiates a pawn in the view when it’s created. This actor/pawn pair has a private communication channel that allows them to talk directly with each other. The actor handles the simulation, and the pawn handles input and output. When the actor is destroyed, the pawn is destroyed as well.
+When an actor is instantiated in the model, it automatically creates a corresponding pawn in the view. The pawn handles input and output for the actor. While actors are synchronized across all clients, pawns are not synched.
 
 
  @example
@@ -8,7 +8,7 @@
  @hideconstructor
  */
 
-class Actor {
+class Pawn {
 
     /**
      * Returns the class type of the actor's corresponding pawn. Actors inheriting from this base class should overload this
@@ -93,7 +93,7 @@ class Actor {
      *      get scale() {return this._scale || 1};
      * }
      *
-     * myActor.set({scale: 2, translation: [0,0,1]});
+     * myActor.set({scale: 2});
      * const scale = myActor.scale;
      * ```
      * Actors inheriting from this base class can overload set() to automatically trigger actions when a property changes:
@@ -101,7 +101,7 @@ class Actor {
      * class MyActor extends Actor {
      *      set(options ={}) {
      *           super.set(options);
-     *           if ('scale' in options ) this.say("scaleChanged", this.scale);
+     *           if ('scale' in options ) this.say("scaleChanged");
      *      }
      * }
      * ```

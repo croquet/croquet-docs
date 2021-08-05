@@ -2,7 +2,8 @@
   "source": {
     "include": [
         "./top.md",
-        "./actor-doc.js"
+        "./actor-doc.js",
+        "./pawn-doc.js"
     ]
   },
   "opts": {

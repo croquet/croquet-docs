@@ -1,7 +1,7 @@
 {
-  "name": "croquet-doc-virtual-dom",
+  "name": "croquet-doc-worldcore",
   "version": "0.5.0",
-  "description": "Croquet Virtual DOM Documentation",
+  "description": "Croquet Worldcore Documentation",
   "scripts": {
     "start": "npx npm-watch",
     "build": "npx jsdoc -c jsdoc.json -d build",
@@ -12,6 +12,7 @@
       "patterns": [
         "./top.md",
         "./actor-doc.js",
+        "./pawn-doc.js",
         "./jsdoc.json"
       ],
       "ignore": [
