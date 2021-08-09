@@ -3,7 +3,8 @@
     "include": [
         "./top.md",
         "./actor-doc.js",
-        "./pawn-doc.js"
+        "./pawn-doc.js",
+        "./mixin-doc.js"
     ]
   },
   "opts": {

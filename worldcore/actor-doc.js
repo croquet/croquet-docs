@@ -1,9 +1,6 @@
 /**
  An actor is a type of model that automatically instantiates a pawn in the view when it’s created. This actor/pawn pair has a private communication channel that allows them to talk directly with each other. The actor handles the simulation, and the pawn handles input and output. When the actor is destroyed, the pawn is destroyed as well.
 
-
- @example
- * this.createElement("div");
  @public
  @hideconstructor
  */
@@ -45,7 +42,7 @@ class Actor {
      *
      * **Note:** When your actor is no longer needed, you must [destroy]{@link Actor#destroy} it. Otherwise it will be kept in the snapshot forever.
      *
-     * **Warning**: never create an actor instance using `new`, or override its constructor.
+     * **Warning:** never create an actor instance using `new`, or override its constructor.
      *
      * @public
      * @param {Object} [options] - An object containing the initial properties of the actor. Passed to the actor's [init()]{@link Actor#init}.

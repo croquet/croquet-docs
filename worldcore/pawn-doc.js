@@ -1,123 +1,71 @@
 /**
-When an actor is instantiated in the model, it automatically creates a corresponding pawn in the view. The pawn handles input and output for the actor. While actors are synchronized across all clients, pawns are not synched.
-
-
- @example
- * this.createElement("div");
- @public
- @hideconstructor
+ * When an [actor]{@link Actor} is instantiated, it automatically creates a corresponding pawn in the view. The pawn handles input and output, while the actor
+ * handles simulation. Actors are synchronized across all clients, but pawns are not.
+ *
+ * @public
  */
 
 class Pawn {
 
     /**
-     * Returns the class type of the actor's corresponding pawn. Actors inheriting from this base class should overload this
-     * getter to specify their pawn type.
+     * Returns the pawn's actor. You can read the actor's current state directly using this pointer. You should never write to it.
      *
      * @readonly
      * @public
-     * @type Pawn
+     * @type {Actor}
      * @example
-     * class MyActor extends Actor {
-	  *      get pawn() { return MyPawn }
+     * const currentTranslation = this.actor.translation;
+     */
+         get actor() {}
+
+    /**
+     * A pawn is automatically created whenever an actor is created or loaded from a snapshot. Pawns are also automatically destroyed
+     * when their actor is destroyed. Use the pawn's constructor to initialize the pawn's state from the actor's state. You should also
+     * create any subscriptions that the pawn will need.
+     *
+     * **Warning:** Never instantiate or destroy a pawn directly.
+     *
+     * **Note:** An actor's pawn is spawned immediately when its actor is instantiated. So any events published in the actors' [init()]{@link Actor#init} will be
+     * received by the pawn as long as you subscribe to them in the pawn's constructor. However, when an actor is loaded from snapshot, its init() is not
+     * called, and those messages will not be resent. When initializing a pawn, it's better to pull the information you need directly from the
+     * actor itself using [this.actor]{@link Pawn#actor}, rather than relying on events.
+     *
+     * @public
+     * @example
+     * class MyPawn extends Pawn {
+     *      constructor(actor) {
+     *           super();
+     *           this.color = this.actor.color;
+     *           this.listen("changeColor", this.onChangeColor);
+     *      }
+     *
+     *      changeColor(c) { this.color = c};
      * }
      */
-    get pawn() {}
+    constructor() {}
 
     /**
-     * Set to true by the actor's [destroy()]{@link Actor#destroy} method. Use it at the start of a reoccuring tick to make sure it doesn't continue
-     * as a zombie after the actor has been destroyed.
+     * Called automatically when the pawn's actor is destroyed. You should never call it directly.
      *
-     * @readonly
-     * @public
-     * @type Boolean
-     * @example
-     * tick() {
-	 *      if (this.doomed) return;
-     *      future(50).tick();
-     * }
-     */
-         get doomed() {}
-
-    /**
-     * Create an instance of an actor and automatically spawn its corresponding pawn. Create calls the user-defined [init()]{@link Actor#init} method and passes in options
-     * to set the actor's initial properties.
+     * It cancels all of the pawn's subscriptions. You can overload it to do other teardown, like deallocating render objects or
+     * releasing resources.
      *
-     * **Note:** When your actor is no longer needed, you must [destroy]{@link Actor#destroy} it. Otherwise it will be kept in the snapshot forever.
-     *
-     * **Warning**: never create an actor instance using `new`, or override its constructor.
-     *
-     * @public
-     * @param {Object} [options] - An object containing the initial properties of the actor. Passed to the actor's [init()]{@link Actor#init}.
-     * @example
-     * const a = MyActor.create({scale: 2})
-    */
-    static create(options) {}
-
-    /**
-     * This is called by [create()]{@link Actor.create} to initialize the actor. In your actor subclass, this is the place to
-     * subscribe to or listen for events, or use a future message to start a reoccuring tick.
-     *
-     * Super.init() calls [set()]{@link Actor#set} to set the actor's initial properties from the options. It also automatically spawns the actor's pawn.
-     * The properties are set before the pawn is created.
-     *
-     * @param {Object} [options] - An object containing the initial properties of the actor.
-     * @public
-     * @example
-     * class MyActor extends Actor {
-     *      get scale() {return this._scale || 1};
-     * }
-     */
-    init(options) {}
-
-    /**
-     * Deletes the actor and its associated pawn. Publishes the event "destroyActor" with the scope of the actor's model ID.
-     *
-     * **Note:** When your actor is no longer needed, you must destroy it. Otherwise it will be kept in the snapshot forever. You can check if an actor
-     * has been destroyed with the [doomed]{@link Actor.doomed} flag.
      *
      * @public
      * @example
-     * class MyActor extends Actor {
-     *      get scale() {return this._scale || 1};
+     * class MyPawn extends Pawn {
+     *      destroy() {
+     *           super.destroy();
+     *           this.glBuffer.dispose();
+     *      }
      * }
      */
     destroy() {}
 
     /**
-     * Sets one or more internal properties. The name of each property is the name of the option prefaced by "_". You should define corresponding getters
-     * to access these internal properties.
+     * Publishes an event with its scope limited to this actor/pawn pair. Both the actor and the pawn can listen for events coming from the pawn.
      *
-     * ```
-     * class MyActor extends Actor {
-     *      get scale() {return this._scale || 1};
-     * }
-     *
-     * myActor.set({scale: 2});
-     * const scale = myActor.scale;
-     * ```
-     * Actors inheriting from this base class can overload set() to automatically trigger actions when a property changes:
-     * ```
-     * class MyActor extends Actor {
-     *      set(options ={}) {
-     *           super.set(options);
-     *           if ('scale' in options ) this.say("scaleChanged");
-     *      }
-     * }
-     * ```
-     * **Note:** The reason to use set() with getters is to reduce snapshot size. Worldcore actors can be quite complicated with dozens of
-     * properties. Multiplied by hundreds of actors, the total number of properties stored in the snapshot can grow quite large. Using set() with
-     * getters prevents defaults from being stored.
-     *
-     * You can also use normal class properties, and ignore set().
-     *
-     * @param {Object} [options] - An object containing the properties to be changing and their new values.
-     * @public
-     */
-    set(options) {}
-
-    /**
-     * Publishes an event with its scope limited to this actor/pawn pair. Both the actor and the pawn can listen for events coming from the actor.
+     * **Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
      *
      * @public
      * @param {string} event - The name of the event.
@@ -130,8 +78,7 @@ class Pawn {
     say(event, data) {}
 
     /**
-     * Subscribes to an event with its scope limited to this actor/pawn pair. It the actor listens for an event said by the pawn, the event will be routed
-     * through the reflector. The data object from the say method will be passed as an argument to the handler.
+     * Subscribes to an event with its scope limited to this actor/pawn pair. The data object from the say method will be passed as an argument to the handler.
      *
      * @public
      * @param {string} event - The name of the event.
@@ -142,7 +89,38 @@ class Pawn {
     listen(event, handler) {}
 
     /**
-     * Removes an existing [listen()]{@link Actor#listen} subscription.
+     * Subscribes to an event with its scope limited to this actor/pawn pair. The event handler will be called immediately when the event is published.
+     * The data object from the say method will be passed as an argument to the handler.
+     *
+     * **Note:** With a normal [listen()]{@link Pawn#listen}, events coming from the actor are queued until all simulation has finished. However if a
+     * pawn needs to override this default behavior, use listenImmediate() instead. This doesn't make things run any faster, but may be necessary in
+     * rare cases where an event triggers listening to or ignoring other events.
+     *
+     * @public
+     * @param {string} event - The name of the event.
+     * @param {function} handler - The event handler (must be a method of this).
+     */
+    listenImmediate(event, handler) {}
+
+    /**
+     * Subscribes to an event with its scope limited to this actor/pawn pair. The event handler will be called when the event is published.
+     * The data object from the say method will be passed as an argument to the handler.
+     *
+     * In the case where multiple copies of the same event are sent from the actor to the pawn during the same frame update, listenOnce() will
+     * only respond to the final one. You should use listenOnce whenever a new event comletely overrides a previous one.
+     *
+     * For example, when a snapshot loads, the model fast-forwards through a sequence of cached events to bring itself in
+     * synch with the other clients. However, there's no need for the view to process all these events; in most cases just acting on the final
+     * update is sufficient. Using listenOnce will greatly speed up the synch process.
+     *
+     * @public
+     * @param {string} event - The name of the event.
+     * @param {function} handler - The event handler (must be a method of this).
+     */
+         listenOnce(event, handler) {}
+
+    /**
+     * Removes an existing [listen()]{@link Pawn#listen} subscription.
      *
      * @public
      * @param {string} event - The name of the event.
