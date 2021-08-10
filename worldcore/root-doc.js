@@ -1,58 +1,4 @@
 /**
- Extends the basic Croquet Model with Worldcore-specific methods.
- @public
- @hideconstructor
- */
-
- class WorldcoreModel {
-
-    /**
-    Returns a pointer to the named ModelService.
-    @param {string} name - The public name of the model service.
-    @returns {ModelService}
-    @public
-    */
-    service(name) {}
-}
-
-/**
- The root model that is created when your Worldcore session starts. It owns all the actors and all the model-side services.
- You can only register one ModelRoot in your applicaton.
-
- @public
- @hideconstructor
- @augments WorldcoreModel
- */
-
- class ModelRoot {
-
-    /**
-    Returns the class type of the application's view root. Your model root should overload this.
-
-    @readonly
-    @public
-    @type ViewRoot
-    @example
-    class MyModelRoot extends ModelRoot {
-        get viewRoot() { return MyViewRoot }
-    }
-    MyModelRoot.register("MyModelRoot");
-    */
-     get viewRoot() {}
-}
-
-/**
-A singleton with a well-known name that provides a model-side global service.
-
- @public
- @hideconstructor
- @augments WorldcoreModel
- */
-
- class ModelService {
-}
-
-/**
  An actor is a type of model that automatically instantiates a pawn in the view when it’s created. This actor/pawn pair has a private communication channel that allows them to talk directly with each other. The actor handles the simulation, and the pawn handles input and output. When the actor is destroyed, the pawn is destroyed as well.
 
  @public
@@ -65,7 +11,6 @@ A singleton with a well-known name that provides a model-side global service.
     /**
     Returns the class type of the actor's corresponding pawn. Actors inheriting from this base class should overload this
     getter to specify their pawn type.
-
     @readonly
     @public
     @type Pawn
@@ -79,7 +24,6 @@ A singleton with a well-known name that provides a model-side global service.
     /**
      Set to true by the actor's [destroy()]{@link Actor#destroy} method. Use it at the start of a reoccuring tick to make sure it doesn't continue
      as a zombie after the actor has been destroyed.
-
     @readonly
     @public
     @type Boolean
@@ -98,7 +42,6 @@ A singleton with a well-known name that provides a model-side global service.
     **Note:** When your actor is no longer needed, you must [destroy]{@link Actor#destroy} it. Otherwise it will be kept in the snapshot forever.
 
     **Warning:** never create an actor instance using `new`, or override its constructor.
-
     @public
     @param {Object} [options] - An object containing the initial properties of the actor. Passed to the actor's [init()]{@link Actor#init}.
     @example
@@ -112,7 +55,6 @@ A singleton with a well-known name that provides a model-side global service.
 
     Super.init() calls [set()]{@link Actor#set} to set the actor's initial properties from the options. It also automatically spawns the actor's pawn.
     The properties are set before the pawn is created.
-
     @param {Object} [options] - An object containing the initial properties of the actor.
     @public
     @example
@@ -201,27 +143,12 @@ A singleton with a well-known name that provides a model-side global service.
 
 }
 
-/**
- Extends the basic Croquet View with Worldcore-specific methods.
- @public
- @hideconstructor
- */
-
- class WorldcoreView {
-
-    /**
-    Returns a pointer to the named ModelService.
-    @param {string} name - The public name of the model service.
-    @returns {ModelService}
-    @public
-    */
-    modelService(name) {}
-}
 
 /**
 When an [actor]{@link Actor} is instantiated, it automatically creates a corresponding pawn in the view. The pawn handles input and output, while the actor
 handles simulation. Actors are synchronized across all clients, but pawns are not.
 @public
+@augments WorldcoreView
 */
 
  class Pawn {
@@ -261,9 +188,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     constructor() {}
 
     /**
-    Called automatically when the pawn's actor is destroyed. You should never call it directly.
-
-    It cancels all of the pawn's subscriptions. You can overload it to do other teardown, like deallocating render objects or
+    Called automatically when the pawn's actor is destroyed. You should never call it directly. It cancels all of the pawn's subscriptions. You can overload it to do other teardown, like deallocating render objects or
     releasing resources.
     @public
     @example
@@ -278,8 +203,8 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
 
     /**
     Publishes an event with its scope limited to this actor/pawn pair. Both the actor and the pawn can listen for events coming from the pawn.
-
-    **Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
+    *
+    ***Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
     @public
     @param {string} event - The name of the event.
     @param {Object} [data] - An optional data object.
@@ -316,10 +241,11 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     /**
     Subscribes to an event with its scope limited to this actor/pawn pair. The event handler will be called when the event is published.
     The data object from the say method will be passed as an argument to the handler. In the case where multiple copies of the same event
-    are sent from the actor to the pawn during the same frame update, listenOnce() will only respond to the final one. You should use listenOnce
-    whenever a new event comletely overrides a previous one. For example, when a snapshot loads, the model fast-forwards through a sequence of
-    cached events to bring itself in synch with the other clients. However, there's no need for the view to process all these events; in most
-    cases just acting on the final update is sufficient. Using listenOnce will greatly speed up the synch process.
+    are sent from the actor to the pawn during the same frame update, listenOnce() will only respond to the final one.
+    *
+    * You should use listenOnce whenever a new event completely overrides a previous one. For example, when a snapshot loads, the model fast-forwards
+    through a sequence of cached events to bring itself in synch with the other clients. However, there's no need for the view to process all
+    these events; in most cases just acting on the final update is sufficient. Using listenOnce will greatly speed up the synch process.
     @public
     @param {string} event - The name of the event.
     @param {function} handler - The event handler (must be a method of this).
@@ -335,6 +261,212 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     this.ignore("priorityChanged");
     */
     ignore(event) {}
-
 }
 
+/**
+ The model root is created when your Worldcore session starts. It owns all actors and all model-side services.
+ You can only register one ModelRoot in your applicaton.
+
+ @public
+ @hideconstructor
+ @augments WorldcoreModel
+ */
+ class ModelRoot {
+
+    /**
+    Returns the class type of the application's view root. Your model root should overload this.
+    @readonly
+    @public
+    @type ViewRoot
+    @example
+    class MyModelRoot extends ModelRoot {
+        get viewRoot() { return MyViewRoot }
+    }
+    MyModelRoot.register("MyModelRoot");
+    */
+    get viewRoot() {}
+
+    /**
+    Called at start-up to create all the model services used by your app. You should override this in your model root to instantiate only
+    the services you need.
+    @public
+    @example
+    class MyModelRoot extends ModelRoot {
+        createServices() {
+            this.addService(MyModelService);
+        }
+    }
+    */
+    createServices() {}
+
+    /**
+    Adds a new model service to your app. Pass in the class type of the service, and any start-up options. Returns a pointer to the new service.
+    @public
+    @param {ModelService} service - The class type of the service.
+    @param {Object} [options] - An options object that will be passed on to the service's [create()]{@link ModelService.create}.
+    @returns {ModelService}
+    */
+    addService(service) {}
+}
+
+/**
+ The view root is created when your Worldcore session starts. It owns all pawns and all view-side services.  You can access the view root from
+ anywhere in the view with the global pointer viewRoot.
+
+ @public
+ @hideconstructor
+ @augments WorldcoreView
+ */
+ class ViewRoot {
+
+    /**
+    Called at start-up to create all the view services used by your app. You should override this in your view root to instantiate only
+    the services you need.
+    @public
+    @example
+    class MyViewRoot extends ViewRoot {
+        createServices() {
+            this.addService(InputManager);
+            this.addService(UIManager);
+        }
+    }
+    */
+    createServices() {}
+
+    /**
+    Adds a new view service to your app. Pass in the class type of the service, and any start-up options. Returns a pointer to the new service.
+    @public
+    @param {ViewService} service - The class type of the service.
+    @param {Object} [options] - An options object that will be passed on to the service's constructor.
+    @returns {ViewService}
+    */
+    addService(service) {}
+}
+
+/**
+A singleton with a well-known name that provides a model-side global service. You can define your own services and add them in your model root.
+ @public
+ @hideconstructor
+ @augments WorldcoreModel
+ */
+ class ModelService {
+
+    /**
+    Called when the new service is instantiated. An options object may be supplied by the model root. You should overload this when you create
+    your own service and name the service using super.init(). If the service needs to regularly update itself, start a tick here using this.future().
+    *
+    ***Warning:** Never create a service directly. Always use addService() in the model root.
+    @public
+    @param {string} name - The public name of the service. Use super.init() in your service to set its name.
+    @param {Object} [options] - An options object that is supplied to when the service is [added]{@link ModelRoot#addService}.
+    @example
+    class MyModelService extends ModelService {
+        init(options = {}) {
+            super.init("MyModelServiceName");
+            // Apply options and perform other initialization.
+        }
+    }
+    */
+    init(name, options) {
+
+    }
+}
+
+/**
+A singleton with a well-known name that provides a view-side global service.
+@public
+@augments WorldcoreView
+*/
+class ViewService {
+    /**
+    Called when the new service is instantiated. An options object may be supplied by the view root. You should overload this when you create
+    your own service, and name the service using super().
+    *
+    ***Warning:** Never instantiate a service directly. Always use addService() in the view root.
+    @public
+    @param {string} name - The public name of the service. Use super() in your service's constructor to set its name.
+    @param {Object} [options] - An options object that is supplied to when the service is [added]{@link ViewRoot#addService}.
+    @example
+    class MyViewService extends ViewService {
+        constructor(options = {}) {
+            super.init("MyViewServiceName");
+            // Apply options and perform other initialization.
+        }
+    }
+    */
+    constructor(name, options) {}
+
+    /**
+    Any ViewService with an update method will have it called on every frame. Classes that inherit from this base class
+    should overload update if they need to refresh every frame.
+    @public
+    @param {number} time - The system time in milliseconds at the last frame.
+    @param {number} delta - The elapsed time in milliseconds since the last frame.
+    @example
+    class MyViewService extends ViewService {
+        update(time, delta) {
+            console.log(delta + " ms have elapsed since previous frame");
+        }
+    }
+    */
+    update(time, delta) {}
+}
+
+/**
+ Extends the basic Croquet Model with Worldcore-specific methods.
+ @public
+ @hideconstructor
+ */
+
+ class WorldcoreModel {
+
+    /**
+    Returns a pointer to the named ModelService.
+    @param {string} name - The public name of the model service.
+    @returns {ModelService}
+    @public
+    */
+    service(name) {}
+}
+
+/**
+ Extends the basic Croquet View with Worldcore-specific methods.
+ @public
+ */
+
+ class WorldcoreView {
+
+    /**
+    Returns the system time in millisconds at the last frame update.
+    @readonly
+    @public
+    @type number
+    */
+    get time() {}
+
+    /**
+    Returns the time in millisconds between the last frame update and the previous one.
+    @readonly
+    @public
+    @type number
+    */
+    get delta() {}
+
+    /**
+    Returns a pointer to the named view service.
+    @param {string} name - The public name of the view service.
+    @returns {ModelService}
+    @public
+    */
+    service(name) {}
+
+    /**
+    Returns a pointer to the named model service.
+    *
+    ***Note:** The view should only read from the model service. Do not write to it, or call methods that modify it.
+    @param {string} name - The public name of the model service.
+    @returns {ModelService}
+    @public
+    */
+    modelService(name) {}
+}
