@@ -1,13 +1,13 @@
 {
   "source": {
     "include": [
-        "../../authoring/apiDoc/top.md",
-        "../../authoring/apiDoc/element-doc.js"
+        "./top.md",
+        "./element-doc.js"
     ]
   },
   "opts": {
     "access": ["public"],
-    "tutorials": "../../authoring/apiDoc/tutorials",
+    "tutorials": "./tutorials",
     "template": "../template",
     "encoding": "utf8",
     "recurse": false,

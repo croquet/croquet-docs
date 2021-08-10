@@ -10,9 +10,9 @@
   "watch": {
     "build": {
       "patterns": [
-        "../../authoring/apiDoc/top.md",
-        "../../authoring/apiDoc/element-doc.js",
-        "../../authoring/apiDoc/tutorials/*",
+        "./top.md",
+        "./element-doc.js",
+        "./tutorials/*",
         "./jsdoc.json"
       ],
       "ignore": [
