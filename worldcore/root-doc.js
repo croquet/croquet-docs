@@ -78,7 +78,7 @@
     destroy() {}
 
     /**
-    Sets one or more internal properties. The name of each property is the name of the option prefaced by "_". You should define corresponding getters
+    Sets one or more internal properties. The internal name of each property will be the name of the option prefaced by "_". You should define corresponding getters
     to access these internal properties.
 
     *```
@@ -104,7 +104,7 @@
     ***Note:** The reason to use set() with getters is to reduce snapshot size. Worldcore actors can have dozens of
     properties. Multiplied by hundreds of actors, the total number of properties stored in the snapshot can grow large. Using set() with
     getters prevents defaults from being stored in the snapshot.
-    @param {Object} [options] - An object containing the properties to be changing and their new values.
+    @param {Object} [options] - An object containing the properties to be changed and their new values.
     @public
     */
     set(options) {}
