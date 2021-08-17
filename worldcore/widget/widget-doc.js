@@ -122,7 +122,7 @@ class UIManager {
      * @type {Array<number>}
      * @example myWidget.set({autoSize: [1,1], border: [20,20,20,20]}); // The widget fills its parent with an inset of 20 pixels all around.
      * */
-    get local() {}
+    get border() {}
 
     /**
      * The visibility of the widget. Hidden widgets can't be interacted with. The visibility of a parent affects all its children.
@@ -179,7 +179,7 @@ class UIManager {
  * opacities at the same time.
  * @augments Widget
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  */
 class CanvasWidget {
     /**
@@ -193,8 +193,9 @@ class CanvasWidget {
 }
 
 /**
- * Base class for widgets that control the layout of their children.
+ * Abstract base class for widgets that control the layout of their children.
  * @public
+ * @abstract
  * @hideconstructor
  * @augments Widget
  */
@@ -251,7 +252,7 @@ class LayoutWidget {
  * widgets.
  *
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments LayoutWidget
  */
 
@@ -265,7 +266,7 @@ class HorizontalWidget {}
  * widgets.
  *
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments LayoutWidget
  */
 
@@ -274,7 +275,7 @@ class HorizontalWidget {}
 /**
  * Clears its rectangle when refreshed. Can be used as the background for floating text.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments Widget
  */
  class EmptyWidget {}
@@ -282,7 +283,7 @@ class HorizontalWidget {}
  /**
  * A box of a solid color.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments Widget
  */
   class BoxWidget {}
@@ -290,7 +291,7 @@ class HorizontalWidget {}
 /**
  * Displays an image loaded from either a canvas or an external asset.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments Widget
  */
 class ImageWidget {
@@ -317,7 +318,7 @@ class ImageWidget {
 /**
  * Display a QR code.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments ImageWidget
  */
  class QRWidget {
@@ -340,7 +341,7 @@ class ImageWidget {
  * vertically. The corners maintain their original dimensions. A scaling factor can be applied so that you're not limited to the pixel size of the
  * source image.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments ImageWidget
  */
  class NineSliceWidget {
@@ -368,9 +369,9 @@ class ImageWidget {
 
 /**
  * Displays a piece of static text. Should be placed over a background to refresh properly. When a TextWidget changes, it automatically refreshes
- * its parent. If you want floating text, put in in an [EmptyWidget]{@Link EmptyWidget}.
+ * its parent. If you want floating text, put it in an [EmptyWidget]{@Link EmptyWidget}.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments Widget
  */
  class TextWidget {
@@ -470,8 +471,9 @@ class ImageWidget {
 }
 
 /**
- * The base class for all widgets that respond to pointer events.
+ * Abstract base class for all widgets that respond to pointer events.
  * @public
+ * @abstract
  * @hideconstructor
  * @augments Widget
  */
@@ -483,7 +485,7 @@ class ImageWidget {
      * @default false
      * @type {boolean}
      * @example
-     * MyControl.set({disabled: true}); .
+     * myControl.set({disabled: true}); .
      * */
     get disabled() {}
 
@@ -493,7 +495,7 @@ class ImageWidget {
      * @public
      * @type {BoxWidget}
      * @example
-     * MyControl.set({dim: new BoxWidget({color: [0.8,0.2,0.2], opacity: 0.4}); // Make disabled widgets turn pink.
+     * myControl.set({dim: new BoxWidget({color: [0.8,0.2,0.2], opacity: 0.4}); // Make disabled widgets turn pink.
      * */
     get dim() {}
 
@@ -502,7 +504,7 @@ class ImageWidget {
 /**
  * A pressable button with a label.
  * @public
- * @hideconstructor
+* @param {object} [options] - An options object that sets the widget's properties.
  * @augments ControlWidget
  */
  class ButtonWidget {
@@ -512,7 +514,7 @@ class ImageWidget {
      * @public
      * @type {function}
      @example
-     * MyButton.set({onClick: () => { console.log("click!")} });
+     * myButton.set({onClick: () => { console.log("click!")} });
      **/
     get onClick() {}
 
@@ -546,9 +548,289 @@ class ImageWidget {
      * @public
      * @type {Widget}
      * @example
-     * MyButton.label.set({text: "Press to Start"});
+     * myButton.label.set({text: "Press to Start"});
      **/
     get label() {}
+
+}
+
+/**
+ * A button that can be toggled between two states.
+ * @public
+ * @param {object} [options] - An options object that sets the widget's properties.
+ * @augments ControlWidget
+ */
+ class ToggleWidget {
+
+    /**
+     * The function that executes when the widget toggles to true
+     *
+     * **Note** - This may be the triggered by a user click, or setting the state directly.
+     * @public
+     * @type {function}
+     @example
+     * myToggle.set({onToggleOn: () => { console.log("toggle on!")} });
+     **/
+    get onToggleOn() {}
+
+    /**
+     * The function that executes when the widget toggles to false.
+     *
+     * **Note** - This may be the triggered by a user click, setting the state directly, or having another toggle turn on in a [toggle set]{@link ToggleSet}.
+     * @public
+     * @type {function}
+     @example
+     * myToggle.set({onToggleOff: () => { console.log("toggle off!")} });
+     **/
+     get onToggleOff() {}
+
+    /**
+     * The state of the toggle.
+     * @public
+     * @default false;
+     * @example
+     * const myToggle = new MyToggle({state: true} }); // Create the toggle in the 'on' position.
+     * @type {boolean}
+     **/
+    get state() {}
+
+    /**
+     * The [toggleSet]{@link ToggleSet} the widget belongs to. If a ToggleWidget is in a toggle set, turning one toggle on will turn the others off.
+     * @public
+     * @example
+     * const myToggleSet = new ToggleSet();
+     * const myToggle0 = new ToggleWidget({toggleSet: myToggleset} }); // Only one of these toggles can be on a time.
+     * const myToggle1 = new ToggleWidget({toggleSet: myToggleset} });
+     * @type {ToggleSet}
+     **/
+    get toggleSet() {}
+
+    /**
+     * The child widget that's displayed when the toggle is on, and is in its normal, unpressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get normalOn() {}
+
+    /**
+     * The child widget that's displayed when the toggle is off, and is in its normal, unpressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get normalOff() {}
+
+    /**
+     * The child widget that's displayed when the button is on, and is hovered by a mouse. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get hiliteOn() {}
+
+    /**
+     * The child widget that's displayed when the button is off, and is hovered by a mouse. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get hiliteOff() {}
+
+    /**
+     * The child widget that's displayed when the button is on, and is in its pressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get pressedOn() {}
+
+    /**
+     * The child widget that's displayed when the button is off, and is in its pressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get pressedOff() {}
+
+    /**
+     * The child widget that's displayed when this toggle is on. By default, its a TextWidget. You can change the properties of the
+     * default text widget, or replace it with and ImageWidget for a picture label.
+     * @public
+     * @type {Widget}
+     * @example
+     * myToggle.labelOn.set({text: "On"});
+     **/
+    get labelOn() {}
+
+    /**
+     * The label widget that's displayed when this toggle is off. By default, its a TextWidget. You can change the properties of the
+     * default text widget, or replace it with and ImageWidget for a picture label.
+     * @public
+     * @type {Widget}
+     * @example
+     * myToggle.labelOff.set({text: "Off"});
+     **/
+    get labelOff() {}
+}
+
+/**
+ * A set of [ToggleWidgets]{@link ToggleWidget}. Only one member of a ToggleSet can be on at a time. Turning on one, turns off all the others. You
+ * can add the toggles to the toggle set's constructor, or set the toggle's toggleSet property.
+ * @param {...ToggleWidget} [toggles] - A list of toggle widgets to add to the set.
+ * @public
+ * @example
+ * const myToggle0 = new ToggleWidget();
+ * const myToggle1 = new ToggleWidget();
+ *
+ * const myToggleSet = new ToggleSet(myToggle0, myToggle1);
+ *
+ * const myToggle2 = new ToggleWidget({toggleSet: myToggleset} }); // All three toggles are in the set.
+ */
+ class ToggleSet {
+
+ }
+
+ /**
+ * A horizontal or vertical slider bar. (The orientation is determined by the xy values in the size property.) The value
+ * of the slider is a percentage that ranges from 0 to 1.
+ * @public
+ * @param {object} [options] - An options object that sets the widget's properties.
+ * @augments ControlWidget
+ */
+  class SliderWidget {
+
+    /**
+     * The number of discrete steps that the slider has between 0 and 1 (inclusive). If its set to 0, the slider will be continuous.
+     * @public
+     * @default 0;
+     * @type {number}
+     * @example
+     * const mySlider = new SliderWidget({step: 6}); // The slider can have the values 0, 0.2, 0.4, 0.6, 0.8, or 1.
+     * */
+    get step() {}
+
+    /**
+     * The position of the slider. A percentage that ranges from 0 to 1.
+     * @public
+     * @default 0;
+     * @type {number}
+     * @example
+     * const mySlider = new SliderWidget({percent: 0.5}); // The slider starts with its knob at the midpoint.
+     * */
+    get percent() {}
+
+    /**
+     * The function that executes whenever the position of the slider changes. The function takes the slider's
+     * current percent as it's argument.
+     *
+     * **Note** - This will be called every frame when the slider is being dragged. To limit the number of times that onChanged is called, set
+     * the [throttle]{@link SliderWidget#throttle} property.
+     * @public
+     * @type {function}
+     @example
+     * mySlider.set({onChanged: percent => { console.log(percent} });
+     **/
+     get onChanged() {}
+
+    /**
+     * How frequently the [onChanged]{@link SliderWidget#onChanged} function will be called when the slider is being dragged. The value is in milliseconds,
+     * and represents the minimum delay between successive onChanged events. If its set to 0, the slider will update as
+     * quickly as possible.
+     *
+     * @public
+     * @default 0;
+     * @type {number}
+     * @example
+     * const mySlider = new SliderWidget({throttle: 50}); // The slider will only call its onChanged function 20 times a second.
+     * */
+    get throttle() {}
+
+    /**
+     * The child widget that's displayed as the background bar. You can replace this with a different {@link BoxWidget}, {@link ImageWidget},
+     * or {@link NineSliceWidget} to create a prettier slider.
+     * @public
+     * @type {Widget}
+     **/
+    get bar() {}
+
+    /**
+     * The child widget that's displayed as the moveable knob. You can replace this with a different {@link BoxWidget}, {@link ImageWidget},
+     * or {@link NineSliceWidget} to create a prettier slider.
+     * @public
+     * @type {Widget}
+     **/
+    get knob() {}
+
+}
+
+ /**
+ * A virtual joystick. The position of of the stick is an xy vector with both values ranging from -1 to 1.
+ * The magnitude of the vector will never exceed 1. When the stick it released, it will snap back to the
+ * center [0,0] position.
+ * @public
+ * @param {object} [options] - An options object that sets the widget's properties.
+ * @augments ControlWidget
+ */
+  class JoystickWidget {
+
+    /**
+     * The position of the stick. An xy vector with both values ranging from -1 to 1.
+     * The magnitude of the vector will never exceed 1.
+     * @public
+     * @type {number[]}
+     * */
+    get xy() {}
+
+    /**
+     * The function that executes whenever the position of the joystick changes. The function takes the stick's
+     * xy position as it's argument.
+     *
+     * **Note** - This will be called every frame when the joystick is being dragged. To limit the number of times that onChanged is called, set
+     * the [throttle]{@link JoystickWidget#throttle} property.
+     * @public
+     * @type {function}
+     @example
+     * myJoystickWidget.set({onChanged: xy => { console.log(xy} });
+     **/
+     get onChanged() {}
+
+    /**
+     * How frequently the [onChanged]{@link JoystickWidget#onChanged} function will be called when the knob is being dragged. The value is in milliseconds,
+     * and represents the minimum delay between successive onChanged events. If its set to 0, the joystick will update as
+     * quickly as possible.
+     * @public
+     * @default 0;
+     * @type {number}
+     * @example
+     * const myJoyStickWidget = new JoystickWidget({throttle: 50}); // The joystick will only call its onChanged function 20 times a second.
+     **/
+    get throttle() {}
+
+    /**
+     * The size of the dead zone in the middle of the joystick. Small stick deflections near [0,0] will be treated as [0,0] unless they exceed
+     * the dead radius.
+     * @public
+     * @default 0.1;
+     * @type {number}
+     **/
+    get deadRadius() {}
+
+    /**
+     * The child widget that's displayed as the background graphic. You can replace this with a different {@link BoxWidget}, {@link ImageWidget},
+     * or {@link NineSliceWidget} to create a prettier joystick.
+     * @public
+     * @type {Widget}
+     **/
+    get background() {}
+
+    /**
+     * The child widget that's displayed as the moveable knob. You can replace this with a different {@link BoxWidget}, {@link ImageWidget},
+     * or {@link NineSliceWidget} to create a prettier joystick.
+     * @public
+     * @type {Widget}
+     **/
+    get knob() {}
 
 }
 
