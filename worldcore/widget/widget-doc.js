@@ -303,7 +303,7 @@ class ImageWidget {
      * import myImage from "./assets/image.jpg";
      * const myImageWidget = new ImageWidget({url: myImage});
      * */
-         get url() {}
+    get url() {}
 
     /**
      * The canvas holding the image.
@@ -363,6 +363,192 @@ class ImageWidget {
      * mySliceWidget.set({inset: [20.0,0,0], insetScale:2}); // The outer 20 pixels on the left side of the source won't scale. But those pixels will be double-sized.
      * */
     get insetScale() {}
+
+}
+
+/**
+ * Displays a piece of static text. Should be placed over a background to refresh properly. When a TextWidget changes, it automatically refreshes
+ * its parent. If you want floating text, put in in an [EmptyWidget]{@Link EmptyWidget}.
+ * @public
+ * @hideconstructor
+ * @augments Widget
+ */
+ class TextWidget {
+
+    /**
+     * The string to display.
+     * @public
+     * @type {string}
+     * @example
+     * myTextWidget.set({text: "Disply this string!"});
+     * */
+    get text() {}
+
+    /**
+     * The size of the text.
+     * @public
+     * @default 24
+     * @type {number}
+     * @example
+     * myTextWidget.set({point: 12}); // Make the text smaller than the default
+     * */
+    get point() {}
+
+    /**
+     * The styling of the text. Options include "normal", "bold", and "italic".
+     * @public
+     * @default "normal"
+     * @type {string}
+     * @example
+     * myTextWidget.set({style: "italic"});
+     * */
+    get style() {}
+
+    /**
+     * The horizontal alignment of the text. Options are "right", "center", and "left".
+     * @public
+     * @default "center"
+     * @type {string}
+     * @example
+     * myTextWidget.set({alignX: "right"});
+     * */
+    get alignX() {}
+
+    /**
+     * The vertical alignment of the text. Options are "top", "middle", and "bottom".
+     * @public
+     * @default "middle"
+     * @type {string}
+     * @example
+     * myTextWidget.set({againY: "bottom"});
+     * */
+    get alignY() {}
+
+    /**
+     * The name of an installed font ("arial") or a generic font type ("sans-serif")
+     * @public
+     * @default "sans-serif"
+     * @type {string}
+     * @example
+     * myTextWidget.set({font: "serif"});
+     * */
+    get font() {}
+
+    /**
+     * The url of an external font asset (.otf). The widget will automatically refresh itself when the font finishes loading.
+     * @public
+     * @type {string}
+     * @example
+     * import myFont from "./assets/weirdFont.otf";
+     * const myTextWidget = new TextWidget({fontURL: myFont, text: "This will display in the weird font!"});
+     * */
+    get fontURL() {}
+
+    /**
+     * The flag that controls word-wrap. If it's set to true, the text wraps to multiple lines, using the y dimension of the
+     * widget to control line length. Use lineSpacing to set the spacing of the lines and border to set the outer
+     * margins.
+     * @public
+     * @default true
+     * @type {boolean}
+     * @example
+     * myTextWidget.set{wrap: true, lineSpacing: 24, border: [10,10,10,10]});
+     * */
+    get wrap() {}
+
+    /**
+     * The spacing between wrapped lines. The default is 0, which means the text will be single spaced. If you want more
+     * space between lines, the lineSpacing value is the point size of the empty space inserted.
+     * @public
+     * @default 0
+     * @type {number}
+     * @example
+     * myTextWidget.set{wrap: true, lineSpacing: 12, point: 12}); // Double-spaced
+     * */
+    get lineSpacing() {}
+
+}
+
+/**
+ * The base class for all widgets that respond to pointer events.
+ * @public
+ * @hideconstructor
+ * @augments Widget
+ */
+ class ControlWidget {
+
+    /**
+     * Setting disabled to true grays the widget out and prevents it from accepting pointer events.
+     * @public
+     * @default false
+     * @type {boolean}
+     * @example
+     * MyControl.set({disabled: true}); .
+     * */
+    get disabled() {}
+
+    /**
+     * The transparent box widget that is used to gray out the control. Generally you don't want to change this, unless the styling of your
+     * interface requires a different way of indicating that the control is disabled.
+     * @public
+     * @type {BoxWidget}
+     * @example
+     * MyControl.set({dim: new BoxWidget({color: [0.8,0.2,0.2], opacity: 0.4}); // Make disabled widgets turn pink.
+     * */
+    get dim() {}
+
+}
+
+/**
+ * A pressable button with a label.
+ * @public
+ * @hideconstructor
+ * @augments ControlWidget
+ */
+ class ButtonWidget {
+
+    /**
+     * The function that executes when the button is pressed.
+     * @public
+     * @type {function}
+     @example
+     * MyButton.set({onClick: () => { console.log("click!")} });
+     **/
+    get onClick() {}
+
+    /**
+     * The child widget that's displayed when the button is in its normal, unpressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get normal() {}
+
+    /**
+     * The child widget that's displayed when the button is hovered by a mouse. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get hilite() {}
+
+    /**
+     * The child widget that's displayed when the button is in its pressed state. You can replace this with a different BoxWidget, ImageWidget,
+     * or NineSliceWidget to create prettier buttons.
+     * @public
+     * @type {Widget}
+     **/
+    get pressed() {}
+
+    /**
+     * The child widget that's displayed to show what this button does. By default, its a TextWidget. You can change the properties of the
+     * default text widget, or replace it with and ImageWidget for a picture label.
+     * @public
+     * @type {Widget}
+     * @example
+     * MyButton.label.set({text: "Press to Start"});
+     **/
+    get label() {}
 
 }
 
