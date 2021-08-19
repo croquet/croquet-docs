@@ -2,7 +2,8 @@
   "source": {
     "include": [
         "./top.md",
-        "./root-doc.js"
+        "./root-doc.js",
+        "./mixin-doc.js"
     ]
   },
   "opts": {

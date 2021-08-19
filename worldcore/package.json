@@ -12,6 +12,7 @@
       "patterns": [
         "./top.md",
         "./root-doc.js",
+        "./mixin-doc.js",
         "./jsdoc.json"
       ],
       "ignore": [
