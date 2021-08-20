@@ -1,0 +1,50 @@
+{
+  "source": {
+    "include": [
+        "./top.md",
+        "./vector-doc.js"
+    ]
+  },
+  "opts": {
+    "access": ["public"],
+    "template": "../../template",
+    "encoding": "utf8",
+    "recurse": false,
+    "verbose": true,
+    "destination": "../build/worldcore/vector"
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false,
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "includePattern": "\\.(png|jpg)$"
+      }
+    }
+  },
+  "docdash": {
+    "static": true,
+    "sort": false,
+    "disqus": "",
+    "meta": {
+      "title": "Croquet Worldcore Vector Overview",
+      "description": "Documentation for the Croquet Worldcore Vector Library",
+      "keyword": "croquet,"
+    },
+    "search": true,
+    "collapse": true,
+    "typedefs": true,
+    "removeQuotes": "none",
+    "scripts": [],
+    "menuHome": "Home: <b>Croquet Worldcore Vector</b>"
+  }
+}

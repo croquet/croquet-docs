@@ -1,0 +1,26 @@
+{
+  "name": "croquet-doc-worldcore-vector",
+  "version": "0.5.0",
+  "description": "Croquet Worldcore Vector Documentation",
+  "scripts": {
+    "start": "npx npm-watch",
+    "build": "npx jsdoc -c jsdoc.json -d build",
+    "watch": "npx npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "./top.md",
+        "./vector-doc.js",
+        "./jsdoc.json"
+      ],
+      "ignore": [
+        "build"
+      ],
+      "extensions": "js,json,html,css,tmpl,md",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Corporation",
+  "license": "UNLICENSED"
+}
