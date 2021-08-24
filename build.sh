@@ -7,8 +7,6 @@ do
     (cd $i; npx jsdoc -c jsdoc.json -d ../build/$i)
 done
 
-cp index.html build/index.html
-
 VERSION="${VERSION:-0.5.0}"
 MINOR_VERSION="${MINOR_VERSION:-""}"
 
