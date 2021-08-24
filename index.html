@@ -1,133 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<style>
-		* {
-			box-sizing: border-box;
-		}
-
-		body {
-			color: #4d4e53;
-			background-color: #fff;
-			margin: 0 auto;
-			padding: 0 20px;
-			font-family: Helvetica Neue, Helvetica, sans-serif;
-			font-size: 16px;
-		}
-
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			font-family: Barlow, sans-serif;
-			color: #000;
-			font-weight: 400;
-			margin: 0;
-		}
-
-		h1 {
-			font-size: 48px;
-			font-family: Barlow, sans-serif;
-			font-weight: 300;
-			color: #000;
-			margin: 1em 30px;
-			line-height: 100%;
-			word-wrap: break-word;
-		}
-
-		h2,
-		h3 {
-			font-size: 24px;
-		}
-
-		h2 {
-			margin: 1.5em 0 .3em;
-		}
-
-		ul {
-			margin-bottom: 1em;
-			line-height: 150%;
-			max-width: 40em;
-		}
-
-		a {
-			border-bottom: 1px solid #ddd;
-			text-decoration: none;
-			color: #900;
-		}
-
-		nav {
-			float: left;
-			display: block;
-			width: 250px;
-			background: #fff;
-			overflow: auto;
-			position: fixed;
-			height: 100%;
-		}
-
-		nav h2 {
-			font-size: 16px;
-			margin: 10px 0 0;
-			padding: 0;
-		}
-
-		nav img {
-			max-width: 210px;
-			margin-top: 10px;
-		}
-
-		section {
-			background-color: #fff;
-			padding: 0 0 0 30px;
-		}
-
-		#main {
-			float: right;
-			min-width: 360px;
-			width: calc(100% - 240px);
-		}
-
-		.huge {
-			font-size: 200%;
-			line-height: 140%;
-			margin-bottom: 1em;
-			margin-top: 1em;
-		}
-	</style>
+	<meta charset="utf-8">
+	<title>Croquet</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="Croquet uses edge-network technology to deliver the fastest and most seamless multiuser experience on the web." />
+	<meta name="keywords"
+		content="Croquet uses edge-network technology to deliver the fastest and most seamless multiuser experience on the web." />
+	<meta name="author" content="">
+	<base href="../">
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-reboot.min.css" type="text/css">
+	<link rel="stylesheet" href="css/animate.css" type="text/css">
+	<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link href="css/styles.css" rel="stylesheet">
+	<link href="css/ityped.css" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/12d06fd58b.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-	<nav>
-		<a href="./"><img src="croquet/images/logotype.png"></a>
-		<h2><a href="croquet/">Croquet</a></h2>
-		<h2><a href="virtual-dom/">Virtual DOM</a></h2>
-		<h2><a href="worldcore/">WorldCore</a></h2>
-	</nav>
-	<div id="main">
-		<section>
-			<h1>Croquet Documentation</h1>
+<body id="homepage">
+	<div id="wrapper">
+		<header>
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-12">
+						<div id="logo">
+							<a href="./">
+								<img class="logo" src="images/logo-light.png" alt="">
+								<img class="logo-2" src="images/logo-light.png" alt="">
+							</a>
+						</div>
+						<span id="menu-btn"></span>
+						<nav>
+							<ul id="mainmenu" class="menuitems">
+								<li><a href="./">Home<span></span></a>
+								</li>
+								<li><a href="#demo">Demo<span></span></a>
+								</li>
+								<li><a>Developers <i class="fal fa-caret-down"></i></a>
+									<ul class="border p-0">
+										<li><a class="dropdown-item my-2 pl-2 pr-4" href="docs/"><i
+													class="far fa-file-code px-3"></i> Docs</a>
+										</li>
+										<li><a class="dropdown-item my-2 pl-2 pr-4"
+												href="https://join.slack.com/t/croquet-dev/shared_invite/zt-ns5gscrp-6nfDQSzxvpgoJyRg9DNfsQ"><i
+													class="fab fa-slack px-3"></i>Croquet Slack</a></li>
+										<li><a class="dropdown-item my-2 pl-2 pr-4" href="keys/"><i
+													class="far fa-key px-3"></i>
+												Get Developer Key</a></li>
+										<li><a class="dropdown-item my-2 pl-2 pr-4" href="faq/"><i
+													class="far fa-question-square px-3"></i>
+												FAQ</a></li>
+									</ul>
+								</li>
+								<li><a href="solutions/">Solutions<span></span></a>
+								</li>
 
-			<h2>Croquet itself</h2>
-			The <a href="croquet/">Croquet Library</a> contains everything you need to build collaborative Croquet
-			apps:
 
-			<div class="huge">
-				👉 <b><a href="croquet/">GET STARTED HERE</a></b> 👈
+								<li><a href="keys/"><button class="btn btn-primary btn-sm">Get Your Free
+											Key</button></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+		</header>
+
+		<div id="content" class="no-bottom no-top">
+			<div id="top"></div>
+
+
+			<div class="masthead-origin origin-bg border-bottom">
+				<div class="container d-flex h-100 align-items-center">
+					<div class="col-12 pt-5">
+						<h2 class="team-title mx-auto text-red">Croquet Documentation.
+						</h2>
+					</div>
+				</div>
 			</div>
 
-			<h2>Higher-level Frameworks</h2>
-			While Croquet itself is independent of any specific UI framework, we provide our own frameworks that build on top of it.
-			<ul>
-				<li><b><a href="virtual-dom/">Croquet Virtual DOM</a></b> is a ...</li>
-				<li><b><a href="worldcore/">Croquet WorldCore</a></b> is a game engine...</li>
-			<ul>
-		</section>
-	</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-12 pt-5">
+						<p>The <a href="docs/croquet/">Croquet Library</a> contains everything you need to build
+							collaborative
+							Croquet
+							apps:</p>
+						<p>
+							<a href="docs/croquet/" class="text-red">Click here to get started</a>
+						</p>
+
+						<h4>Higher-level Frameworks</h4>
+						While Croquet itself is independent of any specific UI framework, we provide our own frameworks
+						that
+						build on top of it.
+						<ul class="text-left">
+							<li><b><a href="docs/virtual-dom/" class="text-red">Croquet Virtual DOM</a></b> is a ...
+							</li>
+							<li><b><a href="docs/worldcore/" class="text-red">Croquet WorldCore</a></b> is a game
+								engine...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+			<section class="footerlinks" id="footerlinks">
+				<hr class="mb-5">
+				<div class="row m-0 px-5  pt-4  justify-content-center text-red small">
+					<div class="col-lg-2 col-sm-12 text-center my-3"><a href="origin/">Origin Story</a></div>
+					<div class="col-lg-2 col-sm-12 text-center my-3"><a href="team/">Team</a></div>
+					<div class="col-lg-2 col-sm-12 text-center my-3"><a href="advisors/">Advisors</a></div>
+					<div class=" col-lg-2 col-sm-12 text-center my-3"><a href="mailto:support@croquet.io">
+							Contact Us</a></div>
+					<div class="col-lg-2 col-sm-12 text-center my-3"><a href="careers/">Careers</a></div>
+				</div>
+			</section>
+			<footer class="footer small text-center text-white-50">
+				<div class="container">Copyright © 2021 Croquet Corporation</div>
+			</footer>
+			<script src="js/jquery.min.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<script src="js/jquery.isotope.min.js"></script>
+			<script src="js/easing.js"></script>
+			<script src="js/owl.carousel.js"></script>
+			<script src="js/jquery.countTo.js"></script>
+			<script src="js/validation.js"></script>
+			<script src="js/wow.min.js"></script>
+			<script src="js/jquery.magnific-popup.min.js"></script>
+			<script src="js/enquire.min.js"></script>
+			<script src="js/jquery.stellar.min.js"></script>
+			<script src="js/jquery.plugin.js"></script>
+			<script src="js/typed.js"></script>
+			<script src="js/typed-custom.js"></script>
+			<script src="js/app.js"></script>
+			<script src="js/designesia.js"></script>
+			<script src="js/jquery.easing.min.js"></script>
+			<script src="js/isotope.js"></script>
+			<script src="js/custom.js"></script>
+
 </body>
 
 </html>
