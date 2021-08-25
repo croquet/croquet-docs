@@ -280,6 +280,15 @@ class AM_Tree {
      */
     get global() {}
 
+   /**
+     * By default, this is the same as [global]{@link AM_Spatial#global}. However you can override it if you want to add an additional transform
+     * for a camera attached to the pawn. (For example, first-person avatars should override lookGlobal to let the user
+     * look up and down without changing the pawn's facing.)
+     * @public
+     * @type {number[]}
+     */
+   get lookGlobal() {}
+
     /**
      * Fired when the spatial pawn's global transform matrix changes. Data is a 4x4 matrix holding the new global transform.
      * This is a separate event from [globalChanged]{@link AM_Spatial#event:globalChanged} because a pawn can update its global transform every frame
@@ -295,7 +304,7 @@ class AM_Tree {
 }
 
 /**
- * Extends a [spatial actor]{@link AM_Spatial} to support view-side interpolation. Smoothed actors generate extra interpolation information
+ * Extends the [spatial actor mixin]{@link AM_Spatial} to support view-side interpolation. Smoothed actors generate extra interpolation information
  * when they receive movement commands. Their pawns use this to reposition themselves every frame. Setting translation/rotation/scale will
  * pop the actor to the new position. If you want the transition to be smoothed, use moveTo, rotateTo, or scaleTo instead.
  *
@@ -349,7 +358,7 @@ class AM_Tree {
 }
 
 /**
- * Extends a [spatial pawn]{@link AM_Spatial} to support view-side interpolation. Smoothed pawns interpolate their position every
+ * Extends the [spatial pawn mixin]{@link AM_Spatial} to support view-side interpolation. Smoothed pawns interpolate their position every
  * frame, always converging on the "true position" contained by their actor. Use the smoothed mixins for continuously moving objects,
  * particularly if the actor or the session as a whole is running at a low tick rate.
  *
@@ -414,7 +423,7 @@ class AM_Tree {
 
 
 /**
- * Extends a [smoothed actor]{@link AM_Smoothed} to create an avatar under direct user control. Movement commands
+ * Extends the [smoothed actor mixin]{@link AM_Smoothed} to create an avatar under direct user control. Movement commands
  * are routed through the pawn to the actor. The pawn speculatively executes these movement commands for a more
  * responsive user experience. (Otherwise the actor wouldn't respond until the command had made the round
  * trip through the reflector and back.)
@@ -434,13 +443,213 @@ class AM_Tree {
  * class Avatar extends mix(Actor).with(AM_Avatar) {}
  */
  class AM_Avatar extends AM_Smoothed {
-
     /**
-    * The local translation of the pawn relative to its parent. The value is a 3D vector. This is the interpolated value. If you
-    * want the actor's true value, use ```this.actor.translation```.
+    * The frquency in milliseconds of the actor's tick method. Every tick the actor will apply its velocity and spin to adjust
+    * its position. Generally, for a first-person avatar you want to leave this at its default of 15ms so that it runs every frame.
     * @public
+    * @default 15
     * @type {number[]}
     */
-     get translation() {}
+     get tickStep() {}
+
+   /**
+    * The velocity of the actor in units/millisecond. Every tick the actor will move tickStep * velocity from its current position. The
+    * velocity is a 3-vector.
+    *
+    * **Warning:** You usually shouldn't set an avatar's velocity directly. Instead let it be controlled automatically
+    * by events from the avatar's pawn.
+    * @public
+    * @default [0,0,0]
+    * @type {number[]}
+    */
+   get velocity() {}
+
+   /**
+    * The spin of the actor in radians/millisecond. Every tick the actor will rotate tickstep * spin from its current position. The spin
+    * is a quaternion.
+    *
+    * **Warning:** You usually shouldn't set an avatar's spin directly. Instead let it be controlled automatically
+    * by events from the avatar's pawn.
+    * @public
+    * @public
+    * @default 15
+    * @type {number[]}
+    */
+   get spin() {}
+
+   /**
+    * The actor's tick runs every tickStep milliseconds. It will use the actor's velocity and spin to automatically update the translation and rotation.
+    * You can overload the tick method if the actor needs to perform other periodic updates.
+    * @public
+    * @default 15
+    * @type {number[]}
+    */
+   tick(delta) {}
 }
+
+/**
+ * Extends the [smoothed pawn mixin]{@link PM_Smoothed} to create an avatar under direct user control. Movement commands from the user are routed
+ * through the pawn to the actor. The pawn speculatively executes these movement commands for a more
+ * responsive user experience. (Otherwise the actor wouldn't respond until the command had made the round
+ * trip through the reflector and back.)
+ *
+ * The pawn still converges on the actor's "true position", so if the pawn's speculative execution turns out to be
+ * in error, it will automatically correct itself over the next few frames.
+ *
+ * Instead of setting an avatar actor's translation and rotation directly, avatar pawns usually set the actor's
+ * velocity and spin instead. This allows the actor to update its own position during its tick, rather than
+ * the pawn sending every position change through the reflector.
+ *
+ * **Note** - PM_Avatar must be paired with {@link AM_Avatar} in the actor.
+ * @public
+ * @mixin
+ * @augments PM_Smoothed
+ * @property {number} moveThrottle=15 - The number of milliseconds between [throttled move events]{@link PM_Avatar#throttledMoveTo}.
+ * @property {number} rotateThrottle=50 - The number of milliseconds between [throttled rotate events]{@link PM_Avatar#throttledRotateTo}.
+ * @example
+ * class AvatarPawn extends mix(Pawn).with(PM_Avatar) {}
+ */
+ class PM_Avatar extends PM_Smoothed {
+
+   /**
+    * Sends an event through the reflector telling the actor to move to a new position. The pawn will speculatively perform the same move
+    * under the assumption that the actor will successfully complete it.
+    *
+    * **Note:** If you're frequentlycalling moveTo(), consider using
+    * [throttledMoveTo()]{@link PM_Avatar#throttledMoveTo} instead to avoid flooding the reflector with events.
+    * @public
+    * @param {number[]} translation
+    * @example
+    * myAvatarPawn.moveTo([10,0,0]);
+    */
+   moveTo(v) {
+  }
+
+   /**
+    * The same as [moveTo()]{@link PM_Avatar#moveTo}, but limits the number of events that are sent to the reflector. The frequency of the
+    * throttled events is determined by the [moveThrottle]{@link PM_Avatar}
+    * @public
+    * @param {number[]} translation
+    * @example
+    * myAvatarPawn.throttledMoveTo([10,0,0]);
+    */
+  throttledMoveTo(v) {
+      if (this.time < this.lastMoveTime + this.moveThrottle) {
+          this._translation = v;
+          this.lastMoveCache = v;
+      } else {
+          this.lastMoveTime = this.time;
+          this.lastMoveCache = null;
+          this.say("avatarMoveTo", v);
+      }
+  }
+
+   /**
+    * Sends an event through the reflector telling the actor to rotate to a new position. The pawn will speculatively perform the same rotation
+    * under the assumption that the actor will successfully complete it.
+    *
+    * **Note:** If you're frequently calling rotateTo() , consider using
+    * [throttledRotateTo()]{@link PM_Avatar#throttledRotateTo} instead to avoid flooding the reflector with events.
+    * @public
+    * @param {number[]} rotation
+    * @example
+    * myAvatarPawn.rotateTo(q_axisAngle([1,0,0], toRad(45))); // Rotate to 45 degrees around the x axis.
+    */  rotateTo(q) {
+      this._rotation = q;
+      this.lastRotateTime = this.time;
+      this.lastRotateCache = null;
+      this.say("avatarRotateTo", q);
+  }
+
+   /**
+    * The same as [rotateTo()]{@link PM_Avatar#rotateTo}, but limits the number of events that are sent to the reflector. The frequency of the
+    * throttled events is determined by the [rotateThrottle]{@link PM_Avatar}
+    * @public
+    * @param {number[]} rotation
+    * @example
+    * myAvatarPawn.throttledRotateTo(q_axisAngle([1,0,0], toRad(45))); // Rotate to 45 degrees around the x axis.
+    */
+  throttledRotateTo(q) {}
+
+   /**
+    * Sends an event through the reflector setting the actor's velocity in xyz units per millisecond. Both the actor and the
+    * pawn will then move at this velocity every tick/frame. The pawn's movement will be speculative under the assumption that
+    * it's matching the actor, but if the actor does something else, the pawn will smoothly blend to the actor's true position.
+    *
+    * **Note:** Try to use setVelocity() whenever possible instead of [moveTo()]{@link PM_Avatar#moveTo}. It's a much more
+    * efficient way for the pawn to control the actor.
+    *
+    * @public
+    * @param {number[]} velocity 3-vector in units per millisecond
+    * @example
+    * myAvatarPawn.setVelocity([10,0,0]);
+    */
+  setVelocity(v) {}
+
+     /**
+    * Sends an event through the reflector setting the actor's spin in radians per millisecond. Both the actor and the
+    * pawn will then rotate at this spin every tick/frame. The pawn's rotation will be speculative under the assumption that
+    * it's matching the actor, but if the actor does something else, the pawn will smoothly blend to the actor's true position.
+    *
+    * **Note:** Try to use setSpin() whenever possible instead of [rotateTo()]{@link PM_Avatar#rotateTo}. It's a much more
+    * efficient way for the pawn to control the actor.
+    *
+    * @public
+    * @param {number[]} spin quaternion in radians per millisecond
+    * @example
+    * myAvatarPawn.setSpin(q_axisAngle([1,0,0], toRad(2))); // Rotate at 2 radians per millisecond around the x axis.
+    * myAvatarPawn.setSpin(q_identity()); // Stop the rotation
+    */setSpin(q) {}
+
+}
+
+/**
+ * Extends the [avatar actor mixin]{@link AM_Avatar} to separate rotation into pitch and yaw components. Yaw is used to
+ * control the avatar's facing. Pitch is ignored when calculating facing, but could be used to drive a child actor representing the actor's head.
+ *
+ * **Note** - AM_Avatar must be paired with {@link PM_MouselookAvatar} in the pawn.
+ * @public
+ * @mixin
+ * @augments AM_Avatar
+ * @example
+ * class MouselookAvatarActor extends mix(Actor).with(AM_MouselookAvatar) {}
+ */
+ class AM_MouselookAvatar extends AM_Avatar {
+
+   /**
+    * The pitch angle of the avatar in radians. Pitch is ignored in determining the actor's facing, but could
+    * be used to drive a child actor representing the avatar's head.
+    *
+    * **Warning:** You usually shouldn't set the avatar's lookPitch directly. Instead let it be controlled automatically
+    * by events from the avatar's pawn.
+    * @public
+    * @type {number}
+    */
+   get lookPitch() {}
+
+   /**
+    * The yaw angle of the avatar in radians. Yaw is used to determine the actor's facing.
+    *
+    * **Warning:** You usually shouldn't set the avatar's lookYaw directly. Instead let it be controlled automatically
+    * by events from the avatar's pawn.
+    * @public
+    * @type {number}
+    */
+  get lookPitch() {}
+
+ }
+
+ /**
+ * Extends the [avatar pawn mixin]{@link PM_Avatar} to break rotation into separate pitch and yaw components.
+ *
+ * **Note** - PM_MouselookAvatar must be paired with {@link AM_MouselookAvatar} in the actor.
+ * @public
+ * @mixin
+ * @augments PM_Avatar
+ * @example
+ * class MouseLookAvatarPawn extends mix(Pawn).with(PM_MouselookAvatar) {}
+ */
+  class PM_MouselookAvatar extends PM_Avatar {
+
+  }
 
