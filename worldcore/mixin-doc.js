@@ -255,6 +255,9 @@ class AM_Tree {
      * @event AM_Spatial#translationChanged
      * @returns {number[]}
      * @public
+     * @property {String} scope - actorId
+     * @property {String} event - `"translationChanged"`
+     * @property {number[]} translation - 3-vector
      * @example
      * this.listen("translationChanged", v => {console.log(v)}) // Prints the new translation when it changes
      */
@@ -265,6 +268,9 @@ class AM_Tree {
      * @event AM_Spatial#rotationChanged
      * @returns {number[]}
      * @public
+     * @property {String} scope - actorId
+     * @property {String} event - `"rotationChanged"`
+     * @property {number[]} rotation - quaternion
      * @example
      * this.listen("rotationChanged", q => {console.log(q)}) // Prints the new rotation when it changes
      */
@@ -275,6 +281,9 @@ class AM_Tree {
      * @event AM_Spatial#scaleChanged
      * @returns {number[]}
      * @public
+     * @property {String} scope - actorId
+     * @property {String} event - `"scaleChanged"`
+     * @property {number[]} scale - 3-vector
      * @example
      * this.listen("scaleChanged", v => {console.log(v)}) // Prints the new scale when it changes
      */
@@ -285,6 +294,9 @@ class AM_Tree {
      * @event AM_Spatial#localChanged
      * @returns {number[]}
      * @public
+     * @property {String} scope - actorId
+     * @property {String} event - `"localChanged"`
+     * @property {number[]} transform - 4x4 transform matrix
      * @example
      * this.listen("localChanged", m => {console.log(m)}) // Prints the new matrix when it changes
      */
@@ -295,7 +307,9 @@ class AM_Tree {
      * @event AM_Spatial#globalChanged
      * @returns {number[]}
      * @public
-     * @fires [viewGlobalChanged]{@link PM_Spatial#viewGlobalChanged}
+     * @property {String} scope - actorId
+     * @property {String} event - `"globalChanged"`
+     * @property {number[]} transform - 4x4 transform matrix
      * @example
      * this.listen("globalChanged", m => {console.log(m)}) // Prints the new matrix when it changes
      */
@@ -378,6 +392,9 @@ class AM_Tree {
      * @event PM_Spatial#viewGlobalChanged
      * @returns {number[]}
      * @public
+     * @property {String} scope - actorId
+     * @property {String} event - `"viewGlobalChanged"`
+     * @property {number[]} transform - 4x4 transform matrix
      * @example
      * this.listen("viewGlobalChanged", m => {console.log(m)}) // Prints the new matrix when it changes
      */
