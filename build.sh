@@ -4,7 +4,7 @@ rm -rf ./build
 
 for i in `ls -d */| egrep -v '(build/|node_modules/|template/)'`
 do
-    (cd $i; npx jsdoc -c jsdoc.json -d ../build/$i -t ../template)
+    (cd $i; npx jsdoc -c jsdoc.json -d ../build/$i)
 done
 
 VERSION="${VERSION:-0.5.0}"
