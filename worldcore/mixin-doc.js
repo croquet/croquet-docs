@@ -1,3 +1,85 @@
+
+/**
+ * Mixins are functions that can be used to modularly extend actor and pawns. The "mix" and "with"
+ * operators are symantic suger to make the construction of the composite class look nice.
+ *
+ * It's Wordcore convention to prefix actor mixins with "AM_" and pawn mixins with "PM_". In some
+ * cases, actor and pawn mixins are designed to work together. For example:
+ *
+ * ```
+ * class SpatialActor extends mix(Actor).with(AM_Spatial) {
+ *    get pawn() {return SpatialPawn}
+ * }
+ * SpatialActor.register("SpatialActor");
+ *
+ *
+ * class SpatialPawn extends mix(Pawn).with(PM_Spatial) {
+ * }
+ *```
+ * The spatial mixins give the actor and the pawn the ability to occupy a position in 3d space. We use them together
+ * because the mixins also contain code to make sure the position of the pawn tracks the position of
+ * the actor.
+ *
+ * Worldcore comes with a standard set of built-in mixins. Some are actor/pawn pairs, while others
+ * are used with actors or pawns independently. You can also define your own mixins.
+ *
+ * ***Actor Mixins***
+ * contain methods that extend the actor class they're added to. They can have an `init()`
+ * method that overrides the actor's base init. For example:
+ * ```
+ * const AM_Color = superclass extends superclass {
+ *    init(...args) {
+ *      super.init(...args);
+ *      this.red = 1;
+ *      this.blue = 1;
+ *      this.green = 1;
+ *    }
+ *
+ *    get rgb() { return [this.red, this.blue, this.green]}
+ * };
+ RegisterMixin(AM_Color);
+ * ```
+ * This defines a mixin that adds color properties to an actor.
+ * Note that `init()` passes all arguments straight through to `super.init()`. Also, the mixin is
+ * registered after it is defined. (This ensures that changing the mixin won't cause divergence in the model.)
+ *
+ * ***Pawn Mixins***
+ * are similar to actor mixins, but they have constructors instead of `init()`, and they don't
+ * need to be registered:
+ *
+ * ```
+ * const PM_Shape = superclass extends superclass {
+ *    constructor(...args) {
+ *      super(...args);
+ *      this.shape = "sphere"
+ *    }
+ *
+ *    makeCube() { this.shape = "cube"}
+ * };
+ * ```
+ * ***Inheritance***
+ * Mixins can inherit from other mixins, just like classes can inherit from other classes:
+ * ```
+ * const AM_TransparentColor = superclass extends AM_color(superclass) {
+ *    init(...args) {
+ *      super.init(...args);
+ *      this.opacity = 1;
+ *    }
+ *
+ *    show() {this.opacity = 1}
+ *    hide() {this.opacity = 0}
+ * };
+ RegisterMixin(AM_TransparentColor);
+ * ```
+ * This extends the `AM_Color` mixin to have an opacity property. If you add a child mixin to an actor or a pawn
+ * you get all the properties and methods of the parent as well. You don't need to explicitly add both the parent and the child.
+ * @public
+ * @mixin
+ */
+class Overview {
+
+}
+
 /**
  * Dynamic pawns have an update method that is called every frame by {@link ViewRoot}. Make
  * a pawn dynamic if it needs to do something every frame. (for example, interpolate its position.)
@@ -554,12 +636,8 @@ class AM_Tree {
     * @param {number[]} rotation
     * @example
     * myAvatarPawn.rotateTo(q_axisAngle([1,0,0], toRad(45))); // Rotate to 45 degrees around the x axis.
-    */  rotateTo(q) {
-      this._rotation = q;
-      this.lastRotateTime = this.time;
-      this.lastRotateCache = null;
-      this.say("avatarRotateTo", q);
-  }
+    */
+   rotateTo(q) {}
 
    /**
     * The same as [rotateTo()]{@link PM_Avatar#rotateTo}, but limits the number of events that are sent to the reflector. The frequency of the
@@ -605,9 +683,10 @@ class AM_Tree {
 
 /**
  * Extends the [avatar actor mixin]{@link AM_Avatar} to separate rotation into pitch and yaw components. Yaw is used to
- * control the avatar's facing. Pitch is ignored when calculating facing, but could be used to drive a child actor representing the actor's head.
+ * control the avatar's facing. Pitch is ignored when calculating facing, but is used with yaw to determine camera direction.
  *
  * **Note** - AM_Avatar must be paired with {@link PM_MouselookAvatar} in the pawn.
+ *
  * @public
  * @mixin
  * @augments AM_Avatar
@@ -617,8 +696,8 @@ class AM_Tree {
  class AM_MouselookAvatar extends AM_Avatar {
 
    /**
-    * The pitch angle of the avatar in radians. Pitch is ignored in determining the actor's facing, but could
-    * be used to drive a child actor representing the avatar's head.
+    * The pitch angle of the avatar in radians. Pitch is ignored in determining the actor's facing, but affects
+    * camera direction.
     *
     * **Warning:** You usually shouldn't set the avatar's lookPitch directly. Instead let it be controlled automatically
     * by events from the avatar's pawn.
@@ -635,21 +714,62 @@ class AM_Tree {
     * @public
     * @type {number}
     */
-  get lookPitch() {}
+  get lookYaw() {}
 
  }
 
  /**
- * Extends the [avatar pawn mixin]{@link PM_Avatar} to break rotation into separate pitch and yaw components.
+ * Extends the [avatar pawn mixin]{@link PM_Avatar} to break rotation into separate pitch and yaw components. Yaw is used to
+ * control the avatar's facing. Pitch is ignored when calculating facing, but is used with yaw to determine camera direction.
  *
  * **Note** - PM_MouselookAvatar must be paired with {@link AM_MouselookAvatar} in the actor.
  * @public
  * @mixin
  * @augments PM_Avatar
+ * @property {number} lookThrottle=50 - The number of milliseconds between [throttled look events]{@link PM_Avatar#throttledLookTo}.
  * @example
  * class MouseLookAvatarPawn extends mix(Pawn).with(PM_MouselookAvatar) {}
  */
   class PM_MouselookAvatar extends PM_Avatar {
+
+    /**
+    * The pitch angle of the avatar in radians. Pitch is ignored in determining the avatar's facing, but affects
+    * camera direction. This is the pawn-side value and is interpolated every frame.
+    * @public
+    * @type {number}
+    */
+   get lookPitch() {}
+
+   /**
+    * The yaw angle of the avatar in radians. Yaw is used to determine the actor's facing. This is the pawn-side value and
+    * is interpolated every frame.
+    *
+    * @public
+    * @type {number}
+    */
+  get lookYaw() {}
+
+   /**
+    * Sends an event through the reflector telling the actor to rotate to a new position. The pawn will speculatively perform the same rotation
+    * under the assumption that the actor will successfully complete it. The rotation is specified using separate pitch and yaw values. Only
+    * the yaw value controls the facing of the avatar, but the pitch and yaw are combined to determine camera facing.
+    *
+    * **Note:** If you're frequently calling lookTo() , consider using
+    * [throttledLookTo()]{@link PM_Avatar#throttledLookTo} instead to avoid flooding the reflector with events.
+    * @public
+    * @param {number} pitch in radians
+    * @param {number} yaw in radians
+     */
+    lookTo(pitch, yaw) {}
+
+    /**
+     * The same as [lookTo()]{@link PM_Avatar#LookTo}, but limits the number of events that are sent to the reflector. The frequency of the
+     * throttled events is determined by the [lookThrottle]{@link PM_MouselookAvatar}
+     * @public
+     * @param {number} pitch in radians
+    * @param {number} yaw in radians
+     */
+   throttledLookTo(pitch, yaw) {}
 
   }
 
