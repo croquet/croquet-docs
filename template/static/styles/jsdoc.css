@@ -437,7 +437,7 @@ thead tr, thead tr {
 }
 
 .params .type {
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .params code {
