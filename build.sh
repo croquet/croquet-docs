@@ -1,10 +1,14 @@
 #!/bin/sh
+cd `dirname "$0"`
 
-rm -rf ./build
+JSDOC=node_modules/.bin/jsdoc
+[ -x $JSDOC ] || npm ci
+
+rm -rf ./build/*
 
 for i in `ls -d */| egrep -v '(build/|node_modules/|template/)'`
 do
-    (cd $i; npx jsdoc -c jsdoc.json -d ../build/$i)
+    (cd $i; ../$JSDOC -c jsdoc.json -d ../build/$i)
 done
 
 VERSION="${VERSION:-0.5.0}"
