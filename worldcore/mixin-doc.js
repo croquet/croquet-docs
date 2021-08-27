@@ -250,51 +250,56 @@ class AM_Tree {
     get global() {}
 
     /**
-     * Fired when the spatial actor's translation changes.
+     * Fired when a spatial actor's translation changes.
      * @name translationChanged
      * @event AM_Spatial#translationChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"translationChanged"`
      * @property {number[]} translation - 3-vector
      */
     translationChanged() {}
 
     /**
-     * Fired when the spatial actor's rotation changes.
+     * Fired when a spatial actor's rotation changes.
      * @event AM_Spatial#rotationChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"rotationChanged"`
      * @property {number[]} rotation - quaternion
      */
     rotationChanged() {}
 
      /**
-     * Fired when the spatial actor's scale changes.
+     * Fired when a spatial actor's scale changes.
      * @event AM_Spatial#scaleChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"scaleChanged"`
      * @property {number[]} scale - 3-vector
      */
     scaleChanged() {}
 
     /**
-     * Fired when the spatial actor's local transform matrix changes.
+     * Fired when a spatial actor's local transform matrix changes.
      * @event AM_Spatial#localChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"localChanged"`
      * @property {number[]} transform - 4x4 transform matrix
      */
     localChanged() {}
 
     /**
-     * Fired when the spatial actor's global transform matrix changes.
+     * Fired when a spatial actor's global transform matrix changes.
      * @event AM_Spatial#globalChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"globalChanged"`
      * @property {number[]} transform - 4x4 transform matrix
      */
@@ -371,12 +376,13 @@ class AM_Tree {
    get lookGlobal() {}
 
     /**
-     * Fired when the spatial pawn's global transform matrix changes.
-     * This is a separate event from [globalChanged]{@link AM_Spatial#event:globalChanged} because a pawn can update its global transform every frame
+     * Fired when a spatial pawn's global transform matrix changes.
+     * This is a separate event from [globalChanged]{@link event:globalChanged} because a pawn can update its global transform every frame
      * even if its actor updates less frequently. Use this event to drive things like updating the transform matrix of a render model.
      * @event PM_Spatial#viewGlobalChanged
      * @public
-     * @property {String} scope - actorId
+     * @global
+     * @property {String} scope - actor.id
      * @property {String} event - `"viewGlobalChanged"`
      * @property {number[]} transform - 4x4 transform matrix
      * @example

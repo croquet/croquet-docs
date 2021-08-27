@@ -110,7 +110,7 @@
     set(options) {}
 
     /**
-    Publishes an event with its scope limited to this actor/pawn pair. Both the actor and the pawn can listen for events coming from the actor.
+    Publishes an event with its scope set to the actor.id. Both the actor and the pawn can listen for events coming from the actor.
     @public
     @param {string} event - The name of the event.
     @param {Object} [data] - An optional data object.
@@ -122,7 +122,7 @@
     say(event, data) {}
 
     /**
-    Subscribes to an event with its scope limited to this actor/pawn pair. It the actor listens for an event said by the pawn, the event will be routed
+    Subscribes to an event with its scope set to the actor.id. It the actor listens for an event said by the pawn, the event will be routed
     through the reflector. The data object from the say method will be passed as an argument to the handler.
     @public
     @param {string} event - The name of the event.
@@ -202,7 +202,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     destroy() {}
 
     /**
-    Publishes an event with its scope limited to this actor/pawn pair. Both the actor and the pawn can listen for events coming from the pawn.
+    Publishes an event with its scope set to the actor.id. Both the actor and the pawn can listen for events coming from the pawn.
     *
     ***Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
     @public
@@ -216,7 +216,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     say(event, data) {}
 
     /**
-    Subscribes to an event with its scope limited to this actor/pawn pair. The data object from the say method will be passed as an argument to the handler.
+    Subscribes to an event with its scope set to the actor.id. The data object from the say method will be passed as an argument to the handler.
     @public
     @param {string} event - The name of the event.
     @param {function} handler - The event handler (must be a method of this).
@@ -226,7 +226,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     listen(event, handler) {}
 
     /**
-    Subscribes to an event with its scope limited to this actor/pawn pair. The event handler will be called immediately when the event is published.
+    Subscribes to an event with its scope set to the actor.id. The event handler will be called immediately when the event is published.
     The data object from the say method will be passed as an argument to the handler.
 
     **Note:** With a normal [listen()]{@link Pawn#listen}, events coming from the actor are queued until all simulation has finished. However if a
