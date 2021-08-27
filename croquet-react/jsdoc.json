@@ -1,21 +1,18 @@
 {
   "source": {
     "include": [
-      "README.md",
-      "../../teatime/index.js",
-      "../../teatime/src/model.js",
-      "../../teatime/src/view.js",
-      "../../teatime/src/session.js"
+        "./top.md",
+        "./react-doc.js"
     ]
   },
   "opts": {
     "access": ["public"],
+    "tutorials": "./tutorials",
     "template": "../template",
-    "tutorials": "tutorials",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/croquet"
+    "destination": "../build/croquet-react/"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
@@ -31,9 +28,6 @@
       "includeDate": false,
       "useLongnameInNav": true,
       "staticFiles": {
-        "include": [
-          "tutorials"
-        ],
         "includePattern": "\\.(png|jpg)$"
       }
     }
@@ -43,15 +37,15 @@
     "sort": false,
     "disqus": "",
     "meta": {
-      "title": "Croquet @CROQUET_VERSION@",
-      "description": "Documentation for the Croquet client library",
-      "keyword": "croquet"
+      "title": "Croquet React Bindings @CROQUET_VERSION@ References",
+      "description": "Documentation for the Croquet React bindings",
+      "keyword": "croquet,"
     },
     "search": true,
     "collapse": true,
     "typedefs": true,
     "removeQuotes": "none",
     "scripts": [],
-    "menuHome": "Home: <b>Croquet Basics</b>"
+    "menuHome": "Home: <b>Croquet React Bindings</b>"
   }
 }

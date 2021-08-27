@@ -1,14 +1,14 @@
 /*global env: true */
 'use strict';
 
+var util = require('util');
 var doop = require('jsdoc/util/doop');
 var fs = require('jsdoc/fs');
 var helper = require('jsdoc/util/templateHelper');
 var logger = require('jsdoc/util/logger');
 var path = require('jsdoc/path');
-var taffy = require('../../sdk/node_modules/taffydb').taffy;
+var taffy = require('../node_modules/taffydb').taffy;
 var template = require('jsdoc/template');
-var util = require('util');
 
 var htmlsafe = helper.htmlsafe;
 var linkto = helper.linkto;

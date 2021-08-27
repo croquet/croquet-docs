@@ -1,22 +1,19 @@
 {
-  "name": "croquet-doc-worldcore",
-  "version": "1.0.0",
-  "description": "Croquet Worldcore Documentation",
+  "name": "croquet-doc-react",
+  "version": "0.5.0",
+  "description": "Croquet React Bindings",
   "scripts": {
-    "start": "npx npm-watch",
+    "start": "npm-watch",
     "build": "npx jsdoc -c jsdoc.json -d build",
-    "watch": "npx npm-watch"
+    "watch": "npm-watch"
   },
   "watch": {
     "build": {
       "patterns": [
         "./top.md",
-        "./root-doc.js",
-        "./input-doc.js",
-        "./mixin-doc.js",
-        "./player-doc.js",
-        "./jsdoc.json",
-        "../template"
+        "./react-doc.js",
+        "./tutorials/*",
+        "./jsdoc.json"
       ],
       "ignore": [
         "build"
