@@ -11,7 +11,7 @@ do
     (cd $i; ../$JSDOC -c jsdoc.json -d ../build/$i)
 done
 
-VERSION="${VERSION:-0.5.0}"
+VERSION="${VERSION:-1.0.0}"
 MINOR_VERSION="${MINOR_VERSION:-""}"
 
 echo $VERSION $MINOR_VERSION
