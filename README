@@ -8,4 +8,7 @@ You don't actually have to run `npm install` in the project subdirectory.  It is
 
 `build.sh` is called to make the directory that contains all projects. it copies `index.html` in this directory to `build` as the entry point for those project documents.
 
-`deploy.sh` in general copies file over to `../../servers/croquet-io-dev/docs` or `docs-pre`.
+`deploy.sh` in general copies file over to `../../servers/croquet-io-dev/docs` or `docs-pre`. It takes `release`, `prerelease` or `docs` as an argument.
+
+Each sub project can have its own version number. The version string of `packget.json` is used to substitute the `@CROQUET_VERSION` string in any generated html.
+
