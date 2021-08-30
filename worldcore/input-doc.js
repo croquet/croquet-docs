@@ -3,7 +3,7 @@
  * Croquet events that you can subscribe to. If you want to use the input manager, add it as
  * a service to your root view.
  * ```
- * class MyViewlRoot extends ViewRoot {
+ * class MyViewRoot extends ViewRoot {
  *      createServices() {
  *          this.addService(InputManager);
  * }

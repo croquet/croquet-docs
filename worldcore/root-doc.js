@@ -455,7 +455,7 @@ class ViewService {
     /**
     Returns a pointer to the named view service.
     @param {string} name - The public name of the view service.
-    @returns {ModelService}
+    @returns {ViewService}
     @public
     */
     service(name) {}
