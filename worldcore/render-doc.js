@@ -15,14 +15,6 @@
  * @hideconstructor
  */
  class RenderManager {
-
-    /**
-     * The number of players in the session.
-     * @public
-     * @type {number}
-     */
-    get count() {}
-
 }
 
 /**
@@ -64,10 +56,22 @@ class DrawCall {
 }
 
 /**
+ * Holds an instanced triangle mesh and a material for the [WebGL renderer]{@link RenderManager}.
+ * @public
+ * @property {Triangles} triangles
+ * @property {Material} material
+ */
+ class InstancedDrawCall {
+    constructor(mesh, material = new Material()) {}
+
+}
+
+
+
+/**
  * A triangle mesh for the [WebGL renderer]{@link RenderManager}. The mesh holds the geometry in local memory so you can manipulate
  * it, and only transfers it to the graphics card when explicitly told to.
  * @public
- * @hideconstructor
  */
  class Triangles {
 
@@ -118,3 +122,34 @@ class DrawCall {
     clear() {}
 
 }
+
+/**
+ * A material for the [WebGL renderer]{@link RenderManager}. Holds a texture, and also determines which drawing pass to use. (For efficiency, the WebGL renderer renders
+ * meshs that have the same material at the same time. It also does separate passes for opaque, instanced, and translucent meshes.)
+ *
+ * ***Note:*** By default the material is created with a solid white texture. If you want a different image [load]{@link Texture#loadFromURL} it from an external asset.
+ * @public
+ * @property {string} pass="opaque" - `"opaque"`, `"instanced"`, or `"translucent"
+ * @property {Texture} texture
+ */
+ class Material {
+
+ }
+
+ /**
+ * A texture for the [WebGL renderer]{@link RenderManager}. The texture holds an rgb asset loaded from a URL.
+ * @public
+ * @noconstructor
+ */
+  class Texture {
+
+    /**
+     * Load an image from an external asset. The load occurs dynamically and the texture will refresh  when it's completed.
+     * @public
+     * @param {string} url
+     * @example
+     * import myImage from "./assets/image.jpg";
+     * const myTexture.loadFromURL(myImage});
+     */
+    loadFromURL (url) {}
+  }
