@@ -12,13 +12,14 @@
  *
  * @public
  * @augments ViewService
- * @hideconstructor
+ * @property {Lights} lights
+ * @property {Camera} camera
  */
  class RenderManager {
 }
 
 /**
- * Provides an interface to the [WebGL renderer]{@link RenderManager}. Visible pawns can set up draw calls and attach
+ * Provides a pawn with an interface to the [WebGL renderer]{@link RenderManager}. Visible pawns can set up draw calls and attach
  * materials and geometry to them.
  *
  * ***Note:*** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
@@ -34,7 +35,7 @@
  class PM_Visible {
 
     /**
-     * Adds a webGL draw call to the pawn. The draw call will have its transform automatically updated when the
+     * Adds a draw call to the pawn. The draw call will have its transform automatically updated when the
      * pawn moves.
      * @public
      * @param {DrawCall} [data] - A webGL renderer draw call.
@@ -45,28 +46,30 @@
  }
 
 /**
+ * Attaches the camera for the [WebGL renderer]{@link RenderManager} to this pawn. The camera will
+ * track the pawn's position. Only the pawn associated with the local player will control the camera.
+ *
+ * ***Note:*** In order to work properly the `PM_Camera` mixin should used in conjuntion with
+ * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendents.
+ *
+ * @public
+ * @listens viewGlobalChanged
+ * @mixin
+ * @example
+ * class MyPawn extends mix(Pawn).with(PM_Spatial, PM_Visible, PM_Camera, PM_Player) {}
+ */
+  class PM_Camera {
+ }
+
+/**
  * Holds a triangle mesh and a material for the [WebGL renderer]{@link RenderManager}.
  * @public
  * @property {Triangles} triangles
- * @property {Material} material
+ * @property {Material} [material] - Defaults to untextured solid white.
  */
 class DrawCall {
     constructor(mesh, material = new Material()) {}
-
 }
-
-/**
- * Holds an instanced triangle mesh and a material for the [WebGL renderer]{@link RenderManager}.
- * @public
- * @property {Triangles} triangles
- * @property {Material} material
- */
- class InstancedDrawCall {
-    constructor(mesh, material = new Material()) {}
-
-}
-
-
 
 /**
  * A triangle mesh for the [WebGL renderer]{@link RenderManager}. The mesh holds the geometry in local memory so you can manipulate
@@ -76,6 +79,13 @@ class DrawCall {
  class Triangles {
 
     /**
+     * Triangle meshes create buffers on the graphics card. When you're done with a mesh, you must explicitly destroy it to free
+     * these buffers. (It's not done automatically because pawns can share meshes.)
+     * @public
+     */
+    destroy() {}
+
+    /**
     * Adds a set of triangles to the local geometry buffers to create a convex polygonal face. You need to specify the cooridinates of the vertices
     * and their color and texture coordinates. Vertex 0 is shared by all triangles in the face.
     * @public
@@ -83,6 +93,13 @@ class DrawCall {
     * @param {Array.<number[]>} colors - [rgba] vertex colors
     * @param {Array.<number[]>} coordinates - [uv] vertex texture coordinates
     * @param {Array.<number[]>} [normals] - [xyz] vertex normals (Automatically generated if not specified)
+    * @example
+    * const myMesh = new Triangles();
+    * myMesh.addFace( // Add two triangles to makes a square face with black, red, green blue corners.
+    *       [[0,0,0], [1,0,0], [1,1,0], [0,1,0]],
+    *       [[0,0,0,1], [0,1,0,1], [0,0,1,1], [0,0,1,1]],
+    *       [[0,0], [1,0], [1,1], [0,1]]
+    * )
     */
     addFace(vertices, colors, coordinates, normals) {}
 
@@ -125,11 +142,11 @@ class DrawCall {
 
 /**
  * A material for the [WebGL renderer]{@link RenderManager}. Holds a texture, and also determines which drawing pass to use. (For efficiency, the WebGL renderer renders
- * meshs that have the same material at the same time. It also does separate passes for opaque, instanced, and translucent meshes.)
+ * meshs that have the same material at the same time. It also does separate passes for opaque and translucent meshes.)
  *
  * ***Note:*** By default the material is created with a solid white texture. If you want a different image [load]{@link Texture#loadFromURL} it from an external asset.
  * @public
- * @property {string} pass="opaque" - `"opaque"`, `"instanced"`, or `"translucent"
+ * @property {string} pass="opaque" - `"opaque"`or `"translucent"`
  * @property {Texture} texture
  */
  class Material {
@@ -144,6 +161,14 @@ class DrawCall {
   class Texture {
 
     /**
+     * Textures create buffers on the graphics card. When you're done with a texture, you must explicitly destroy it to free
+     * these buffers. (It's not done automatically because pawns can share textures.)
+     * @public
+     *
+     */
+    destroy() {}
+
+    /**
      * Load an image from an external asset. The load occurs dynamically and the texture will refresh  when it's completed.
      * @public
      * @param {string} url
@@ -153,3 +178,22 @@ class DrawCall {
      */
     loadFromURL (url) {}
   }
+
+/**
+ * Holds the lighting information the [WebGL renderer]{@link RenderManager}. It supports ambient light for the entire world, plus one directional light.
+ * @public
+ * @property {number[]} ambientColor=[0.7,0.7,0.7]]
+ * @property {number[]} directionalColor=[0.3,0.3,0.3]]
+ * @property {number[]} directionalAim=[0,-1,0]] - Should be normalized.
+ * @noconstructor
+ */
+class Lights {}
+
+/**
+ * The camera for the the [WebGL renderer]{@link RenderManager}.
+ * @public
+ * @noconstructor
+ */
+ class Camera {
+    setProjection(fov, near, far)
+ }
