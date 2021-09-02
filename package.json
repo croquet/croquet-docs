@@ -8,7 +8,7 @@
   "author": "Croquet Corporation",
   "license": "ISC",
   "devDependencies": {
-    "jsdoc": "^3.6.7",
+    "jsdoc": "git+ssh://git@github.com:croquet/jsdoc#croquet-3.6",
     "npm-watch": "^0.9.0"
   }
 }
