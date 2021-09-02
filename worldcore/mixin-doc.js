@@ -74,7 +74,7 @@
  * This extends the `AM_Color` mixin to have an opacity property. If you add a child mixin to an actor or a pawn
  * you get all the properties and methods of the parent as well. You don't need to explicitly add both the parent and the child.
  * @public
- * @mixin
+ * @worldcoremixin
  */
 class Overview {
 
@@ -86,7 +86,7 @@ class Overview {
  *
  * @public
  * @class
- * @mixin
+ * @worldcoremixin
  * @example
  * class DynamicPawn extends mix(Pawn).with(PM_Dynamic) {}
  */
@@ -129,7 +129,7 @@ class Overview {
  *
  * **Note** - AM_Tree must be paired with {@link PM_Tree} in the pawn.
  * @public
- * @mixin
+ * @worldcoremixin
  * @example
  * class TreeActor extends mix(Actor).with(AM_Tree) {}
  */
@@ -153,7 +153,7 @@ class AM_Tree {
  *
  * **Note** - PM_Tree must be paired with {@link AM_Tree} in the actor.
  * @public
- * @mixin
+ * @worldcoremixin
  * @example
  * class TreePawn extends mix(Pawn).with(PM_Tree) {}
  */
@@ -180,7 +180,7 @@ class AM_Tree {
  *
  * **Note** - AM_Spatial must be paired with {@link PM_Spatial} in the pawn.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments AM_Tree
  * @example
  * class SpatialActor extends mix(Actor).with(AM_Spatial) {}
@@ -316,7 +316,7 @@ class AM_Tree {
  *
  * **Note** - PM_Spatial must be paired with {@link AM_Spatial} in the actor.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments PM_Tree
  * @example
  * class SpatialPawn extends mix(Pawn).with(PM_Spatial) {}
@@ -402,7 +402,7 @@ class AM_Tree {
  *
  * **Note** - AM_Smoothed must be paired with {@link PM_Smoothed} in the pawn.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments AM_Spatial
  * @example
  * class SmoothedActor extends mix(Actor).with(AM_Smoothed) {}
@@ -456,7 +456,7 @@ class AM_Tree {
  *
  * **Note** - PM_Smoothed must be paired with {@link AM_Smoothed} in the actor.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments PM_Dynamic
  * @augments PM_Spatial
  * @example
@@ -526,7 +526,7 @@ class AM_Tree {
  *
  * **Note** - AM_Avatar must be paired with {@link PM_Avatar} in the pawn.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments AM_Smoothed
  * @example
  * class Avatar extends mix(Actor).with(AM_Avatar) {}
@@ -591,7 +591,7 @@ class AM_Tree {
  *
  * **Note** - PM_Avatar must be paired with {@link AM_Avatar} in the actor.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments PM_Smoothed
  * @property {number} moveThrottle=15 - The number of milliseconds between [throttled move events]{@link PM_Avatar#throttledMoveTo}.
  * @property {number} rotateThrottle=50 - The number of milliseconds between [throttled rotate events]{@link PM_Avatar#throttledRotateTo}.
@@ -695,7 +695,7 @@ class AM_Tree {
  * **Note** - AM_Avatar must be paired with {@link PM_MouselookAvatar} in the pawn.
  *
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments AM_Avatar
  * @example
  * class MouselookAvatarActor extends mix(Actor).with(AM_MouselookAvatar) {}
@@ -731,7 +731,7 @@ class AM_Tree {
  *
  * **Note** - PM_MouselookAvatar must be paired with {@link AM_MouselookAvatar} in the actor.
  * @public
- * @mixin
+ * @worldcoremixin
  * @augments PM_Avatar
  * @property {number} lookThrottle=50 - The number of milliseconds between [throttled look events]{@link PM_Avatar#throttledLookTo}.
  * @example

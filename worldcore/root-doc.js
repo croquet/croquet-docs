@@ -151,7 +151,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
 @augments WorldcoreView
 */
 
- class Pawn {
+ class Pawn extends WorldcoreView {
 
     /**
     Returns the pawn's actor. You can read the actor's current state directly using this pointer. You should never write to it.

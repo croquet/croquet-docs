@@ -73,7 +73,7 @@
  * **Note** - AM_Player should be paired with {@link PM_Player} in the pawn.
  *
  * @public
- * @mixin
+ * @worldcoremixin
  * @example
  * class AvatarActor extends mix(Actor).with(AM_Player) {}
  */
@@ -94,7 +94,7 @@
  * **Note** - PM_Player should be paired with {@link AM_Player} in the actor.
  *
  * @public
- * @mixin
+ * @worldcoremixin
  * @example
  * class AvatarPawn extends mix(Pawn).with(PM_Player) {}
  */

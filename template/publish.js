@@ -453,11 +453,11 @@ function buildNav(members) {
     let seenTutorials = {};
     let docdash = env && env.conf && env.conf.docdash || {};
     let nav = '<h2><a href="index.html">' + (docdash.menuHome||'Home') + '</a></h2>';
-    if(docdash.menu){
-        for(let menu in docdash.menu){
+    if (docdash.menu) {
+        for (let menu in docdash.menu) {
             nav += '<h2><a ';
             //add attributes
-            for(let attr in docdash.menu[menu]){
+            for (let attr in docdash.menu[menu]) {
                 nav += attr+'="' + docdash.menu[menu][attr] + '" ';
             }
             nav += '>' + menu + '</a></h2>';
@@ -583,7 +583,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     });
 
     // update outdir if necessary, then create outdir
-    let packageInfo = ( find({kind: 'package'}) || [] ) [0];
+    let packageInfo = ( find({kind: 'package'}) || [] )[0];
     if (packageInfo && packageInfo.name) {
         outdir = path.join( outdir, packageInfo.name, (packageInfo.version || '') );
     }
@@ -682,6 +682,18 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     let members = helper.getMembers(data);
     members.tutorials = tutorials.children;
+
+    const newClasses = [], newMixins = [];
+    members.classes.forEach(cl => {
+        const tags = cl.tags;
+        if (tags && tags.some(t => t.title === "worldcoremixin")) {
+            newMixins.push(cl);
+        } else {
+            newClasses.push(cl);
+        }
+        });
+    members.classes = newClasses;
+    members.mixins = newMixins;
 
     // output pretty-printed source files by default
     let outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false;
