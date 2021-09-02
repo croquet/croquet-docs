@@ -195,5 +195,5 @@ class Lights {}
  * @noconstructor
  */
  class Camera {
-    setProjection(fov, near, far)
+    setProjection(fov, near, far) {}
  }
