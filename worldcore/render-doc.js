@@ -23,7 +23,7 @@
  * materials and geometry to them.
  *
  * ***Note:*** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
- * one of its descendents. Listens to {@link event:viewGlobalChanged} to update the tranform in the
+ * one of its descendants. Listens to {@link event:viewGlobalChanged} to update the transform in the
  * draw call.
  *
  * @public
@@ -49,8 +49,8 @@
  * Attaches the camera for the [WebGL renderer]{@link RenderManager} to this pawn. The camera will
  * track the pawn's position. Only the pawn associated with the local player will control the camera.
  *
- * ***Note:*** In order to work properly the `PM_Camera` mixin should used in conjuntion with
- * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendents.
+ * ***Note:*** In order to work properly the `PM_Camera` mixin should used in conjunction with
+ * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendants.
  *
  * @public
  * @listens viewGlobalChanged
@@ -86,7 +86,7 @@ class DrawCall {
     destroy() {}
 
     /**
-    * Adds a set of triangles to the local geometry buffers to create a convex polygonal face. You need to specify the cooridinates of the vertices
+    * Adds a set of triangles to the local geometry buffers to create a convex polygonal face. You need to specify the coordinates of the vertices
     * and their color and texture coordinates. Vertex 0 is shared by all triangles in the face.
     * @public
     * @param {Array.<number[]>} vertices - [xyz] coordinates ordered CCW around face.
@@ -142,7 +142,7 @@ class DrawCall {
 
 /**
  * A material for the [WebGL renderer]{@link RenderManager}. Holds a texture, and also determines which drawing pass to use. (For efficiency, the WebGL renderer renders
- * meshs that have the same material at the same time. It also does separate passes for opaque and translucent meshes.)
+ * meshes that have the same material at the same time. It also does separate passes for opaque and translucent meshes.)
  *
  * ***Note:*** By default the material is created with a solid white texture. If you want a different image [load]{@link Texture#loadFromURL} it from an external asset.
  * @public

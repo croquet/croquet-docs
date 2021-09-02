@@ -171,7 +171,7 @@
      */
 
     /**
-     * Fired when a key is pressed. The data object contains the name of the key along with booleans for various modifer keys.
+     * Fired when a key is pressed. The data object contains the name of the key along with booleans for various modifier keys.
      *
      * Alternatively, you can subscribe to the event `<key> + Down` which will report single key presses. The data object is the same.
      * @event
@@ -187,7 +187,7 @@
     keyDown() {}
 
     /**
-     * Fired when a key is released. The data object contains the name of the key along with booleans for various modifer keys.
+     * Fired when a key is released. The data object contains the name of the key along with booleans for various modifier keys.
      *
      * Alternatively, you can subscribe to the event `<key> + Up` which will report single key releases. The data object is the same.
      * @event
@@ -235,7 +235,7 @@
      * @public
      * @name zoomData
      * @property {number[]} mid - The xy coordinates of the midpoint between the two touch contacts.
-     * @property {number} zoom - The propertional distance between the two touch contacts (starts at 1).
+     * @property {number} zoom - The proportional distance between the two touch contacts (starts at 1).
      * @property {dial} dial - The rotation angle in radians of the two touch contacts (starts at 0).
      */
 

@@ -22,7 +22,7 @@
     get pawn() {}
 
     /**
-     Set to true by the actor's [destroy()]{@link Actor#destroy} method. Use it at the start of a reoccuring tick to make sure it doesn't continue
+     Set to true by the actor's [destroy()]{@link Actor#destroy} method. Use it at the start of a recurring tick to make sure it doesn't continue
      as a zombie after the actor has been destroyed.
     @readonly
     @public
@@ -51,7 +51,7 @@
 
     /**
     This is called by [create()]{@link Actor.create} to initialize the actor. In your actor subclass, this is the place to
-    subscribe to or listen for events, or use a future message to start a reoccuring tick.
+    subscribe to or listen for events, or use a future message to start a recurring tick.
 
     Super.init() calls [set()]{@link Actor#set} to set the actor's initial properties from the options. It also automatically spawns the actor's pawn.
     The properties are set before the pawn is created.
@@ -265,7 +265,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
 
 /**
  The model root is created when your Worldcore session starts. It owns all actors and all model-side services.
- You can only register one ModelRoot in your applicaton.
+ You can only register one ModelRoot in your application.
 
  @public
  @hideconstructor
@@ -437,7 +437,7 @@ class ViewService {
  class WorldcoreView {
 
     /**
-    Returns the system time in millisconds at the last frame update.
+    Returns the system time in milliseconds at the last frame update.
     @readonly
     @public
     @type number
@@ -445,7 +445,7 @@ class ViewService {
     get time() {}
 
     /**
-    Returns the time in millisconds between the last frame update and the previous one.
+    Returns the time in milliseconds between the last frame update and the previous one.
     @readonly
     @public
     @type number

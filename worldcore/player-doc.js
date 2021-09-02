@@ -21,7 +21,7 @@
  *          this.addService(MyPlayerManager);
  *  }
  * ```
- * Each player has a unqiue playerId that can be used to retrieve it from the player manager's player list.
+ * Each player has a unique playerId that can be used to retrieve it from the player manager's player list.
  * @public
  * @augments ModelService
  * @hideconstructor

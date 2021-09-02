@@ -1,9 +1,9 @@
 
 /**
  * Mixins are functions that can be used to modularly extend actor and pawns. The "mix" and "with"
- * operators are symantic suger to make the construction of the composite class look nice.
+ * operators are semantic sugar to make the construction of the composite class look nice.
  *
- * It's Wordcore convention to prefix actor mixins with "AM_" and pawn mixins with "PM_". In some
+ * It's Worldcore convention to prefix actor mixins with "AM_" and pawn mixins with "PM_". In some
  * cases, actor and pawn mixins are designed to work together. For example:
  *
  * ```
@@ -147,7 +147,7 @@ class AM_Tree {
 }
 
 /**
- * The abstract base class for mixins that organize [pawns] {@liink Pawn} into hierarchical trees.
+ * The abstract base class for mixins that organize [pawns] {@link Pawn} into hierarchical trees.
  * (For example, a scene graph.) The pawn automatically updates its parent to
  * be the pawn associated with its actor's parent.
  *
@@ -231,7 +231,7 @@ class AM_Tree {
     /**
      * The local 4x4 transformation matrix. This is the actor's transform relative to its parent.
      *
-     * **Warning** - Do NOT set this matrix directly. Set the indpendent translation, rotation, and scale components
+     * **Warning** - Do NOT set this matrix directly. Set the independent translation, rotation, and scale components
      * and let the actor combine them to get the local matrix.
      * @public
      * @type {number[]}
@@ -242,7 +242,7 @@ class AM_Tree {
      * The global 4x4 transformation matrix. This is the actor's transform relative to world space,
      * taking into account its local transform and the local transforms of all of its parents.
      *
-     * **Warning** - Do NOT set this matrix directly. Set the indpendent translation, rotation, and scale components
+     * **Warning** - Do NOT set this matrix directly. Set the independent translation, rotation, and scale components
      * and let the actor combine them to get the global matrix.
      * @public
      * @type {number[]}
@@ -358,7 +358,7 @@ class AM_Tree {
     get local() {}
 
     /**
-     * The global 4x4 transformation matrix. This is the pawns's transform relative to world space,
+     * The global 4x4 transformation matrix. This is the pawn's transform relative to world space,
      * taking into account its local transform and the local transforms of all of its parents.
      *
      * @public
@@ -397,7 +397,7 @@ class AM_Tree {
  * when they receive movement commands. Their pawns use this to reposition themselves every frame. Setting translation/rotation/scale will
  * pop the actor to the new position. If you want the transition to be smoothed, use moveTo, rotateTo, or scaleTo instead.
  *
- * **Note:** AM_Smoothed does generate some  overhead. If the obejct is stationary, consider using
+ * **Note:** AM_Smoothed does generate some  overhead. If the object is stationary, consider using
  * {@link AM_Spatial} instead.
  *
  * **Note** - AM_Smoothed must be paired with {@link PM_Smoothed} in the pawn.
@@ -533,7 +533,7 @@ class AM_Tree {
  */
  class AM_Avatar extends AM_Smoothed {
     /**
-    * The frquency in milliseconds of the actor's tick method. Every tick the actor will apply its velocity and spin to adjust
+    * The frequency in milliseconds of the actor's tick method. Every tick the actor will apply its velocity and spin to adjust
     * its position. Generally, for a first-person avatar you want to leave this at its default of 15ms so that it runs every frame.
     * @public
     * @default 15
