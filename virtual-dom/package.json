@@ -3,9 +3,9 @@
   "version": "1.0.2",
   "description": "Croquet Virtual DOM Documentation",
   "scripts": {
-    "start": "npm-watch",
-    "build": "npx jsdoc -c jsdoc.json -d build",
-    "watch": "npm-watch"
+    "start": "npx npm-watch",
+    "build": "../node_modules/.bin/jsdoc -c jsdoc.json -d build",
+    "watch": "npx npm-watch"
   },
   "watch": {
     "build": {
