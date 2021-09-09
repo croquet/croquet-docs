@@ -8,6 +8,7 @@ rm -rf ./build/*
 for i in `ls -d */| egrep -v '(build/|node_modules/|template/)'`
 do
     VERSION=$(node -p -e "require('./"${i}package.json"').version")
+    MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
     echo $i $VERSION
     (cd $i; npm run build)
     sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" build/${i}*.html || true
