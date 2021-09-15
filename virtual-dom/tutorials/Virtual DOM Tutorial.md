@@ -73,7 +73,7 @@ First, copy the Croquet library file into a directory called `croquet.
 # mkdir -p croquet; curl -L -o croquet/croquet-latest.min.js https://unpkg.com/@croquet/croquet@1.0
 ~~~~~~~~
 
-The `-L` option specifies to follow redirection. You may also copy the file from `https://unpkg.com/@croquet/croquet@1.0/pub/croquet.min.js`, or replace the `<script>` tag to point to the unpkg URL.
+The `-L` option specifies to follow redirection. You may also copy the file from `https://unpkg.com/@croquet/croquet@1.0/pub/croquet.min.js`, or replace the `&lt;script&gt;` tag to point to the unpkg URL.
 
 Run `server.js` in the top directory from a terminal using `node`.
 ~~~~~~~~
@@ -276,10 +276,9 @@ library.addLibrary("counter", counter);
 window.onload = makeMain("counter.beCounter", {
     autoSleep: false,
     appId: "io.croquet.vdom.counter",
-    apiKey: "1gnfK9o1opDJqeNm81sMy3429PHLN7ODblarH8tpI",
+    apiKey: "&lt;your api key from croquet.io/keys&gt;",
     password: "dummy",
-    tps: 1,
-    debug: ["hashing"]
+    tps: 1
 }, library, "counter", null, true);
   &lt;/script&gt;
 &lt;/head&gt;
