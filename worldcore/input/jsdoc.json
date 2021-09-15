@@ -2,7 +2,7 @@
   "source": {
     "include": [
         "./top.md",
-        "./widget-doc.js"
+        "./input-doc.js"
     ]
   },
   "opts": {
@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/widget"
+    "destination": "../../build/worldcore/input/"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
@@ -36,8 +36,8 @@
     "sort": false,
     "disqus": "",
     "meta": {
-      "title": "Croquet Worldcore Widget Overview",
-      "description": "Documentation for the Croquet Worldcore Widget Framework",
+      "title": "Croquet Worldcore Input Overview",
+      "description": "Documentation for the Croquet Worldcore Input Library",
       "keyword": "croquet,"
     },
     "search": true,
@@ -45,6 +45,6 @@
     "typedefs": true,
     "removeQuotes": "none",
     "scripts": [],
-    "menuHome": "Home: <b>Croquet Worldcore Widget</b>"
+    "menuHome": "Home: <b>Croquet Worldcore Input</b>"
   }
 }

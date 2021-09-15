@@ -1,7 +1,3 @@
-Worldcore is an entity-management system that sits on top of Croquet. It makes it easier to wrangle large numbers of 3d objects in a multiuser app.
+The Worldcore input system is an optional part of Worldcore. It consists of a view-side service, the InputManager, which translates a wide range of standard DOM events into Croquet events. Both the model and the view can subscribe to these events, providing a simple mechanism for for routing user input through the reflector.
 
-For example, suppose you want to create a multiplayer virtual world with player-controlled avatars, AI characters, and other dynamic entities. You could build it directly on top of Croquet, but that would require a significant amount boilerplate code to ensure that every object in the model is correctly represented in the view.
-
-Worldcore eliminates much of that complexity with its actor/pawn system. An [actor]{@link Actor} is a type of model that automatically instantiates a matching pawn in the view when its created. This means you can focus on what the actor does, and how the pawn looks, without having to worry about how they communicate with each other.
-
-Actors and pawns can be modularly extended with mixins to give them additional methods and properties. Mixins can also register actors and pawns with services. Services are global objects in the model or the view that provide shared functionality like rendering or collision detection.
+The InputMangager supports basic keyboard and pointer events, as well as resize, pointer lock, and fullscreen. It also generates events for derived inputs, such as chords (multiple keys pressed simultaneously), taps, swipe, double clicks, and zooms (on multitouch devices).
