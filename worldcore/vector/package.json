@@ -4,7 +4,7 @@
   "description": "Croquet Worldcore Vector Documentation",
   "scripts": {
     "start": "npx npm-watch",
-    "build": "npx jsdoc -c jsdoc.json -d build",
+    "build": "npx jsdoc -c jsdoc.json",
     "watch": "npx npm-watch"
   },
   "watch": {

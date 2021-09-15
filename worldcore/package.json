@@ -12,10 +12,8 @@
       "patterns": [
         "./top.md",
         "./root-doc.js",
-        "./input-doc.js",
         "./mixin-doc.js",
         "./player-doc.js",
-        "./render-doc.js",
         "./jsdoc.json",
         "../template"
       ],

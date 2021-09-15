@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/worldcore/vector"
+    "destination": "../../build/worldcore/vector/"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
