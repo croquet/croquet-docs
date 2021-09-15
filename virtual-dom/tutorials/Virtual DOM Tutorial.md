@@ -1,5 +1,5 @@
 **The Croquet Virtual DOM Framework**
-  Last Modified: 2021-08-30
+  Last Modified: 2021-09-15
 
 # Introduction
 
@@ -73,7 +73,7 @@ First, copy the Croquet library file into a directory called `croquet.
 # mkdir -p croquet; curl -L -o croquet/croquet-latest.min.js https://unpkg.com/@croquet/croquet@1.0
 ~~~~~~~~
 
-The `-L` option specifies to follow redirection. You may copy the file from `https://unpkg.com/@croquet/croquet@1.0/pub/croquet.min.js`.
+The `-L` option specifies to follow redirection. You may also copy the file from `https://unpkg.com/@croquet/croquet@1.0/pub/croquet.min.js`, or replace the `<script>` tag to point to the unpkg URL.
 
 Run `server.js` in the top directory from a terminal using `node`.
 ~~~~~~~~
@@ -261,18 +261,26 @@ A library file like `counter.js` exports objects with properties `expanders` and
 
 The `counter.html` that calls it looks like this:
 ~~~~~~~~ HTML
+&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-  &lt;script type="text/javascript" charset="UTF-8" src="croquet/croquet-latest.min.js"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript" charset="UTF-8" src="../croquet/croquet-latest.min.js"&gt;&lt;/script&gt;
   &lt;script type="module"&gt;
-import {makeMain, Library} from "./src/framework.js";
+import {makeMain, Library} from "../src/croquet-virtual-dom.js";
 
-import {counter} from "./examples/counter.js";
+import {counter} from "../examples/counter.js";
 let library = new Library();
 library.addLibrary("counter", counter);
 
-window.onload = makeMain("counter.beCounter", {autoSleep: false, appId: "io.croquet.vdom.counter", tps: 1}, library, "counter");
+window.onload = makeMain("counter.beCounter", {
+    autoSleep: false,
+    appId: "io.croquet.vdom.counter",
+    apiKey: "1gnfK9o1opDJqeNm81sMy3429PHLN7ODblarH8tpI",
+    password: "dummy",
+    tps: 1,
+    debug: ["hashing"]
+}, library, "counter", null, true);
   &lt;/script&gt;
 &lt;/head&gt;
   &lt;body style="touch-action: none"&gt;
