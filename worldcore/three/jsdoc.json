@@ -1,0 +1,50 @@
+{
+  "source": {
+    "include": [
+        "./top.md",
+        "./three-doc.js"
+    ]
+  },
+  "opts": {
+    "access": ["public"],
+    "template": "../../template",
+    "encoding": "utf8",
+    "recurse": false,
+    "verbose": true,
+    "destination": "../../build/worldcore/three"
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false,
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "includePattern": "\\.(png|jpg)$"
+      }
+    }
+  },
+  "docdash": {
+    "static": true,
+    "sort": false,
+    "disqus": "",
+    "meta": {
+      "title": "Croquet Worldcore Three Overview",
+      "description": "Documentation for the Croquet Worldcore Three Framework",
+      "keyword": "croquet,"
+    },
+    "search": true,
+    "collapse": true,
+    "typedefs": true,
+    "removeQuotes": "none",
+    "scripts": [],
+    "menuHome": "Home: <b>Croquet Worldcore Three</b>"
+  }
+}
