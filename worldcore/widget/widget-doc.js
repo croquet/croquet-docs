@@ -21,6 +21,7 @@
         this.addService(InputManager);
         this.addService(UIManager);
     }
+   }
  * }
  */
 class UIManager {

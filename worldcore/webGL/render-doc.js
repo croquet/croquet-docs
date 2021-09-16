@@ -6,11 +6,11 @@
  * ***Note:*** The render manager requires the [inputManager]{@link InputManager}.
  * ```
  * class MyViewRoot extends ViewRoot {
- *      createServices() {
- *          this.addService(InputManager);
- *          this.addService(RenderManager);
+ *   createServices() {
+ *     this.addService(InputManager);
+ *     this.addService(RenderManager);
+ *  }
  * }
- *
  * @public
  * @augments ViewService
  * @property {Lights} lights

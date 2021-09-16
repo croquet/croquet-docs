@@ -6,8 +6,8 @@
  * class MyViewRoot extends ViewRoot {
  *      createServices() {
  *          this.addService(InputManager);
+ *      }
  * }
- * ```
  * @public
  * @augments ViewService
  * @hideconstructor

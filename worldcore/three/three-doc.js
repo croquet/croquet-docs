@@ -8,11 +8,11 @@
  * ***Note:*** If you want the three render manager to automically resize the viewport, you must include the [inputManager]{@link InputManager} as well.
  * ```
  * class MyViewRoot extends ViewRoot {
- *      createServices() {
- *          this.addService(InputManager);
- *          this.addService(TreeRenderManager);
+ *   createServices() {
+ *     this.addService(InputManager);
+ *     this.addService(ThreeRenderManager);
+ *     }
  * }
- *
  * @public
  * @augments ViewService
  * @property {Object} renderer - The three.js renderer.
