@@ -1,14 +1,13 @@
 /**
- * The audio manager is a view-side service. It controls playing spatial audio using the Resonance spatial audio system.
+ * The audio manager is a view-side service with the public name "AudioManager".
+ * It controls playing spatial audio using the Resonance spatial audio system.
  * If you want to use the audio manager, add it as a service to your root view.
  * A pawn with the {@link PM_AudioSource} mixin can play sounds, and a pawn with the {@link PM_AudioListener} controls the position of
  * the listener.
  *
  * ```
  * class MyViewRoot extends ViewRoot {
- *   createServices() {
- *          this.addService(AudioManager);
- *   }
+ *   static viewServices() { return [AudioManager]; }
  * }
  * @public
  * @hideconstructor

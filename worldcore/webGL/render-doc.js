@@ -1,14 +1,12 @@
 /**
- * The render manager is a view-side service. It provides a basic WebGL renderer that you can use for testing and to make
+ * The render manager is a view-side service with the public name "RenderManager". It provides a basic WebGL renderer that you can use for testing and to make
  * simple apps. If you want to use the render manager, add it as a service to your root view. Pawns with the {@link PM_Visible} and {@link PM_Camera}
  * mixins interface with the render manager.
  *
  * ***Note:*** The render manager requires the [inputManager]{@link InputManager}.
  * ```
  * class MyViewRoot extends ViewRoot {
- *   createServices() {
- *     this.addService(InputManager);
- *     this.addService(RenderManager);
+ *  static viewServices() { return [InputManager, RenderManager];}
  *  }
  * }
  * @public

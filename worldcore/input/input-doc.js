@@ -1,12 +1,10 @@
 /**
- * The input manager is a view-side service that captures common UI events and turns them into
+ * The input manager is a view-side service with the public name "InputManager". It captures common UI events and turns them into
  * Croquet events that you can subscribe to. If you want to use the input manager, add it as
  * a service to your root view.
  * ```
  * class MyViewRoot extends ViewRoot {
- *      createServices() {
- *          this.addService(InputManager);
- *      }
+ *      static viewServices() { return [InputManager];}
  * }
  * @public
  * @augments ViewService

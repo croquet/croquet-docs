@@ -1,6 +1,7 @@
 /**
 
- * The UIManager is a ViewService that manages the widget user interface. Do not instantiate the UIManager
+ * The UIManager is a ViewService with the public name "UIManager". It that manages the widget user interface.
+ * Do not instantiate the UIManager
  * directly. Instead, add the UIManager as a view service in the ViewRoot. You should also add
  * the InputManager, since the UIManager depends upon InputManager events.
  *
@@ -17,10 +18,7 @@
  * @augments ViewService
  * @example
  * class MyViewRoot extends ViewRoot {
-    createServices() {
-        this.addService(InputManager);
-        this.addService(UIManager);
-    }
+ *   static viewServices() { return [InputManager, UIManager];}
    }
  * }
  */
@@ -316,24 +314,24 @@ class ImageWidget {
 
 }
 
-/**
- * Display a QR code.
- * @public
-* @param {object} [options] - An options object that sets the widget's properties.
- * @augments ImageWidget
- */
- class QRWidget {
+// /**
+//  * Display a QR code.
+//  * @public
+// * @param {object} [options] - An options object that sets the widget's properties.
+//  * @augments ImageWidget
+//  */
+//  class QRWidget {
 
-    /**
-     * The text to be encoded in the QR code. The code is generated automatically when the text is [set()]{@link Widget#set}.
-     * @public
-     * @type {string}
-     * @example
-     * const myQRWidget = new QRWidget({text: "https:croquet.io"});
-     * */
-    get text() {}
+//     /**
+//      * The text to be encoded in the QR code. The code is generated automatically when the text is [set()]{@link Widget#set}.
+//      * @public
+//      * @type {string}
+//      * @example
+//      * const myQRWidget = new QRWidget({text: "https:croquet.io"});
+//      * */
+//     get text() {}
 
-}
+// }
 
 /**
  * Displays an image that preserves its edges and corners as it's resized. More information [here]{@link https://en.wikipedia.org/wiki/9-slice_scaling}.

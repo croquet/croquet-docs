@@ -1,5 +1,6 @@
 /**
- * The three render manager is a view-side service. It creates a Three.js renderer, plus and default scene and camera.  If you want to use the
+ * The three render manager is a view-side service with the public name "ThreeRenderManager".
+ * It creates a Three.js renderer, plus and default scene and camera.  If you want to use the
  * three render manager, add it as a service to your root view. A pawn with the {@link PM_ThreeVisible} will automatically be inserted into the
  * screen when the pawn is created. If a pawn is given the {@link PM_ThreeCamera}, it will drive the camera using its location.
  *
@@ -8,10 +9,7 @@
  * ***Note:*** If you want the three render manager to automically resize the viewport, you must include the [inputManager]{@link InputManager} as well.
  * ```
  * class MyViewRoot extends ViewRoot {
- *   createServices() {
- *     this.addService(InputManager);
- *     this.addService(ThreeRenderManager);
- *     }
+ *   static viewServices() { return [InputManager, ThreeRenderManager];}
  * }
  * @public
  * @augments ViewService

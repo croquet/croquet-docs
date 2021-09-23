@@ -65,17 +65,24 @@
     init(options) {}
 
     /**
-    Deletes the actor and its associated pawn. Publishes the event "destroyActor" with the scope of the actor's model ID.
-
-    **Note:** When your actor is no longer needed, you must destroy it. Otherwise it will be kept in the snapshot forever. You can check if an actor
-    has been destroyed with the [doomed]{@link Actor.doomed} flag.
-    @public
-    @example
-    class MyActor extends Actor {
-        get scale() {return this._scale || 1};
-    }
+    * Deletes the actor and its associated pawn.
+    *
+    * **Note:** When your actor is no longer needed, you must destroy it. Otherwise it will be kept in the snapshot forever. You can check if an actor
+    * has been destroyed with the [doomed]{@link Actor#doomed} flag.
+    * @public
+    * @fires [destroyActor]{@link Actor#destroyActor}
      */
     destroy() {}
+
+    /**
+     * Fired when an actor is destroyed.
+     * @event
+     * @public
+     * @global
+     * @property {String} scope - actor.id
+     * @property {String} event - `"destroyActor"`
+     */
+    destroyActor() {}
 
     /**
     Sets one or more internal properties. The internal name of each property will be the name of the option prefaced by "_". You should define corresponding getters
@@ -265,7 +272,6 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
 
 /**
  The model root is created when your Worldcore session starts. It owns all actors and all model-side services.
- You can only register one ModelRoot in your application.
 
  @public
  @hideconstructor
@@ -273,40 +279,20 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
  */
  class ModelRoot {
 
-    /**
-    Returns the class type of the application's view root. Your model root should overload this.
-    @readonly
-    @public
-    @type ViewRoot
-    @example
-    class MyModelRoot extends ModelRoot {
-        get viewRoot() { return MyViewRoot }
+    /** Returns an array of [model services]{@link ModelService} that will be created when the session starts.
+     * You should overload this in your model root to instantiate only the services you need.
+     *
+     * **Note:** Array entries can be either the name of a service, or an object containing
+     * the name or the service plus options to be passed to it when it's instantiated.
+     * @public
+     * @returns {ModelService[]}
+     * @example
+     * static modelServices() {
+        return [PlayerManager, {service: RapierPhysicsManager, options: {gravity: [0,-9.8, 0], timeStep: 15}}];
     }
-    MyModelRoot.register("MyModelRoot");
-    */
-    get viewRoot() {}
+     */
+    static modelServices() {}
 
-    /**
-    Called at start-up to create all the model services used by your app. You should override this in your model root to instantiate only
-    the services you need.
-    @public
-    @example
-    class MyModelRoot extends ModelRoot {
-        createServices() {
-            this.addService(MyModelService);
-        }
-    }
-    */
-    createServices() {}
-
-    /**
-    Adds a new model service to your app. Pass in the class type of the service, and any start-up options. Returns a pointer to the new service.
-    @public
-    @param {ModelService} service - The class type of the service.
-    @param {Object} [options] - An options object that will be passed on to the service's [create()]{@link ModelService.create}.
-    @returns {ModelService}
-    */
-    addService(service) {}
 }
 
 /**
@@ -319,28 +305,19 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
  */
  class ViewRoot {
 
-    /**
-    Called at start-up to create all the view services used by your app. You should override this in your view root to instantiate only
-    the services you need.
-    @public
-    @example
-    class MyViewRoot extends ViewRoot {
-        createServices() {
-            this.addService(InputManager);
-            this.addService(UIManager);
-        }
+    /** Returns an array of [view services]{@link ViewService} that will be created when the session starts.
+     * You should overload this in your view root to instantiate only the services you need.
+     *
+     * **Note:** Array entries can be either the name of a service, or an object containing
+     * the name or the service plus options to be passed to it when it's instantiated.
+     * @public
+     * @returns {ViewService[]}
+     * @example
+     * static viewServices() {
+        return [InputManager, RenderManager, UIManager];
     }
-    */
-    createServices() {}
-
-    /**
-    Adds a new view service to your app. Pass in the class type of the service, and any start-up options. Returns a pointer to the new service.
-    @public
-    @param {ViewService} service - The class type of the service.
-    @param {Object} [options] - An options object that will be passed on to the service's constructor.
-    @returns {ViewService}
-    */
-    addService(service) {}
+     */
+    static viewServices() {}
 }
 
 /**
@@ -355,10 +332,10 @@ A singleton with a well-known name that provides a model-side global service. Yo
     Called when the new service is instantiated. An options object may be supplied by the model root. You should overload this when you create
     your own service and name the service using super.init(). If the service needs to regularly update itself, start a tick here using this.future().
     *
-    ***Warning:** Never create a service directly. Always use addService() in the model root.
+    ***Warning:** Never create a service directly. Always use [modelServices()]{@link ModelRoot.modelServices} in the model root.
     @public
     @param {string} name - The public name of the service. Use super.init() in your service to set its name.
-    @param {Object} [options] - An options object that is supplied to when the service is [added]{@link ModelRoot#addService}.
+    @param {Object} [options] - An options object that is supplied to when the service is added.
     @example
     class MyModelService extends ModelService {
         init(options = {}) {
@@ -367,9 +344,20 @@ A singleton with a well-known name that provides a model-side global service. Yo
         }
     }
     */
-    init(name, options) {
+    init(name, options) {}
 
+    /**
+     * This method is called before the Croquet session starts. If you're writing a custom service that requires some
+     * sort of installation or initization *before* Croquet runs `Session.join` that code should go here.
+     * @public
+     * @example
+    class MyModelService extends ModelService {
+        static async asyncStart() {
+            RAPIER = await import("@dimforge/rapier3d"); // Installs Rapier physics package
+        }
     }
+     */
+    static async asyncStart() {}
 }
 
 /**
@@ -382,10 +370,10 @@ class ViewService {
     Called when the new service is instantiated. An options object may be supplied by the view root. You should overload this when you create
     your own service, and name the service using super().
     *
-    ***Warning:** Never instantiate a service directly. Always use addService() in the view root.
+    ***Warning:** Never instantiate a service directly. Always use [viewServices()]{@link ViewRoot.viewServices} in the view root.
     @public
     @param {string} name - The public name of the service. Use super() in your service's constructor to set its name.
-    @param {Object} [options] - An options object that is supplied to when the service is [added]{@link ViewRoot#addService}.
+    @param {Object} [options] - An options object that is supplied to when the service is added.
     @example
     class MyViewService extends ViewService {
         constructor(options = {}) {
@@ -395,6 +383,13 @@ class ViewService {
     }
     */
     constructor(name, options) {}
+
+    /**
+     * This method is called before the Croquet session starts. If you're writing a custom service that requires some
+     * sort of installation or initization *before* Croquet runs `Session.join` that code should go here.
+     * @public
+     */
+    static async asyncStart() {}
 
     /**
     Any ViewService with an update method will have it called on every frame. Classes that inherit from this base class
@@ -470,3 +465,42 @@ class ViewService {
     */
     modelService(name) {}
 }
+
+/**
+ * This function should be used to start a Worldcore session instead of the normal Croquet `Session.join`. The
+ * reason for this is that some Worldcore services may require installaton or initialization before Croquet
+ * starts, and StartWorldcore handles that automatically.
+ * @public
+ * @param {Object} options - The options object to be passed to `Session.join`
+ * @example
+ * StartWorldcore({
+    appId: 'io.croquet.example',
+    apiKey: <insert api key>,
+    password: 'password',
+    name: 'example',
+    model: MyModelRoot,
+    view: MyViewRoot
+})
+ */
+export async function StartWorldcore(options) {
+}
+
+/**
+ * Given the name of a model service, returns a pointer to it.
+ *
+ * @public
+ * @param {string} name - The name of a model service.
+ * @returns {ModelService}
+ */
+export function GetModelService(name) { }
+
+/**
+ * Given the name of a view service, returns a pointer to it.
+ *
+ * ***Warning:*** This should not be called inside model code.
+ *
+ * @public
+ * @param {string} name - The name of a view service.
+ * @returns {ViewService}
+ */
+ export function GetViewService(name) { }
