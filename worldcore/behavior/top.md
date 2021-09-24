@@ -13,6 +13,6 @@ order, only returning a success when one succeeds. While a Sequence node require
 of its children to succeesfully complete one after another. Multiple children
 can run simultenously, allowing parallel behaviors, or "first past the gate" selection.
 
-This implementation of behavior trees
+[Wikipedia Article]{@link https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)}
 
 
