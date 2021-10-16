@@ -1,0 +1,26 @@
+{
+  "name": "croquet-doc-worldcore-rapier",
+  "version": "0.5.0",
+  "description": "Croquet Worldcore Rapier Documentation",
+  "scripts": {
+    "start": "npx npm-watch",
+    "build": "npx jsdoc -c jsdoc.json",
+    "watch": "npx npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "./top.md",
+        "./rapier-doc.js",
+        "./jsdoc.json"
+      ],
+      "ignore": [
+        "build"
+      ],
+      "extensions": "js,json,html,css,tmpl,md",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Corporation",
+  "license": "UNLICENSED"
+}
