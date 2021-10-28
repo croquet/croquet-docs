@@ -5,13 +5,18 @@
         "./audio-doc.js"
     ]
   },
-  "opts": {
+    "opts": {
     "access": ["public"],
-    "template": "../../template",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/audio"
+    "destination": "../../build/worldcore/audio",
+    "template": "../../node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+        "theme": "light",
+        "static_dir": ["../static"],
+        "include_css": ["../static/styles/index.css"]
+    }
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
@@ -30,21 +35,5 @@
         "includePattern": "\\.(png|jpg)$"
       }
     }
-  },
-  "docdash": {
-    "static": true,
-    "sort": false,
-    "disqus": "",
-    "meta": {
-      "title": "Croquet Worldcore Audio Overview",
-      "description": "Documentation for the Croquet Worldcore Audio Framework",
-      "keyword": "croquet,"
-    },
-    "search": true,
-    "collapse": true,
-    "typedefs": true,
-    "removeQuotes": "none",
-    "scripts": [],
-    "menuHome": "Home: <b>Croquet Worldcore Audio</b>"
   }
 }
