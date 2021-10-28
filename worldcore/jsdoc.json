@@ -9,7 +9,7 @@
   },
   "opts": {
     "access": ["public"],
-    "template": "../template",
+    "template": "../clean-jsdoc-theme",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,

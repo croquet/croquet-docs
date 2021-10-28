@@ -605,19 +605,13 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var title = (themeOpts.title) || 'Home';
+    var title = (themeOpts.title) || 'Croquet';
 
-    var isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
-    var nav;
+    let home = themeOpts.subdirectory ? "../.." : "..";
 
-    if (!isHTML(title)) {
-        nav = '<div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">' +
-            title + "test" +
-            '</h2></a></div>';
-    } else {
-        nav = '<h2><a href="index.html">' + title + '</a></h2>';
-    }
+    console.log(themeOpts.subdirectory);
 
+    let nav = `<div class="navbar-heading" id="navbar-heading"><a href="${home}/index.html"><img src="${home}/static/images/logotype.png"/></a></div>`;
 
     if (haveSearch) {
         nav += buildSearch();

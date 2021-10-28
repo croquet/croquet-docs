@@ -13,6 +13,8 @@
     "destination": "../../build/worldcore/audio",
     "template": "../../clean-jsdoc-theme",
     "theme_opts": {
+        "title": "Worldcore Audio",
+        "subdirectory": true,
         "theme": "light",
         "static_dir": ["../static"],
         "include_css": ["../static/styles/index.css"]
