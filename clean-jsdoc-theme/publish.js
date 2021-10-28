@@ -605,9 +605,7 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var title = document.createElement('img');
-    title.src = "../tenmplate/static/images/logotype.png";
-
+    var title = (themeOpts.title) || 'Home';
 
     var isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
     var nav;
@@ -835,6 +833,18 @@ exports.publish = function (taffyData, opts, tutorials) {
     var members = helper.getMembers(data);
 
     members.tutorials = tutorials.children;
+
+    const newClasses = [], newMixins = [];
+    members.classes.forEach(cl => {
+        const tags = cl.tags;
+        if (tags && tags.some(t => t.title === "worldcoremixin")) {
+                newMixins.push(cl);
+            } else {
+                newClasses.push(cl);
+            }
+        });
+    members.classes = newClasses;
+    members.mixins = newMixins;
 
     // output pretty-printed source files by default
     var outputSourceFiles = Boolean(conf.default && conf.default.outputSourceFiles !== false);

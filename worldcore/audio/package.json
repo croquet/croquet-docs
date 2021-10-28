@@ -5,21 +5,8 @@
   "scripts": {
     "start": "npx npm-watch",
     "build": "npx jsdoc -c jsdoc.json",
-    "watch": "npx npm-watch",
-    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
-
+    "watch": "npx npm-watch"
   },
-  "opts": {
-    "encoding": "utf8",
-    "readme": "./README.md",
-    "destination": "docs/",
-    "recurse": true,
-    "verbose": true,
-    "template": "./node_modules/clean-jsdoc-theme",
-    "theme_opts": {
-        "theme": "dark"
-  }
-},
   "watch": {
     "build": {
       "patterns": [

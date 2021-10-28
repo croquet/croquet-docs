@@ -11,7 +11,7 @@
     "recurse": false,
     "verbose": true,
     "destination": "../../build/worldcore/audio",
-    "template": "../../node_modules/clean-jsdoc-theme",
+    "template": "../../clean-jsdoc-theme",
     "theme_opts": {
         "theme": "light",
         "static_dir": ["../static"],
