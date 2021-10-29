@@ -609,7 +609,7 @@ function buildNav(members) {
 
     let home = themeOpts.subdirectory ? "../.." : "..";
 
-    let nav = `<div class="navbar-heading" id="navbar-heading"><a href="${home}/index.html"><img src="${home}/static/images/logotype.png"/></a></div>`;
+    let nav = `<div class="navbar-heading" id="navbar-heading"><a href="${home}/index.html"><img src="${home}/images/logotype.png"/></a></div>`;
 
     if (haveSearch) {
         nav += buildSearch();

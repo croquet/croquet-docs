@@ -59,7 +59,7 @@ class UIManager {
 
     /**
      * The widget's parent in the widget tree.
-     * @public \
+     * @public
      * @type {Widget}
      * */
     get parent() {}

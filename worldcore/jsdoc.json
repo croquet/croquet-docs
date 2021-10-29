@@ -13,7 +13,13 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/worldcore/"
+    "destination": "../build/worldcore/",
+    "theme_opts": {
+        "title": "Croquet Worldcore Overview",
+        "theme": "light",
+        "static_dir": ["../static"],
+        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+    }
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
@@ -32,21 +38,5 @@
         "includePattern": "\\.(png|jpg)$"
       }
     }
-  },
-  "docdash": {
-    "static": true,
-    "sort": false,
-    "disqus": "",
-    "meta": {
-      "title": "Croquet Worldcore Overview",
-      "description": "Documentation for the Croquet Worldcore Framework",
-      "keyword": "croquet,"
-    },
-    "search": true,
-    "collapse": true,
-    "typedefs": true,
-    "removeQuotes": "none",
-    "scripts": [],
-    "menuHome": "Home: <b>Croquet Worldcore</b>"
   }
 }

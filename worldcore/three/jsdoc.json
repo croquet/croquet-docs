@@ -7,11 +7,18 @@
   },
   "opts": {
     "access": ["public"],
-    "template": "../../template",
+    "template": "../../clean-jsdoc-theme",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/three"
+    "destination": "../../build/worldcore/three",
+    "theme_opts": {
+        "title": "Croquet Worldcore Three Overview",
+        "subdirectory": true,
+        "theme": "light",
+        "static_dir": ["../static"],
+        "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
+    }
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
