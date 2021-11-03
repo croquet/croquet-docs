@@ -16,7 +16,6 @@
         "title": "Croquet Worldcore Widget Overview",
         "subdirectory": true,
         "theme": "light",
-        "static_dir": ["../static"],
         "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }
   },
