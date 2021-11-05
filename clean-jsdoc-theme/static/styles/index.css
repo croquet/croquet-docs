@@ -40,3 +40,7 @@ a:hover {
 .navbar-heading {
     padding: 3rem !important;
 }
+
+.nav-hr {
+    border: 1px solid #ef493e;
+}    
