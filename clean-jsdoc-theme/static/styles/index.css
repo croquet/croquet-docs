@@ -30,7 +30,13 @@ h3.accordion-heading {
     font-weight: 600 !important;
 }
 
+a,
+a:active,
 a:hover {
     text-decoration: none !important;
     color: #ef493e !important;
+}
+
+.navbar-heading {
+    padding: 3rem !important;
 }
