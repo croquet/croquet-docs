@@ -622,6 +622,7 @@ function buildNav(members) {
     var menuLocation = themeOpts.menuLocation || 'up';
 
 
+
     if (menu !== undefined && menuLocation === 'up') {
         nav += buildMenuNav(menu);
     }
@@ -634,6 +635,22 @@ function buildNav(members) {
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += buildMemberNav(members.globals, 'Global', seen, linkto);
+
+    let subpackages = themeOpts.subpackages;
+    console.log(subpackages);
+    if (subpackages) {
+        let items = subpackages.map((n) => ({name: n, longname: n}));
+        
+        let link = (longname, name) => {
+            console.log(longname, name);
+            return linkto(`${name}`, `<a href="./${longname}/">${name}</a>`);
+        }
+        
+        nav += `<hr class="nav-hr"/>`;
+        nav += buildMemberNav(items, "Packages", seen, link);
+    }
+
+    
     if (menu !== undefined && menuLocation === 'down') {
         nav += buildMenuNav(menu);
     }
