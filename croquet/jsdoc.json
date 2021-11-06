@@ -10,12 +10,17 @@
   },
   "opts": {
     "access": ["public"],
-    "template": "../template",
+    "template": "../clean-jsdoc-theme",
     "tutorials": "tutorials",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/croquet"
+    "destination": "../build/croquet",
+    "theme_opts": {
+        "title": "Croquet @CROQUET_VERSION@",
+        "theme": "light",
+        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+    }
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
@@ -37,21 +42,5 @@
         "includePattern": "\\.(png|jpg)$"
       }
     }
-  },
-  "docdash": {
-    "static": true,
-    "sort": false,
-    "disqus": "",
-    "meta": {
-      "title": "Croquet @CROQUET_VERSION@",
-      "description": "Documentation for the Croquet client library",
-      "keyword": "croquet"
-    },
-    "search": true,
-    "collapse": true,
-    "typedefs": true,
-    "removeQuotes": "none",
-    "scripts": [],
-    "menuHome": "Home: <b>Croquet Basics</b>"
   }
 }

@@ -1,0 +1,51 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["./demo/src", "./README.md"]
+    },
+    "plugins": ["plugins/markdown"],
+    "include_css": ["../src/styles.css"],
+    "opts": {
+        "encoding": "utf8",
+        "destination": "output/light",
+        "recurse": true,
+        "template": "./",
+        "theme_opts": {
+            "static_dir": ["../../static"],
+            "include_css": ["../../static/styles/reset.css"],
+            "theme": "light",
+            "title": "clean-jsdoc-theme",
+            "footer": "Fork: <a href='https://github.com/ankitskvmdam/clean-jsdoc-theme'>https://github.com/ankitskvmdam/clean-jsdoc-theme</a>",            "menu": [
+                {
+                    "title": "Github",
+                    "id": "github",
+                    "link": "https://github.com/ankitskvmdam/clean-jsdoc-theme"
+                },
+                {
+                    "title": "npm",
+                    "id": "npm",
+                    "link": "https://www.npmjs.com/package/clean-jsdoc-theme"
+                }
+            ],
+            "resizeable": {
+                "navbar": {
+                    "min": "300",
+                    "max": "600"
+                }
+            },
+            "codepen": {
+                "enable_for": ["examples"],
+                "options": {
+                    "js_external": "https://code.jquery.com/jquery-3.6.0.min.js",
+                    "js_pre_processor": "babel"
+                }
+            }
+        }
+    },
+    "markdown.hardwrap": true,
+    "markdown": {
+        "hardwrap": true
+    }
+}

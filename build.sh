@@ -3,13 +3,17 @@ cd `dirname "$0"`
 
 [ -x node_modules/.bin/jsdoc ] || npm ci
 
-rm -rf ./build/*
+rm -rf ./build; mkdir ./build
 
-for i in `ls -d */| egrep -v '(build/|node_modules/|template/)'`
+# right now images and styles go one directory above... but it is probably saner if it is kept
+# in docs
+cp -rp ./clean-jsdoc-theme/static/ ./build/
+
+for i in croquet croquet-react virtual-dom worldcore
 do
-    VERSION=$(node -p -e "require('./"${i}package.json"').version")
+    VERSION=$(node -p -e "require('./"${i}/package.json"').version")
     MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
     echo $i $VERSION
     (cd $i; npm run build)
-    sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" build/${i}*.html || true
+    sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" build/${i}/*.html || true
 done
