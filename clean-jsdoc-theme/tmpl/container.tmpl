@@ -57,7 +57,7 @@
             <?js= self.partial('method.tmpl', module) ?>
         <?js }) ?>
     <?js } else if (doc.kind === 'class') { ?>
-        <?js= self.partial('method.tmpl', doc) ?>
+        <?js if (!doc.hideconstructor) self.partial('method.tmpl', doc) ?>
     <?js } else { ?>
         <?js if (doc.description) { ?>
             <div class="description"><?js= doc.description ?></div>
