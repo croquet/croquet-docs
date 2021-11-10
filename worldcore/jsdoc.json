@@ -17,6 +17,7 @@
     "theme_opts": {
         "title": "Croquet Worldcore Overview",
         "theme": "light",
+        "subpackages": ["audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
         "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
     }
   },

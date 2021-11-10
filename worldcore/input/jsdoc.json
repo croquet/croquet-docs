@@ -14,7 +14,6 @@
     "destination": "../../build/worldcore/input/",
     "theme_opts": {
         "title": "Croquet Worldcore Input Overview",
-        "subdirectory": true,
         "theme": "light",
          "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }

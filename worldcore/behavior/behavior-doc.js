@@ -25,10 +25,10 @@ class AM_Behavioral {
 /**
  * The base class for all behaviors. Create your own behaviors by deriving from this class. Important methods:
  *
- * * `init()` - Instananeous actions when the behavior is created.
- * * `go()` - Reoccuring actions performed every tick.
+ * * `init()` - Instantaneous actions when the behavior is created.
+ * * `go()` - Recurring actions performed every tick.
  * * `destroy()` - Ends the behavior.
- * * `succeed()` - Ends the behavior and reports sucess to its parent.
+ * * `succeed()` - Ends the behavior and reports success to its parent.
  * * `fail()` - Ends the behavior and reports failure to its parent.
  *
  * @public
@@ -76,7 +76,7 @@ class Behavior {
 
   /**
    * The tick rate in milliseconds. If a behavior doesn't return an immediate result, it
-   * will run periodically at the frequncy of the tick rate. If the tick rate is
+   * will run periodically at the frequency of the tick rate. If the tick rate is
    * set to 0, the behavior won't tick and won't run [do()]{@link Behavior#do}.
    * @public
    * @default 100
@@ -89,7 +89,7 @@ class Behavior {
    * overload `do`. This will be called once per tick`.
    *
    * ***Note:*** `do` will be called for for the first time at random interval less than the tick rate.
-   * (This is to prevent actors that spawn simultaneouly from all processing their behaviors at the save time.)
+   * (This is to prevent actors that spawn simultaneously from all processing their behaviors at the save time.)
    * If you want something to happen instantly, put it in [init]{@link Behavior#init} instead of `do`.
    *
    * @public
@@ -98,7 +98,7 @@ class Behavior {
   do(delta) {}
 
   /**
-   * Ends the behavior. Usually you want to report [succeed]{@link Behavior#succeed} or [fail]{@link Behavior#ifail} instead.
+   * Ends the behavior. Usually you want to report [succeed]{@link Behavior#succeed} or [fail]{@link Behavior#fail} instead.
    * @public
    */
   destroy() {}
@@ -106,14 +106,14 @@ class Behavior {
   /**
    * Ends the behavior and reports that it has succeeded to its parent.
    * @public
-   * @param {Object} [data] - An optional data object that will be passed to the parent bahavior.
+   * @param {Object} [data] - An optional data object that will be passed to the parent behavior.
    */
   succeed(data) {}
 
    /**
-   * Ends the behavior and reports that it has failred to its parent.
+   * Ends the behavior and reports that it has failed to its parent.
    * @public
-   * @param {Object} [data] - An optional data object that will be passed to the parent bahavior.
+   * @param {Object} [data] - An optional data object that will be passed to the parent behavior.
    */
   fail(data) {}
 }
@@ -293,7 +293,7 @@ class FailBehavior {}
  * Holds a single child behavior, and runs it repeatedly
  * until it reaches a maximum count. If the child ever fails,
  * the entire behavior will fail and the loop will abort. If the child succeeds every time
- * it's run, the entire behavior will succeed when the maiximum count is
+ * it's run, the entire behavior will succeed when the maximum count is
  * reached.
  *
  * **Warning:** If the child completes instantly, and the count is high, you will probably overrun
@@ -305,7 +305,7 @@ class FailBehavior {}
 class LoopBehavior {
     /**
    * The number of times the loop will repeat. If it's set to 0, it will
-   * repeat indefinitly.
+   * repeat indefinitely.
    * @public
    * @default 0
    * @type {number}

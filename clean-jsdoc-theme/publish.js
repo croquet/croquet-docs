@@ -607,7 +607,7 @@ function linktoExternal(longName, name) {
 function buildNav(members) {
     var title = (themeOpts.title) || 'Croquet';
 
-    let home = themeOpts.subdirectory ? "../.." : "..";
+    let home = ".."; // themeOpts.subdirectory ? "../.." : "..";
 
     let nav = `<div class="navbar-heading" id="navbar-heading"><a href="${home}/index.html"><img src="${home}/images/logotype.png"/></a></div>`;
 
@@ -622,6 +622,7 @@ function buildNav(members) {
     var menuLocation = themeOpts.menuLocation || 'up';
 
 
+
     if (menu !== undefined && menuLocation === 'up') {
         nav += buildMenuNav(menu);
     }
@@ -634,6 +635,19 @@ function buildNav(members) {
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += buildMemberNav(members.globals, 'Global', seen, linkto);
+
+    let subpackages = themeOpts.subpackages;
+    if (subpackages) {
+        let items = subpackages.map((n) => ({name: n, longname: n}));
+
+        let link = (longname, name) => {
+            return linkto(`${name}`, `<a href="./${longname}/">${name}</a>`);
+        }
+
+        nav += `<hr class="nav-hr"/>`;
+        nav += buildMemberNav(items, "Packages", seen, link);
+    }
+
     if (menu !== undefined && menuLocation === 'down') {
         nav += buildMenuNav(menu);
     }
@@ -830,6 +844,7 @@ exports.publish = function (taffyData, opts, tutorials) {
     members.classes.forEach(cl => {
         const tags = cl.tags;
         if (tags && tags.some(t => t.title === "worldcoremixin")) {
+                cl.hideconstructor = true;
                 newMixins.push(cl);
             } else {
                 newClasses.push(cl);
