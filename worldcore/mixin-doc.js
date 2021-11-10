@@ -147,7 +147,7 @@ class AM_Tree {
 }
 
 /**
- * The abstract base class for mixins that organize [pawns] {@link Pawn} into hierarchical trees.
+ * The abstract base class for mixins that organize [pawns]{@link Pawn} into hierarchical trees.
  * (For example, a scene graph.) The pawn automatically updates its parent to
  * be the pawn associated with its actor's parent.
  *
@@ -604,7 +604,7 @@ class AM_Tree {
     * Sends an event through the reflector telling the actor to move to a new position. The pawn will speculatively perform the same move
     * under the assumption that the actor will successfully complete it.
     *
-    * **Note:** If you're frequentlycalling moveTo(), consider using
+    * **Note:** If you're frequently calling moveTo(), consider using
     * [throttledMoveTo()]{@link PM_Avatar#throttledMoveTo} instead to avoid flooding the reflector with events.
     * @public
     * @param {number[]} translation
