@@ -40,6 +40,23 @@ h3 {
     padding-bottom: 0.5rem;
 }
 
+h4.name {
+    color: #fff;
+    background: blanchedalmond;
+    box-shadow: 0 0.25em 0.5em #d3d3d3;
+    margin: 1.5em 0 0.5em;
+    padding: 0.75em 0 0.75em 10px;
+}
+
+h4.name a {
+    display: none;
+}
+
+h5 {
+    font-size: 100%;
+    margin: 1rem 0 0;
+}
+
 img {
     max-width: 100%;
 }
@@ -68,7 +85,7 @@ article ul li::before {
 
 article ul li,
 article ol li {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
 }
 
 article ol {
@@ -104,7 +121,6 @@ ol.linenums li {
 
 .signature {
     font-family: 'code';
-    font-size: 80%;
 }
 
 .name {
@@ -119,7 +135,7 @@ ol.linenums li {
 
 .details {
     margin: 1rem 0;
-    padding: 0.625rem 1rem;
+    /* padding: 0.625rem 1rem; */
 }
 
 .details .details-item-container {
@@ -170,7 +186,7 @@ ol.linenums li {
 }
 
 .description {
-    margin-bottom: 32px;
+    margin-bottom: 1.5rem;
 }
 
 .method-member-container table {
@@ -184,7 +200,7 @@ ol.linenums li {
 .prettyprint {
     border-radius: 8px;
     font-size: 14px;
-    margin: 30px 0;
+    margin: 1rem 0 0;
     overflow: auto;
     padding-top: 5px;
 }
