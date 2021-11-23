@@ -197,6 +197,14 @@ ol.linenums li {
     font-size: 90%;
 }
 
+.code-lang-name {
+    display: none;
+}
+
+.pre-top-bar-container {
+    left: initial !important;
+}
+
 .prettyprint {
     border-radius: 8px;
     font-size: 14px;
@@ -217,7 +225,7 @@ ol.linenums li {
     display: table;
     font-size: 0.875rem;
     line-height: 1rem;
-    padding: 1rem 2rem;
+    padding: 0 2rem 2rem;
 }
 
 .prettyprint>code {
