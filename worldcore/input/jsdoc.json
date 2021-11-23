@@ -14,6 +14,7 @@
     "destination": "../../build/worldcore/input/",
     "mainpagetitle": "Croquet Worldcore Input Overview",
     "theme_opts": {
+        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
         "theme": "light",
          "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }

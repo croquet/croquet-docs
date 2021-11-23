@@ -648,6 +648,19 @@ function buildNav(members) {
         nav += buildMemberNav(items, "Packages", seen, link);
     }
 
+    let allpackages = themeOpts.allpackages;
+    if (allpackages) {
+        let items = allpackages.map((n) => ({name: n, longname: n}));
+
+        let link = (longname, name) => {
+            let path = name === "worldcore" ? "../.." : "..";
+            return linkto(`${name}`, `<a href="${path}/${longname}/">${name}</a>`);
+        }
+
+        nav += `<hr class="nav-hr"/>`;
+        nav += buildMemberNav(items, "Packages", seen, link);
+    }
+
     if (menu !== undefined && menuLocation === 'down') {
         nav += buildMenuNav(menu);
     }
