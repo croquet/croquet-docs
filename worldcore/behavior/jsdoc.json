@@ -12,8 +12,8 @@
     "recurse": false,
     "verbose": true,
     "destination": "../../build/worldcore/behavior",
+    "mainpagetitle": "Croquet Worldcore Behavior Overview",
     "theme_opts": {
-        "title": "Croquet Worldcore Behavior Overview",
         "theme": "light",
         "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }

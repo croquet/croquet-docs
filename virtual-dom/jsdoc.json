@@ -13,8 +13,8 @@
     "recurse": false,
     "verbose": true,
     "destination": "../build/virtual-dom/",
+    "mainpagetitle": "Croquet Virtual DOM @CROQUET_VERSION@ Class References",
     "theme_opts": {
-        "title": "Croquet Virtual DOM @CROQUET_VERSION@ Class References",
         "theme": "light",
         "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
     }

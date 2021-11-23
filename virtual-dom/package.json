@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-virtual-dom",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Croquet Virtual DOM Documentation",
   "scripts": {
     "start": "npx npm-watch",

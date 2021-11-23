@@ -12,8 +12,8 @@
     "verbose": true,
     "destination": "../../build/worldcore/audio",
     "template": "../../clean-jsdoc-theme",
+    "mainpagetitle": "Croquet Worldcore Audio Overview",
     "theme_opts": {
-        "title": "Worldcore Audio",
         "theme": "light",
         "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }

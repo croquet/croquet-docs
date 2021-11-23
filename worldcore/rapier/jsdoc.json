@@ -12,8 +12,8 @@
     "recurse": false,
     "verbose": true,
     "destination": "../../build/worldcore/rapier",
+    "mainpagetitle": "Croquet Worldcore Rapier Physics Overview",
     "theme_opts": {
-        "title": "Croquet Worldcore Rapier Physics Overview",
         "theme": "light",
         "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }
