@@ -44,7 +44,7 @@
  * Provides a pawn with an interface to the [audio manager]{@link AudioManager}. Plays a sound from the
  * pawn's actor at the pawn's current location.
  *
- * ***Note:*** In order to work properly the `PM_AudioSource` mixin should be combined with {@link PM_Spatial} or
+ * **Note:** In order to work properly the `PM_AudioSource` mixin should be combined with {@link PM_Spatial} or
  * one of its descendants. Its listens to {@link event:viewGlobalChanged} to update its transform.
  *
  * @public
@@ -60,9 +60,9 @@
  * Attaches the listener for the [audio manager]{@link AudioManager} to this pawn. The listener will
  * track the pawn's position. Only the pawn associated with the local player will control the listener.
  *
- * ***Note:*** If a pawn is a listener and plays a sound from itself, the sound will not be spatialized.
+ * **Note:** If a pawn is a listener and plays a sound from itself, the sound will not be spatialized.
  *
- * ***Note:*** In order to work properly the `PM_AudioListener` mixin should used in conjunction with
+ * **Note:** In order to work properly the `PM_AudioListener` mixin should used in conjunction with
  * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendants.
  *
  * @public

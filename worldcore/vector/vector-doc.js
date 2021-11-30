@@ -474,7 +474,7 @@ export function q_magnitude(q) {
 }
 
  /**
-  * Normalize quaternion. (If you do a long series of quaternion operations, periodcially renomralize to prevent drift.)
+  * Normalize quaternion. (If you do a long series of quaternion operations, periodically renormalize to prevent drift.)
   * @public
   * @param {number[]} quaternion
   * @returns {number[]} quaternion

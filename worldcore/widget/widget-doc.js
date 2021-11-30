@@ -1,6 +1,6 @@
 /**
 
- * The UIManager is a ViewService with the public name "UIManager". It that manages the widget user interface.
+ * The UIManager is a ViewService with the public name "UIManager". It manages the widget user interface.
  * Do not instantiate the UIManager
  * directly. Instead, add the UIManager as a view service in the ViewRoot. You should also add
  * the InputManager, since the UIManager depends upon InputManager events.
@@ -564,7 +564,7 @@ class ImageWidget {
     /**
      * The function that executes when the widget toggles to true
      *
-     * **Note** - This may be the triggered by a user click, or setting the state directly.
+     * **Note:** This may be the triggered by a user click, or setting the state directly.
      * @public
      * @type {function}
      @example
@@ -575,7 +575,7 @@ class ImageWidget {
     /**
      * The function that executes when the widget toggles to false.
      *
-     * **Note** - This may be the triggered by a user click, setting the state directly, or having another toggle turn on in a [toggle set]{@link ToggleSet}.
+     * **Note:** This may be the triggered by a user click, setting the state directly, or having another toggle turn on in a [toggle set]{@link ToggleSet}.
      * @public
      * @type {function}
      @example

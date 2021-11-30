@@ -23,8 +23,9 @@
  * Worldcore comes with a standard set of built-in mixins. Some are actor/pawn pairs, while others
  * are used with actors or pawns independently. You can also define your own mixins.
  *
- * ***Actor Mixins***
- * contain methods that extend the actor class they're added to. They can have an `init()`
+ * **Actor Mixins**
+ *
+ * Actor mixins contain methods that extend the actor class they're added to. They can have an `init()`
  * method that overrides the actor's base init. For example:
  * ```
  * const AM_Color = superclass extends superclass {
@@ -43,8 +44,9 @@
  * Note that `init()` passes all arguments straight through to `super.init()`. Also, the mixin is
  * registered after it is defined. (This ensures that changing the mixin won't cause divergence in the model.)
  *
- * ***Pawn Mixins***
- * are similar to actor mixins, but they have constructors instead of `init()`, and they don't
+ * **Pawn Mixins**
+ *
+ * Pawn mixins are similar to actor mixins, but they have constructors instead of `init()`, and they don't
  * need to be registered:
  *
  * ```
@@ -57,7 +59,8 @@
  *    makeCube() { this.shape = "cube"}
  * };
  * ```
- * ***Inheritance***
+ * **Inheritance**
+ *
  * Mixins can inherit from other mixins, just like classes can inherit from other classes:
  * ```
  * const AM_TransparentColor = superclass extends AM_color(superclass) {
@@ -178,7 +181,7 @@ class AM_Tree {
  * actors, use {@link AM_Smoothed} instead.
  *
  *
- * **Note** - AM_Spatial must be paired with {@link PM_Spatial} in the pawn.
+ * **Note:** AM_Spatial must be paired with {@link PM_Spatial} in the pawn.
  * @public
  * @worldcoremixin
  * @augments AM_Tree
@@ -216,7 +219,7 @@ class AM_Tree {
     /**
      * The local scale of the actor relative to its parent. The value is a 3D vector.
      *
-     * **Warning** - Do not set the scale to 0!
+     * **Warning:** Do not set the scale to 0!
      * @public
      * @default [1,1,1]
      * @fires [scaleChanged]{@link AM_Spatial#scaleChanged}
@@ -314,7 +317,7 @@ class AM_Tree {
  * that are relatively stationary -- it doesn't apply any view-side interpolation to smooth out irregular movement. For moving
  * pawns, use {@link PM_Smoothed} instead.
  *
- * **Note** - PM_Spatial must be paired with {@link AM_Spatial} in the actor.
+ * **Note:** PM_Spatial must be paired with {@link AM_Spatial} in the actor.
  * @public
  * @worldcoremixin
  * @augments PM_Tree
@@ -400,7 +403,7 @@ class AM_Tree {
  * **Note:** AM_Smoothed does generate some  overhead. If the object is stationary, consider using
  * {@link AM_Spatial} instead.
  *
- * **Note** - AM_Smoothed must be paired with {@link PM_Smoothed} in the pawn.
+ * **Note:** AM_Smoothed must be paired with {@link PM_Smoothed} in the pawn.
  * @public
  * @worldcoremixin
  * @augments AM_Spatial
@@ -438,7 +441,7 @@ class AM_Tree {
      *
      * **Note:** All movement is relative to the actor's parent.
      *
-     * **Warning** - Do not set the scale to 0!
+     * **Warning:** Do not set the scale to 0!
      * @public
      * @param {number[]} scale - A 3-vector containing the new scale for the actor.
      */
@@ -454,7 +457,7 @@ class AM_Tree {
  * **Note:** PM_Smoothed does generate some  overhead. If the object is stationary, consider using
  * {@link PM_Spatial} instead.
  *
- * **Note** - PM_Smoothed must be paired with {@link AM_Smoothed} in the actor.
+ * **Note:** PM_Smoothed must be paired with {@link AM_Smoothed} in the actor.
  * @public
  * @worldcoremixin
  * @augments PM_Dynamic
@@ -495,6 +498,9 @@ class AM_Tree {
     * the pawn will snap to the actor's current position every frame.
     *
     * A pawn's tug is a trade-off between smoothness and responsiveness. Higher tug values converge faster, but also more jittery, and vice versa.
+    *
+    * **Note:** If pawns are arranged in a hierachy in the scene graph, the children will use the tug of their parents. (Mixing different tug values
+    * leads to jitter.)
     * @public
     * @default: 0.2
     * @type {number}
@@ -542,7 +548,7 @@ class AM_Tree {
      get tickStep() {}
 
    /**
-    * The velocity of the actor in units/millisecond. Every tick the actor will move tickStep * velocity from its current position. The
+    * The velocity of the actor in units/millisecond. Every tick the actor will move the velocity from its current position. The
     * velocity is a 3-vector.
     *
     * **Warning:** You usually shouldn't set an avatar's velocity directly. Instead let it be controlled automatically
@@ -554,7 +560,7 @@ class AM_Tree {
    get velocity() {}
 
    /**
-    * The spin of the actor in radians/millisecond. Every tick the actor will rotate tickstep * spin from its current position. The spin
+    * The spin of the actor in radians/millisecond. Every tick the actor will rotate the spin from its current position. The spin
     * is a quaternion.
     *
     * **Warning:** You usually shouldn't set an avatar's spin directly. Instead let it be controlled automatically
@@ -589,7 +595,7 @@ class AM_Tree {
  * velocity and spin instead. This allows the actor to update its own position during its tick, rather than
  * the pawn sending every position change through the reflector.
  *
- * **Note** - PM_Avatar must be paired with {@link AM_Avatar} in the actor.
+ * **Note:** PM_Avatar must be paired with {@link AM_Avatar} in the actor.
  * @public
  * @worldcoremixin
  * @augments PM_Smoothed

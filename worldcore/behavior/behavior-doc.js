@@ -88,7 +88,7 @@ class Behavior {
    * This is where the work of the behavior actually happens. If you create your own behavior
    * overload `do`. This will be called once per tick`.
    *
-   * ***Note:*** `do` will be called for for the first time at random interval less than the tick rate.
+   * **Note:** `do` will be called for for the first time at random interval less than the tick rate.
    * (This is to prevent actors that spawn simultaneously from all processing their behaviors at the save time.)
    * If you want something to happen instantly, put it in [init]{@link Behavior#init} instead of `do`.
    *
@@ -120,7 +120,7 @@ class Behavior {
 
 /**
  * Base class for parent behaviors that handle multiple children. Does not tick itself. Only
- * listens for succeed or failure by its children.
+ * listens for success or failure by its children.
  * @public
  * @hideconstructor
  * @augments Behavior
@@ -220,7 +220,7 @@ class ParallelSelectorBehavior {}
 
 /**
  * Base class for parent behaviors that handle a single child. Does not tick itself. Only
- * listens for succeed or failure by its child.
+ * listens for success or failure by its child.
  * @hideconstructor
  * @public
  * @augments Behavior

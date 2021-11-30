@@ -40,6 +40,7 @@
 
     /**
      * Takes the app out of fullscreen mode.
+     *
      * **Note:** Many browsers provide alternate ways to cancel fullscreen.
      * @public
      */
@@ -64,6 +65,7 @@
     /**
      * Takes the app out of pointerlock mode.
      * In pointerlock mode the mouse cursor will not be displayed and mouse movements will not return screen coordinates.
+     *
      * **Note:** Many browsers provide alternate ways to cancel pointerlock.
      * @public
      * @fires pointerLock

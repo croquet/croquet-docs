@@ -1,12 +1,13 @@
 /**
  * The three render manager is a view-side service with the public name "ThreeRenderManager".
- * It creates a Three.js renderer, plus and default scene and camera.  If you want to use the
- * three render manager, add it as a service to your root view. A pawn with the {@link PM_ThreeVisible} will automatically be inserted into the
- * screen when the pawn is created. If a pawn is given the {@link PM_ThreeCamera}, it will drive the camera using its location.
+ * It creates a Three.js renderer, plus a default scene and camera.  If you want to use the
+ * three render manager, add it as a service to your root view. Defining a pawn with the {@link PM_ThreeVisible} mixin will automatically be inserted
+ * the pawn's render object into the
+ * scene when the pawn is created. A pawn with the {@link PM_ThreeCamera} mixin will drive the camera using its location.
  *
  * You can also add render objects to the scene directly (for example, lights), or change the settings of the renderer or camera.
  *
- * ***Note:*** If you want the three render manager to automically resize the viewport, you must include the [inputManager]{@link InputManager} as well.
+ * **Note:** If you want the three render manager to automically resize the viewport, you must include the [inputManager]{@link InputManager} as well.
  * ```
  * class MyViewRoot extends ViewRoot {
  *   static viewServices() { return [InputManager, ThreeRenderManager];}
@@ -22,9 +23,9 @@
 
 /**
  * Provides a pawn with an interface to the [Three.js renderer]{@link ThreeRenderManager}. Visible pawns should set their three.js render objects
- * when they are created. The three.js render object will then automatically track the pawns position within the scene.
+ * when they are created. The three.js render object will then automatically track the pawn's position within the scene.
  *
- * ***Note:*** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
+ * **Note:** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
  * one of its descendants. Listens to {@link event:viewGlobalChanged} to update the transform in the
  * draw call.
  *
@@ -56,7 +57,7 @@
  * Attaches the camera for the [three.js renderer]{@link ThreeRenderManager} to this pawn. The camera will
  * track the pawn's position. Only the pawn associated with the local player will control the camera.
  *
- * ***Note:*** In order to work properly the `PM_ThreeCamera` mixin should used in conjunction with
+ * **Note:** In order to work properly the `PM_ThreeCamera` mixin should used in conjunction with
  * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendants.
  *
  * @public

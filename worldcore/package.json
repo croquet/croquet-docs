@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-worldcore",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Croquet Worldcore Documentation",
   "scripts": {
     "start": "npx npm-watch",
@@ -25,5 +25,8 @@
     }
   },
   "author": "Croquet Corporation",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  }
 }

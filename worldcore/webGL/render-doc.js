@@ -22,7 +22,7 @@
  * Provides a pawn with an interface to the [WebGL renderer]{@link RenderManager}. Visible pawns can set up draw calls and attach
  * materials and geometry to them.
  *
- * ***Note:*** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
+ * **Note:** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
  * one of its descendants. Listens to {@link event:viewGlobalChanged} to update the transform in the
  * draw call.
  *
@@ -49,7 +49,7 @@
  * Attaches the camera for the [WebGL renderer]{@link RenderManager} to this pawn. The camera will
  * track the pawn's position. Only the pawn associated with the local player will control the camera.
  *
- * ***Note:*** In order to work properly the `PM_Camera` mixin should used in conjunction with
+ * **Note:** In order to work properly the `PM_Camera` mixin should used in conjunction with
  * {@link PM_Player} as well as {@link PM_Spatial} or one of its descendants.
  *
  * @public
@@ -240,7 +240,7 @@ class Lights {}
  function Cube(x, y, z, color = [1,1,1,1]) {}
 
 /**
-  * Create a spherical geometric mesh. The mesh is in inflated, subdivided cube.
+  * Create a spherical geometric mesh. The mesh is an inflated, subdivided cube.
   * @public
   * @param {number} radius
   * @param {number} facets - Number of subdivisions vertical and horizontal
@@ -250,7 +250,7 @@ class Lights {}
    function Sphere(r, facets, c = [1,1,1,1]) {}
 
 /**
-  * Create a cynlindrical geometric mesh. The mesh is in inflated, subdivided cube.
+  * Create a cynlindrical geometric mesh.
   * @public
   * @param {number} radius
   * @param {number} height

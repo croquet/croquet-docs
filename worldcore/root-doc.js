@@ -1,5 +1,5 @@
 /**
- An actor is a type of model that automatically instantiates a pawn in the view when it’s created. This actor/pawn pair has a private communication channel that allows them to talk directly with each other. The actor handles the simulation, and the pawn handles input and output. When the actor is destroyed, the pawn is destroyed as well.
+ An actor is a type of model that automatically instantiates a [pawn]{@link Pawn} in the view when it’s created. This actor/pawn pair has a private communication channel that allows them to talk directly with each other. The actor handles the simulation, and the pawn handles input and output. When the actor is destroyed, the pawn is destroyed as well.
 
  @public
  @hideconstructor
@@ -36,31 +36,31 @@
     get doomed() {}
 
     /**
-    Create an instance of an actor and automatically spawn its corresponding pawn. Create calls the user-defined [init()]{@link Actor#init} method and passes in options
-    to set the actor's initial properties.
-
-    **Note:** When your actor is no longer needed, you must [destroy]{@link Actor#destroy} it. Otherwise it will be kept in the snapshot forever.
-
-    **Warning:** never create an actor instance using `new`, or override its constructor.
-    @public
-    @param {Object} [options] - An object containing the initial properties of the actor. Passed to the actor's [init()]{@link Actor#init}.
-    @example
-    const actor = MyActor.create({scale: 2})
+    * Create an instance of an actor and automatically spawn its corresponding pawn. Create calls the user-defined [init()]{@link Actor#init} method and passes in options
+    * to set the actor's initial properties.
+    *
+    * **Note:** When your actor is no longer needed, you must [destroy]{@link Actor#destroy} it. Otherwise it will be kept in the snapshot forever.
+    *
+    * **Warning:** Never create an actor instance using `new`, or override its constructor.
+    * @public
+    * @param {Object} [options] - An object containing the initial properties of the actor. Passed to the actor's [init()]{@link Actor#init}.
+    * @example
+    * const actor = MyActor.create({scale: 2})
     */
     static create(options) {}
 
     /**
-    This is called by [create()]{@link Actor.create} to initialize the actor. In your actor subclass, this is the place to
-    subscribe to or listen for events, or use a future message to start a recurring tick.
-
-    Super.init() calls [set()]{@link Actor#set} to set the actor's initial properties from the options. It also automatically spawns the actor's pawn.
-    The properties are set before the pawn is created.
-    @param {Object} [options] - An object containing the initial properties of the actor.
-    @public
-    @example
-    class MyActor extends Actor {
-        get scale() {return this._scale || 1};
-    }
+    * This is called by [create()]{@link Actor.create} to initialize the actor. In your actor subclass, this is the place to
+    * subscribe to or listen for events, or use a future message to start a recurring tick.
+    *
+    * Super.init() calls [set()]{@link Actor#set} to set the actor's initial properties from the options. It also automatically spawns the actor's pawn.
+    * The properties are set before the pawn is created.
+    * @param {Object} [options] - An object containing the initial properties of the actor.
+    * @public
+    * @example
+    * class MyActor extends Actor {
+    *     get scale() {return this._scale || 1};
+    * }
     */
     init(options) {}
 
@@ -117,19 +117,19 @@
     set(options) {}
 
     /**
-    Publishes an event with its scope set to the actor.id. Both the actor and the pawn can listen for events coming from the actor.
-    @public
-    @param {string} event - The name of the event.
-    @param {Object} [data] - An optional data object.
-    @example
-    this.say("serialNumber", 1234);
-    this.say("newColor", [0.5, 0.5, 0.5]);
-    this.say("updatePrice", {dollars: 2, cents:95});
+    * Publishes an event with its scope set to the actor.id. Both the actor and the pawn can listen for events coming from the actor.
+    * @public
+    * @param {string} event - The name of the event.
+    * @param {Object} [data] - An optional data object.
+    * @example
+    * this.say("serialNumber", 1234);
+    * this.say("newColor", [0.5, 0.5, 0.5]);
+    * this.say("updatePrice", {dollars: 2, cents:95});
     */
     say(event, data) {}
 
     /**
-    Subscribes to an event with its scope set to the actor.id. It the actor listens for an event said by the pawn, the event will be routed
+    Subscribes to an event with its scope set to the actor.id. The actor listens for an event sent by say(), the event will be routed
     through the reflector. The data object from the say method will be passed as an argument to the handler.
     @public
     @param {string} event - The name of the event.
@@ -211,11 +211,11 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     /**
     Publishes an event with its scope set to the actor.id. Both the actor and the pawn can listen for events coming from the pawn.
     *
-    ***Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
-    @public
-    @param {string} event - The name of the event.
-    @param {Object} [data] - An optional data object.
-    @example
+    * **Note:** Events published by the pawn and subscribed to by the actor will be sent via the reflector to every client.
+    * @public
+    * @param {string} event - The name of the event.
+    * @param {Object} [data] - An optional data object.
+    * @example
     *this.say("serialNumber", 1234);
     *this.say("newColor", [0.5, 0.5, 0.5]);
     *this.say("updatePrice", {dollars: 2, cents:95});
@@ -233,15 +233,15 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     listen(event, handler) {}
 
     /**
-    Subscribes to an event with its scope set to the actor.id. The event handler will be called immediately when the event is published.
-    The data object from the say method will be passed as an argument to the handler.
-
-    **Note:** With a normal [listen()]{@link Pawn#listen}, events coming from the actor are queued until all simulation has finished. However if a
-    pawn needs to override this default behavior, use listenImmediate() instead. This doesn't make things run any faster, but may be necessary in
-    rare cases where an event triggers listening to or ignoring other events.
-    @public
-    @param {string} event - The name of the event.
-    @param {function} handler - The event handler (must be a method of this).
+    * Subscribes to an event with its scope set to the actor.id. The event handler will be called immediately when the event is published.
+    * The data object from the say method will be passed as an argument to the handler.
+    *
+    * **Note:** With a normal [listen()]{@link Pawn#listen}, events coming from the actor are queued until all simulation has finished. However if a
+    * pawn needs to override this default behavior, use listenImmediate() instead. This doesn't make things run any faster, but may be necessary in
+    * rare cases where an event triggers listening to or ignoring other events.
+    * @public
+    * @param {string} event - The name of the event.
+    * @param {function} handler - The event handler (must be a method of this).
     */
     listenImmediate(event, handler) {}
 
@@ -251,11 +251,11 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     are sent from the actor to the pawn during the same frame update, listenOnce() will only respond to the final one.
     *
     * You should use listenOnce whenever a new event completely overrides a previous one. For example, when a snapshot loads, the model fast-forwards
-    through a sequence of cached events to bring itself in synch with the other clients. However, there's no need for the view to process all
-    these events; in most cases just acting on the final update is sufficient. Using listenOnce will greatly speed up the synch process.
-    @public
-    @param {string} event - The name of the event.
-    @param {function} handler - The event handler (must be a method of this).
+    * through a sequence of cached events to bring itself in synch with the other clients. However, there's no need for the view to process all
+    * these events; in most cases just acting on the final update is sufficient. Using listenOnce will greatly speed up the synch process.
+    * @public
+    * @param {string} event - The name of the event.
+    * @param {function} handler - The event handler (must be a method of this).
     */
     listenOnce(event, handler) {}
 
@@ -283,7 +283,7 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
      * You should overload this in your model root to instantiate only the services you need.
      *
      * **Note:** Array entries can be either the name of a service, or an object containing
-     * the name or the service plus options to be passed to it when it's instantiated.
+     * the name of the service plus options to be passed to it when it's instantiated.
      * @public
      * @returns {ModelService[]}
      * @example
@@ -416,7 +416,7 @@ class ViewService {
  class WorldcoreModel {
 
     /**
-    Returns a pointer to the named ModelService.
+    Returns a pointer to the named model service.
     @param {string} name - The public name of the model service.
     @returns {ModelService}
     @public
