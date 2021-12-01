@@ -1,4 +1,4 @@
-Worldcore is an entity-management system that sits on top of Croquet. It makes it easier to wrangle large numbers of 3d objects in a multiuser app.
+Worldcore is an entity-management system that sits on top of Croquet. It makes it easier to wrangle large numbers of 3D objects in a multiuser app.
 
 For example, suppose you want to create a multiplayer virtual world with player-controlled avatars, AI characters, and other dynamic entities. You could build it directly on top of Croquet, but that would require a significant amount boilerplate code to ensure that every object in the model is correctly represented in the view.
 
