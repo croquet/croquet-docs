@@ -17,7 +17,7 @@
     "mainpagetitle": "Croquet Worldcore @CROQUET_VERSION@ Overview",
     "theme_opts": {
         "theme": "light",
-        "subpackages": ["audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
+        "subpackages": ["audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],
         "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
     }
   },

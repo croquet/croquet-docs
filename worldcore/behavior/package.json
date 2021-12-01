@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-worldcore-behavior",
-  "version": "0.5.0",
+  "version": "1.0.3",
   "description": "Croquet Worldcore Behavior Documentation",
   "scripts": {
     "start": "npx npm-watch",

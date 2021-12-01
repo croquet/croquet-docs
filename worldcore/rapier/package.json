@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-worldcore-rapier",
-  "version": "0.5.0",
+  "version": "1.0.3",
   "description": "Croquet Worldcore Rapier Documentation",
   "scripts": {
     "start": "npx npm-watch",

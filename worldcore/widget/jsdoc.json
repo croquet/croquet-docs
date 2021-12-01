@@ -14,7 +14,7 @@
     "destination": "../../build/worldcore/widget",
     "mainpagetitle": "Croquet Worldcore Widget Overview",
     "theme_opts": {
-        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
+        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],
         "theme": "light",
         "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
     }
