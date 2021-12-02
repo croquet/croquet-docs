@@ -1,7 +1,7 @@
 /**
  * The Rapier physics manager is a model-side service with the public name "RapierPhysicsManager".
  * It creates a Rapier world to manage a physics simulation using Worldcore objects. Actors can add
- * the {@link PM_RapierPhysics} mixin to give them access to the simulation. Objects in the simulation
+ * the {@link AM_RapierPhysics} mixin to give them access to the simulation. Objects in the simulation
  * will automatically have their physics state synched and snapshotted.
  *
  * When it's created, the physic manager can be passed an options object containing the gravity vector in
