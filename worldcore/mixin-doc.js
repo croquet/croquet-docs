@@ -567,7 +567,7 @@ class AM_Tree {
     * by events from the avatar's pawn.
     * @public
     * @public
-    * @default 15
+    * @default [0,0,0,1]
     * @type {number[]}
     */
    get spin() {}
