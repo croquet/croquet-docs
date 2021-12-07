@@ -11,8 +11,8 @@ body {
 }
 
 body {
-    font-family: 'body';
     font-size: 16px;
+    font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     position: relative;
 }
@@ -23,7 +23,6 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'heading';
     font-weight: 400;
     margin: 1rem;
 }
@@ -120,11 +119,11 @@ ol.linenums li {
 }
 
 .signature {
-    font-family: 'code';
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
 }
 
 .name {
-    font-family: 'code';
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
     font-size: 110%;
     font-weight: bold;
 }
@@ -297,7 +296,7 @@ table {
 .params .name,
 .props .name,
 .name code {
-    font-family: 'code';
+    font-family: monospace;
     font-size: 100%;
 }
 
@@ -350,13 +349,13 @@ dl.param-type {
 }
 
 .param-type dd {
-    font-family: 'code';
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
     font-size: 80%;
 }
 
 code {
     border-radius: 0.3rem;
-    font-family: 'code';
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
     font-size: 0.8rem;
     padding: 0.1rem 0.4rem;
 }
