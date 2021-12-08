@@ -25,7 +25,7 @@
  * Provides a pawn with an interface to the [Three.js renderer]{@link ThreeRenderManager}. Visible pawns should set their three.js render objects
  * when they are created. The three.js render object will then automatically track the pawn's position within the scene.
  *
- * **Note:** In order to work properly the `PM_Visible` mixin should be combined with {@link PM_Spatial} or
+ * **Note:** In order to work properly the `PM_ThreeVisible` mixin should be combined with {@link PM_Spatial} or
  * one of its descendants. Listens to {@link event:viewGlobalChanged} to update the transform in the
  * draw call.
  *
