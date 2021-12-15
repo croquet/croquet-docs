@@ -10,6 +10,7 @@
   "opts": {
     "access": ["public"],
     "template": "../clean-jsdoc-theme",
+    "tutorials": "./tutorials",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
