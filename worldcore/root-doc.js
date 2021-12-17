@@ -176,11 +176,6 @@ handles simulation. Actors are synchronized across all clients, but pawns are no
     create any subscriptions that the pawn will need.
 
     **Warning:** Never instantiate or destroy a pawn directly.
-
-    **Note:** An actor's pawn is spawned immediately when its actor is instantiated. So any events published in the actors' [init()]{@link Actor#init} will be
-    received by the pawn as long as you subscribe to them in the pawn's constructor. However, when an actor is loaded from snapshot, its init() is not
-    called, and those messages will not be resent. When initializing a pawn, it's better to pull the information you need directly from the
-    actor itself using [this.actor]{@link Pawn#actor}, rather than relying on events.
     @public
     @example
     class MyPawn extends Pawn {
