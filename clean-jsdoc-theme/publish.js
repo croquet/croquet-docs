@@ -510,15 +510,8 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                  */
                 var accordionClassName = (methods.length) ? '"accordion collapsed child"' : '"accordion-list"';
 
-                /**
-                 * Id give to accordion.
-                 */
-                var accordionId = (methods.length) ? Math.floor(Math.random() * 10000000) : '""';
-
                 itemsNav += '<li class=' +
                     accordionClassName +
-                    ' id=' +
-                    accordionId +
                     '>';
 
                 var linkTitle = linktoFn(item.longname, item.name.replace(/^module:/, ''));
@@ -569,9 +562,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         });
 
         if (itemsNav !== '') {
-            nav += '<div class="accordion collapsed" id="' +
-                Math.floor(Math.random() * 10000000) +
-                '" > <h3 class="accordion-heading">' +
+            nav += '<div class="accordion collapsed"> <h3 class="accordion-heading">' +
                 itemHeading + '<svg><use xlink:href="#down-icon"></use></svg>' +
                 '</h3><ul class="accordion-content">' +
                 itemsNav +
