@@ -1,6 +1,9 @@
 #!/bin/sh
 cd `dirname "$0"`
 
+PACKAGES="$@"
+[ -z "$PACKAGES" ] && PACKAGES="croquet croquet-react virtual-dom worldcore"
+
 [ -x node_modules/.bin/jsdoc ] || npm ci
 
 rm -rf ./build; mkdir ./build
@@ -9,7 +12,7 @@ rm -rf ./build; mkdir ./build
 # in docs
 cp -rp ./clean-jsdoc-theme/static/ ./build/
 
-for i in croquet croquet-react virtual-dom worldcore
+for i in $PACKAGES
 do
     VERSION=$(node -p -e "require('./"${i}/package.json"').version")
     MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
