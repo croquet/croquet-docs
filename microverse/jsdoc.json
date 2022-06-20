@@ -34,7 +34,10 @@
       "includeDate": false,
       "useLongnameInNav": true,
       "staticFiles": {
-        "includePattern": "\\.(png|jpg)$"
+        "include": [
+          "tutorials"
+        ],
+        "includePattern": "\\.(png|jpg|svg)$"
       }
     }
   }

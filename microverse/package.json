@@ -13,7 +13,7 @@
         "./QuickStart.md",
         "./card.js",
         "./avatar.js",
-        "./tutorials/*",
+        "./tutorials/**/*",
         "./jsdoc.json"
       ],
       "ignore": [

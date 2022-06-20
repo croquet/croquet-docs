@@ -1,14 +1,8 @@
-# Croquet Microverse Builder
-## Tutorial
+# Croquet Microverse Tutorial
 
-Microverse Alpha
+[https://croquet.io](https://croquet.io)
 
-**Copyright (c) 2022 Croquet Corporation**
-
-<https://croquet.io>
-
-<info@croquet.io>
-
+<!---
 ## TO BE DONE
 1. Discuss Actor/Pawn development model
 2. xTutorial 2 - construct a 3D model world
@@ -18,18 +12,19 @@ Microverse Alpha
 6. xTutorial 6 - live data visualization
 7. xTutorial 7 - external data stream
 8. Card Properties
+-->
 
 ## Introduction
 
 The Croquet Microverse is a browser-based 3D shared experience platform and OS. It includes the ability to collaboratively create 2D and 3D multi-user experiences. It runs on PCs, mobile devices including tablets and smartphones, and AR/VR devices.
 
-This guide will enable you to quickly set up Croquet Microverse Builder and introduce you to a number of key concepts that you will need to know to create your own worlds and apps within those worlds. Not only is it easy to do this, it is incredibly fun and rewarding.
+This guide will enable you to quickly set up Croquet Microverse and introduce you to a number of key concepts that you will need to know to create your own worlds and apps within those worlds. Not only is it easy to do this, it is incredibly fun and rewarding.
 
 ## TLDR
-1. Clone the GitHub repository <https://github.com/croquet/microverse>
+1. Clone the GitHub repository https://github.com/croquet/microverse
     <br>(`git clone https://github.com/croquet/microverse`)
-2. Obtain your Croquet API Key <https://croquet.io/keys/>
-3. Open a terminal and set the path to your new Microverse-Builder folder.
+2. Obtain your Croquet API Key https://croquet.io/keys/
+3. Open a terminal and set the path to your new Microverse folder.
    <br>`cd microverse`
 4. Create the apiKey.js file from apiKey.js-example and the API Key above.
    <br>`cp apiKey.js-example apiKey.js # and edit apiKey.js`
@@ -51,9 +46,9 @@ Open browser at `localhost:9684` and enter a new world.
 ## Croquet Microverse
 ---
 
-Croquet Microverse Builder is a multi-user development and deployment system built on top of the Croquet Web-based operating system. This document will get you started creating your own microverses that you can deploy anywhere you like.
+Croquet Microverse is a multi-user development and deployment system built on top of the Croquet Web-based operating system. This document will get you started creating your own microverses that you can deploy anywhere you like.
 
-The Microverse Builder IDE can be integrated directly with the tools you are already familiar with, particularly with your own editor. This enables you to directly work with and modify a live, shared Croquet Microverse session.
+Croquet Microverse can be integrated directly with the tools you are already familiar with, particularly with your own editor. This enables you to directly work with and modify a live, shared Croquet Microverse session.
 
 ## Croquet OS
 ---
@@ -66,7 +61,7 @@ The Croquet OS is a software system for creating and deploying multiuser experie
 ---
 
 ### Croquet.io
-<https://croquet.io/> is the best place to get started with what Croquet Microverse is and what it can do.
+[https://croquet.io/](https://croquet.io) is the best place to get started with what Croquet Microverse is and what it can do.
 
 ### Discord
 
@@ -77,14 +72,14 @@ The best resource for help in developing Croquet Microverse worlds is on our Dis
 
 ### 1. Clone the GitHub Repository
 
-You can find the most up to date Croquet Microverse library as well as this document in the Microverse-Builder GitHub repository. Cloning this repository will give you almost everything you will need to get started creating your own Croquet Microverse.
-<https://github.com/croquet/microverse>
+You can find the most up to date Croquet Microverse library as well as this document in the [Microverse GitHub repository]([https://github.com/croquet/microverse]). Cloning this repository will give you almost everything you will need to get started creating your own Croquet Microverse.
+[https://github.com/croquet/microverse](https://github.com/croquet/microverse)
 
 ---
 ### 2. Obtain your API Key
 
 Developing any Croquet application requires an API key that you can obtain from Croquet. It requires you to sign up as a developer to access this. You can sign up as a Croquet developer here:
-<https://croquet.io/developers/index.html>
+[https://croquet.io/keys](https://croquet.io/keys)
 
 Select the [Create one here](https://croquet.io/keys/) link in the top left to create a Croquet account to get started. Once you have done that, your first key is immediately generated and you will soon be ready to go.
 
@@ -125,7 +120,7 @@ You should see something similar to this:
 
 ![Croquet Console](./assets/console.png)
 
-Not only have you completed installation of Croquet Microverse Builder, but you can run it right now to give it a try. Open your web browser and type in:
+Not only have you completed installation of Croquet Microverse, but you can run it right now to give it a try. Open your web browser and type in:
 
 `localhost:9684`
 
@@ -138,7 +133,7 @@ Your new Microverse awaits...
 ### 5. The Watch Server
 The watch server enables you to edit code from your own IDE and have it injected and run inside the Croquet Microverse while it is running without the need to reload. The watch server is automatically launched when execute `npm start`. You can start the watch server on its own by running `npm run watch-server`. The watch-server by default starts watching the directory called `behaviors`. If you want to create a separate set of behavior files in a different directory, you supply an argument to the watch-server by `npm run watch-server -- aDirectory`.
 
-You can try out the live IDE now with the default world. Simply run `localhost:9684`. Once it is launched you will see a menu icon in the bottom left hand corner. Select this and you will see a large QR code underneath which is are three menu items. `Save` and `Load` allow you to save the entire state of the world in a VRSE file (try it) and then load it back into an empty world.
+You can try out the live IDE now with the default world. Simply run `localhost:9684`. Once it is launched you will see a menu icon in the top right corner. Select this and you will see a large QR code underneath which is are three menu items. `Save` and `Load` allow you to save the entire state of the world in a VRSE file (try it) and then load it back into an empty world.
 
 ![Microverse Menu](./assets/MicroverseMenu.png)
 
@@ -156,11 +151,13 @@ You can add a new file in the "worlds" directory (copying default.js or test.js 
 
 ## Worlds, Cards and Behaviors
 ---
-A Croquet World is deployed as a simple website. It is made up of a collection of cards, behaviors and 2d and 3d content. When you create a new world using Croquet Microverse Builder, every action, object and event is multiuser by default. You can think of the world you are constructing as a template. Once you deploy your Microverse and launch it, it will automatically generate a new session ID which is also added to the URL. Sharing this full URL enables other users to join the world with you any time.
+A Croquet World is deployed as a simple website. It is made up of a collection of cards, behaviors and 2d and 3d content. When you create a new world using Croquet Microverse, every action, object and event is multiuser by default. You can think of the world you are constructing as a template. Once you deploy your Microverse and launch it, it will automatically generate a new session ID which is also added to the URL. Sharing this full URL enables other users to join the world with you any time.
 
 ### Cards
 
-Every visible object in a Microverse is a kind of card. Some cards are flat like normal cards, and some are 3D models. We call them cards because the majority of the applications and interface objects will be flat. Also, we were inspired by Bill Atkinson's Hypercard, which demonstrated a new way of creating powerful applications. All cards are composable in that the developer can create decks made up of multiple cards that can interoperate with each other. The cards in this deck can communicate with each other using a simple publish/subscribe model call "sayDeck" and "listenDeck".
+Every visible object in a Microverse is a kind of card. Some cards are flat like normal cards, and some are 3D models. We call them cards because the majority of the applications and interface objects will be flat. Also, we were inspired by Bill Atkinson's Hypercard, which demonstrated a new way of creating powerful applications.
+
+<!--- All cards are composable in that the developer can create decks made up of multiple cards that can interoperate with each other. The cards in this deck can communicate with each other using a simple publish/subscribe model call "sayDeck" and "listenDeck". -->
 
 Cards can have virtually any shape. As a simple example, you can define a card using a regular SVG shape. The resulting card may be flat or can be extruded - depending on the depth property.
 
@@ -170,7 +167,7 @@ Cards can manage events - users can interact with them or their leaves. For exam
 
 2D cards can have canvases. A canvas on a 2D card can itself be implemented as a full application. The canvas is texture mapped onto the card. When a user interacts with a canvas, it is via a card which forwards the event to the canvas.
 
-A collection of cards and surfaces with a common root card define a Deck. Cards and surfaces within a deck can communicate with each other via sayDeck/listenDeck messages.
+<!--- A collection of cards and surfaces with a common root card define a Deck. Cards and surfaces within a deck can communicate with each other via sayDeck/listenDeck messages. -->
 
 ### Layers
 
@@ -214,11 +211,12 @@ The [Croquet Worldcore framework](https://croquet.io/docs/worldcore/) defines th
 
 Croquet Microverse utilizes the [Rapier Physics Engine](https://rapier.rs/). Written in Rust and running in WebAssembly, Rapier is an open source, very high-performance but easy to create multiuser, interactive physics simulations.
 
-
-
 ## Constructing New Worlds
 
 The following tutorials will provide a great start to creating your own living Microverse. Let's get started.
 
-* [Tutorial1.md](./Tutorial1.md)
-* [Tutorial2.md](./Tutorial2.md)
+* [Tutorial1](./Tutorial1.md)
+* [Tutorial2](./Tutorial2.md)
+
+**Copyright (c) 2022 Croquet Corporation**
+
