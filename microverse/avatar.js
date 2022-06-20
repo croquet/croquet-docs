@@ -5,6 +5,14 @@ The base actor class of the avatar is called AvatarActor, and the base pawn clas
 
 Other participants' avatars shown in the session are also cards. However, typically the card for an avatar is not on the "pointer" layer so usually you cannot drag it around or get the property sheet.
 
+Microverse uses the vector types defined in the Worldcore library. Those vectors are actually simple JavaScript Array. In the description below, the representation of `Vector3` and `Quatanion` are:
+
+`type Vector3 = [<number>, <number, <number>]`
+
+`type Quaternion = [<number>, <number, <number>, <number>]`
+
+*/
+
 /**
 AvatarActor implements the model-side features of the avatar.
 
@@ -50,8 +58,6 @@ Typically you would set lookPitch and lookYaw at the same time:
     get lookYaw() {}
 
     /**
-`type Vector3 = Array<number, number, number>`
-
 The offset in 3D coordinates between avatar's position and the camera's position. A typical third person view behind the avatar has [0, p, p], where p is a positive number.
 
 @public
@@ -61,10 +67,6 @@ The offset in 3D coordinates between avatar's position and the camera's position
     get lookOffset() {}
 
     /**
-`type Vector3 = Array<number, number, number>`
-
-`type Quaternion = Array<number, number, number, number>`
-
 Glide to the specified position and rotation in the global coordinate. The fall flag specifies whether the avatar should start falling to the ground or not.
 
 @public
@@ -93,13 +95,9 @@ the last `say` line notifies the pawn to update the display.
     goHome() {}
 
     /**
-`type Vector3 = Array<number, number, number>`
-
-`type Quaternion = Array<number, number, number, number>`
-
-`type Pose = {translation: Vector3, rotation: Quaternion}`
-
 This method computes the position and rotation in front of the avatar at specified distance. The optional `optOffset` is added to the result in the reference frame of the avatar.
+
+The function returns an object with two properties `{translation: Vector3, rotation: Quaternion}`.
 
 @public
 @param {Vector3} distance - the distance from the avatar's position
@@ -120,8 +118,6 @@ AvatarPawn is the view-side implementation of Avatar for the local AvatarActor. 
 
 class AvatarPawn {
     /**
-`type Vector3 = Array<number, number, number>`
-
 Sets the coressponding actor's look configurations by publishing an event to the actor.
 
 @public
