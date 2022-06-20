@@ -12,6 +12,7 @@
       "patterns": [
         "./QuickStart.md",
         "./card.js",
+        "./avatar.js",
         "./tutorials/*",
         "./jsdoc.json"
       ],

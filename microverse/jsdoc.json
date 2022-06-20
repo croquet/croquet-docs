@@ -2,7 +2,8 @@
   "source": {
     "include": [
         "./QuickStart.md",
-        "./card.js"
+        "./card.js",
+        "./avatar.js"
     ]
   },
   "opts": {
