@@ -1,10 +1,8 @@
-This is the third in a series of tutorials illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
+This is the second in a series of tutorials illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
 
 **This tutorial shows how to create user interface elements, and create avatars that only respond to one user's input.**
 
-The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. The bundler used for this CodeSandBox is `parcel`, but `@croquet/worldcore` is bundler-agnostic.
-
-*sandbox here*
+The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. Please clone the [Worldcore github repository](https://github.com/croquet/worldcore) and visit the `tutorial/tutorial3` directory.
 
 This actor is extended with the `Avatar` and `Player` mixins. Avatar supports speculative execution by the actor's pawn, which makes user-controlled actors more responsive. Player allows an instance of the actor to be automatically spawned by the PlayerManager when a new user joins.
 
