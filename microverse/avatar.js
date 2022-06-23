@@ -147,14 +147,32 @@ Sets the coressponding actor's look configurations by publishing an event to the
     gotHome() {}
 }
 
+/**
+AvatarEventHandler Behavior Module
 
+The Microverse system automatically attaches a behavior module named `AvatarEventHandler` to the Avatar. Its default implementation is stored in `behaviors/croquet/avatarEvents.js`, and you can override the default behavior by supplying a behavior module with the same name. Currently, you need to explicitly override the system modules list with a list without default `avatarEvents.js`
 
+```JavaScript
+Constants.SystemBehaviorDirectory = "behaviors/croquet";
+Constants.SystemBehaviorModules = [
+    "elected.js", ... // exclude "avatarEvents.js"
+];
+```
 
+and then add your own behavior module file that exports a module named `AvatarEventHandler`:
 
+```JavaScript
+Constants.UserBehaviorDirectory = "behaviors/myWorld";
+Constants.UserBehaviorModules = [
+    "avatar.js", ...
+];
+```
 
+Currently the default implementation of the basic actions are still implemented at the `AvatarActor` and `AvatarPawn` in `src/avatar.js`. This mechanism give you flexibility to override some methods to customize the avatar's behavior.
 
-    
+@public
+@hideconstructor
+*/
 
-
-
-
+class AvatarEventHandler {
+}
