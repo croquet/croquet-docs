@@ -1,12 +1,10 @@
-This is the fourth in a series of tutorials illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
+This is the third in a series of tutorials illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
 
 **This tutorial shows how to use THREE.js as your renderer, and how to create a first-person avatar that is driven by mouselook.**
 
 *(Note that because this tutorial assumes the existence of a mouse for navigation control, it won't be fully functional on a touch device.)*
 
-The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. The bundler used for this CodeSandBox is `parcel`, but `@croquet/worldcore` is bundler-agnostic.
-
-*sandbox here*
+The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. Please clone the [Worldcore github repository](https://github.com/croquet/worldcore) and visit the `tutorial/tutorial4` directory.
 
 The player actor is extended with the `MouselookAvatar` mixin. It's similar to the regular Avatar mixin, but with some added functionality for controlling a first-person character.
 
