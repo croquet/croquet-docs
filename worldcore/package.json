@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-worldcore",
-  "version": "1.0.7",
+  "version": "1.3.0",
   "description": "Croquet Worldcore Documentation",
   "scripts": {
     "start": "npx npm-watch",

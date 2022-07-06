@@ -1,10 +1,8 @@
-This is the second in a series of tutorials illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
+This is the tutorial following the quick start illustrating how to build a Worldcore app. It assumes that you have familiarity with the basics of the Croquet SDK, and understand the general concepts behind Worldcore. For more inforamation, see croquet.io/docs/croquet and croquet.io/docs/worldcore.
 
 **This tutorial show how to create a hierarchy of dynamic objects and control them using input events.**
 
-The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. The bundler used for this CodeSandBox is `parcel`, but `@croquet/worldcore` is bundler-agnostic.
-
-*sandbox here*
+The tutorials for the `@croquet/worldcore` package makes use of CodeSandbox to show a whole project for each example, with the same structure as your own project would have locally. Please clone the [Worldcore github repository](https://github.com/croquet/worldcore) and visit the `tutorial/tutorial2` directory.
 
 We've extended our actor with the `Smoothed` mixin. Smoothed is derived from Spatial, but it includes the additional methods `moveTo()`, `rotateTo()`, and `scaleTo()`. These methods set the actor's translation, rotation, or scale, but they also tell the actor's pawn to smoothly interpolate from its previous position to its new one.
 
