@@ -272,6 +272,38 @@ This method sets the translation and rotation of the card, making sure that thos
     */
     positionTo(v, q) {}
 
+
+    /**
+This method moves the translation of the card by the specified `[x, y, z]` vector.
+       @public
+       @param {Vector3} v - the translation offset
+    */
+    translateBy(v) {}
+
+    /**
+This method combines the rotation of the card by  the specified by a quaternion (`[x, y, z, w]`).
+       @public
+       @param {Quaternion} q - the additional rotation for the card
+    */
+    rotateBy(q) {}
+
+    /**
+This method multiplies the scale of the card by the specified by scale factors in [x, y, z] axis.
+
+       @public
+       @param {Vector3} s - the scale offset
+    */
+    scaleBy(s) {}
+
+    /**
+A Three.js keyframe based animation is supported. The animation clip can contain multiple tracks. The index specified here dictates which track to play. A cardData called animationStartTime specifiy the base for time offset.
+
+@public
+@param {number} animationClipIndex - the index into animation tracks array
+    */
+
+    setAnimationClipIndex(animationClipIndex) {}
+
     /**
        This method is empty. It is used to have a way to get the tap to focus keyboard events but you don't need to take any particular action on tap.
 

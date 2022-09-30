@@ -29,15 +29,7 @@ The users of your worlds do not need these tools. Microverse worlds are deployed
 
        npm create croquet-microverse
 
-   This will create a ready-to-use folder structure for your project
-3. Paste your API key from [croquet.io/keys](https://croquet.io/keys/) (be sure to select "Microverse") into a file named `apiKey.js`
-
-        /* Copy this into a file named apiKey.js */
-        const apiKey = '123abcd_Get_your_own_key';
-        const appId = 'com.mycompany.myorg.myapp';
-        export default {apiKey, appId};
-
-    You can pick your own `appId` or go with the default shown in the template.
+   This will create a ready-to-use folder structure for your project.
 
 ---
 ## Video Walkthrough
@@ -77,7 +69,7 @@ A Croquet app like Microverse is deployed as a static web app. You do not need a
 
 You can pick your own `appId`. We recommend to make a unique appId.
 
-```JavaScript```
+```JavaScript
         /* Copy this into a file named apiKey.js */
         const apiKey = '123abcd_Get_your_own_key';
         const appId = 'com.mycompany.myorg.myapp';
