@@ -453,6 +453,16 @@ This method removes the event listener that was added. You can call it even when
     say(eventName, data) {}
 
     /**
+       This method returns the AvatarPawn of the local client. Recall that the notion of "my" avatar only exists on the view side. The model side treats all avatars equally, even the one that is associated with the local computer. This is why this method is on the pawn side, and returns the AvatarPawn.
+
+       @public
+       @returns {AvatarPawn} The local AvatarPawn
+    */
+
+    
+    getMyAvatar() {}
+
+    /**
        A pawn behavior may request a method callback when CardPawn's `update()` method is invoked. behaviorName and methodName will be "registered in the pawn, and for each `update()` call, the behavior method is invoked.
 
        *the argument is an array of the behavior name and the method to be called: `type BehaviorMethod = Array<behaviorName, methodName>`.
@@ -460,7 +470,7 @@ This method removes the event listener that was added. You can call it even when
        @public
        @param {BehaviorMethod} array - a two element array with behavior name and method name
     */
-
+       
     addUpdateRequest(array) {}
 
     /**
