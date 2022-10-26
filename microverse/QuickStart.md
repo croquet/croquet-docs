@@ -10,7 +10,7 @@
 ---
 ## Introduction
 
-This guide will enable you to quickly set up your own Croquet Microverse project. Refer to tutorials in the [docs directory](index.md) for its key concepts and features that let you build shared worlds.
+This guide will enable you to quickly set up your own Croquet Microverse project. Refer to tutorials in the [docs directory](index.html) for its key concepts and features that let you build shared worlds.
 
 ### Prerequisites
 
@@ -56,7 +56,7 @@ Copy the Network URL (e.g. `http://192.168.1.145:9684/`) and paste it into your 
 Congratulations!
 
 <p align="center">
-<img src="https://gist.githubusercontent.com/yoshikiohshima/45848af5a19dddbe1ea77f5d238fced0/raw/1b60d234f785e84f31eff3b4385c1dcbeb8831ad/shared-space.jpg" width=640"/>
+<img src="https://gist.githubusercontent.com/yoshikiohshima/45848af5a19dddbe1ea77f5d238fced0/raw/1b60d234f785e84f31eff3b4385c1dcbeb8831ad/shared-space.jpg" width="640"/>
 </p>
 
 ---
@@ -99,7 +99,7 @@ This will update your `package.json` and the installed version of Microverse to 
 ## Resources
 
 ### Documentation
-  - [Microverse](index.md) tutorials etc.
+  - [Microverse](index.html) tutorials etc.
   - [CroquetOS](https://croquet.io/docs/croquet/) the underlying multiplayer OS
   - [WorldCore](https://croquet.io/docs/worldcore) the underlying game engine
 
