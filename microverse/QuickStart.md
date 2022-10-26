@@ -10,7 +10,7 @@
 ---
 ## Introduction
 
-This guide will enable you to quickly set up your own Croquet Microverse project. Refer to tutorials in the [docs directory](index.html) for its key concepts and features that let you build shared worlds.
+This guide will enable you to quickly set up your own Croquet Microverse project. Refer to tutorials in the [docs directory](index.md) for its key concepts and features that let you build shared worlds.
 
 ### Prerequisites
 
@@ -99,7 +99,7 @@ This will update your `package.json` and the installed version of Microverse to 
 ## Resources
 
 ### Documentation
-  - [Microverse](index.html) tutorials etc.
+  - [Microverse](index.md) tutorials etc.
   - [CroquetOS](https://croquet.io/docs/croquet/) the underlying multiplayer OS
   - [WorldCore](https://croquet.io/docs/worldcore) the underlying game engine
 

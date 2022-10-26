@@ -4,7 +4,7 @@
   "description": "Croquet Microverse Documentation",
   "scripts": {
     "start": "npx npm-watch",
-    "build": "../node_modules/.bin/jsdoc -c jsdoc.json",
+    "build": "../node_modules/.bin/jsdoc -c jsdoc.json; ./fix-index-md.sh",
     "watch": "npx npm-watch"
   },
   "watch": {
