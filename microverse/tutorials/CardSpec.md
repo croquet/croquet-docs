@@ -289,7 +289,7 @@ The value is interpreted as URL, fragment of URL, Croquet Data ID or `undefined`
 
 It contains the location of SVG or 3d model data.  It is a URL, either full URL or a relative path from the application, or Croquet Data ID.
 
-If you drag and drop a file to create a card, you can open the Property Sheet by Ctrl+tap, and check the value of dataLocation for its Data ID.
+If you drag and drop a file to create a card, you can open the Property Sheet by ctrl- or alt-click and then click on the property sheet icon to check the value of dataLocation for its Data ID.
 
 ---
 
@@ -458,7 +458,7 @@ URL, fragment of URL, Croquet Data ID or `undefined`
 
 It contains the location of an image data. It is a URL, either full URL or a relative path from the application, or Croquet Data ID.
 
-If you drag and drop an image to create a card, you can open the Property Sheet by Ctrl+tap, and check the value of `textureLocation` for its Data ID.
+If you drag and drop an image to create a card, you can open the Property Sheet by ctrl- or alt-click and then click on the property sheet icon to check the value of textureLocation for its Data ID.
 
 --- 
 
@@ -628,13 +628,28 @@ Specifies the position of the placeholder object.
 
 ### Name
 
+`avatarParts`
+
+### Category
+
+visual
+
+### Type
+boolean|undefined
+
+### Description
+
+The avatar can apply a special visibility treatment for a card that is attached to it; so that objects don't occulude the user's view. The avatarParts flag enables the visibility changes. (e.g., the name tag above the avatar's head has this flag.)
+
+---
+
+### Name
+
 `textScale`
 
 ### Category
 
-```TypeScript
 visual
-```
 
 ### Type
 number|undefined

@@ -1,5 +1,5 @@
 /**
-The "avatar" of Croquet Microverse handles user interaction such as mouse and keyboard. It also manages the "camera" of the 3D scene. The avatar is iamplemented as a special kind of [card](./Card.md). The default listeners for user interaction, such as the WASD key and pointer navigation, Ctrl-Click editting etc. are specified in a behavior module so that you can override them from your behavior. You can also attach some other behaviors to add world-specific features.
+The "avatar" of Croquet Microverse handles user interaction such as mouse and keyboard. It also manages the "camera" of the 3D scene. The avatar is iamplemented as a special kind of [card](./Card.md) so that it inherits all methods and properties from Card classes. The default listeners for user interaction, such as the WASD key and pointer navigation, Ctrl-Click editting etc. are specified in a behavior module so that you can override them from your behavior. You can also attach some other behaviors to add world-specific features.
 
 The base actor class of the avatar is called AvatarActor, and the base pawn class is called AvatarPawn. Because it is a card, its visual appearance is specified in the same way for a 3D model-type card.
 
@@ -279,13 +279,61 @@ Implementing them at the AvatarPawn overrides their actions. Note that the first
     */
 
     pointerDown(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerUp(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerMove(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerMove(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerTap(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerWheel(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     pointerDoubleDown(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     keyDown(evt) {}
+
+    /**
+@public
+@param {Event} evt - the p3e event from Pointer.
+    */
+
     keyUp(evt) {}
 
 
