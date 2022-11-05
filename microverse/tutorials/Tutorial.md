@@ -24,7 +24,7 @@ This guide will enable you to quickly set up Croquet Microverse and introduce yo
 
 1. Run a create npm command in an empty directory.
 
-    `npm create croquet-microverse`
+    `npm create croquet-microverse@latest`
 
     If you want to develop the core system, clone the GitHub repository https://github.com/croquet/microverse . 
 
@@ -79,7 +79,7 @@ The best resource for help in developing Croquet Microverse worlds is on our Dis
 
 To start developing your world based on a stable release, you can run in an empty directory (let us called it `microverse`) and run:
 
-    npm create croquet-microverse
+    npm create croquet-microverse@latest
 
 in the directory.
 
@@ -110,7 +110,7 @@ Your new Microverse awaits. If you start from the GitHub repo, you will more int
 ### 5. The Watch Server
 The watch server enables you to edit code from your own text editor and have it injected and run inside the Croquet Microverse while it is running without the need to reload. The watch server is automatically launched when execute `npm start`. You can start the watch server on its own by running `npm run watch-server`. The watch-server by default starts watching the directory called `behaviors/croquet` for system behaviors and a directory specified in the world file, typically `behaviors/default` or another sub directory under `behaviors`.
 
-You can try out the live text editor integration with the default world at  `http://localhost:9684`. You will see a menu icon in the top right corner. Select this and you will see a large QR code and a few other menu items.
+You can try out the live text editor integration with the default world at `http://localhost:9684`. You will see a menu icon in the top right corner. Select this and you will see a large QR code and a few other menu items.
 
 ![Microverse Menu](./assets/MicroverseMenu.png)
 
@@ -120,11 +120,13 @@ The `Connect` item connects your session to the watch-server that is running loc
 
 Of course you can modify the actual executable dynamically as well. This makes development within Microverse amazingly smooth and fun.
 
+Your computer may have a firewall, such as Windows Defender, that blocks an access to port 9011 even when accessed from the computer itself. If that is the case, you need to allow to TCP port 9011 from the local computer.
+
 #### Edit or add a new files
 You can easily add a new file in the watched directory (by default `behaviors/default` or your own behaviors directory), and if the file follows the standard behavior structure, the behavior modules written in it will be automatically available.
 
 ### 6. Make Your Own New World
-You can add a new file in the "worlds" directory (copying default.js or test.js is an easy way). If you start microverse with ?world=worldFileName, the file at `worlds/worldFileName.js` is used to start the world. If you started with `create croquet-microverse`, editing `default.js` is just fine.
+You can add a new file in the "worlds" directory (copying default.js or test.js is an easy way). If you start microverse with ?world=worldFileName, the file at `worlds/worldFileName.js` is used to start the world. If you started with `npm create croquet-microverse@latest`, editing `default.js` is just fine.
 
 ## Worlds, Cards and Behaviors
 ---

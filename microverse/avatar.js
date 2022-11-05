@@ -260,18 +260,6 @@ This method specifies the global camera position. The implementation can use var
 
     /**
 
-This method receives the time and "delta", which is the elapsed time since last display animation frame time, and the proposed "pose" of the avtar based on the user interaction. The default implementation moves the proposed position based on the BVH collision detection and testing the edge of the walkable terrain and returns another pose. You can override the movement by supplying the walk method at your AvatarPawn behavior. (Its details is somewhat implementation dependent so please consult the actual source code.)
-    
-@public
-@param {number} time - the animation frame time
-@param {number} delta - the difference from the last animation frame time
-@param {Object} vq - an object with the v property for proposed next position and q property for proposed next rotation
-    */
-
-    walk(time, delta, vq) {}
-
-    /**
-
 Implementing them at the AvatarPawn overrides their actions. Note that the first responder and last responder mechanism is involved so some methods expects certain patterns. In general, you can simply copy the default implementation in `src/avatar.js` into your own behavior file as ther starting point for your own custom implementation.
     
 @public
