@@ -1,0 +1,25 @@
+{
+  "name": "croquet-doc-showcase",
+  "version": "0.1.1",
+  "description": "Croquet Metabase Web Showcase Documentation",
+  "scripts": {
+    "start": "npx npm-watch",
+    "build": "../node_modules/.bin/jsdoc -c jsdoc.json",
+    "watch": "npx npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "./ShowcaseSpec.md",
+        "./jsdoc.json"
+      ],
+      "ignore": [
+        "build"
+      ],
+      "extensions": "js,json,html,css,tmpl,md",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Corporation",
+  "license": "Apache-2.0"
+}

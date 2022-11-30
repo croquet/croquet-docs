@@ -97,7 +97,7 @@ The template you download from https://croquet.io/keys should look like this:
 
 The actual work is done by the `load` function with the single argument of an object defining the properties required to construct your world. The properties are listed below:
 
-### showcase: "string"
+### showcase:string
 
 This field specifies which showcase world to be used. Currently only "gallery" is supported. The gallery model looks like an art gallery shown below.
 
