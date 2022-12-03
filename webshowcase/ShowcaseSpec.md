@@ -2,60 +2,94 @@
 
 [https://croquet.io](https://croquet.io)
 
-## Introduction
+## TL;DR
+[Access your unique Web Showcase via this link.](https://croquet.io/webshowcase/index.html) Keep reading to learn more about Web Showcase and how to customize it.
 
+## Introduction
+Currently, developers download the Microverse platform and work with the entire thing - our goal is to move all of this development - internal and external - into live behavior programming. The development process then becomes more of a drag and drop and associate behaviors. Developers are able to use an external IDE like Visual Studio Code to modify behaviors even while the system is running. We have been moving more and more of the Microverse components into that model. 
 Your site, your content, your world.
 
-Welcome to the ***Croquet Metaverse Web Showcase***. A Showcase is a 3D world populated by your images, documents and videos - extending your website experience in a dramatically new way. Your website becomes a place to share and discuss your business live with your customers - even enabling them to invite their colleagues to dynamically join the conversation in your world.  
+Welcome to the ***Croquet Metaverse Web Showcase***.
 
-This guide will enable you to quickly create and populate a Showcase world and then embed it directly into your own website with almost no programming required. 
+It's a 3D world you can populate with your own images, documents and videos - extending your web experience in a dramatic new way. Your website becomes a place to share and discuss your business live with your customers - even enabling them to invite their colleagues to dynamically join the conversation in your world.
 
-If you need help setting this up for the first time, please connect with us at support@croquet.io and we will be happy to step you through the process ... but read this document first.
+ Croquet Metaverse Web Showcase includes high-quality Dolby&reg; spatial voice audio enabling remarkably clear and life-like conversations.
 
-## Steps Toward Creating Your Own Showcase
+This guide will teach you how to quickly create and populate a Web Showcase world and then embed it directly into your own website with almost no programming.
 
-### Step 1 - Enter Your Email
+After reading this document, if you need help setting up your Web Showcase, connect with us at [support@croquet.io](mailto:support@croquet.io) and we will be happy to step you through the process.
 
-Simple.
-Go to https://croquet.io/webshowcase/index.html.
+## Building Your Web Showcase
+**Complexity:** ★☆☆☆☆
 
-This link is where you can enter your name and your email address. Once you do that, you will recieve an email with a link that will allow you to access your personal Showcase HTML template code that you will use to build your website experience. 
+**Estimated Time to Completion:** 20 minutes
 
-### Step 2 - Get Your Code - Launch Your Showcase
+### Create an Account
 
-The link in your email will take you to the page with your Showcase template code. This includes your personal API key. This code can be used to immediately create a fully working 3D Showcase. 
+1. Visit [the Web Showcase landing page on Croquet.io](https://croquet.io/webshowcase/index.html).
+2. Submit your name and email address.
+3. Check your email account for a unique link to your Developer Portal, which contains your personalized Web Showcase HTML template code.
 
-Simply hit the "Copy to Clipboard" button, open a text editor or IDE and paste your HTML code into a new text file. If you save this file into the directory of your website as ***"showcase.html"***, you can immediately test your new Showcase by simply linking directly to it from your browser.
+_A Croquet developer account is required to create a Web Showcase. Croquet will never share your personal information or send you unsolicited email. Usage of your personal data is governed by [the Croquet Privacy Policy](https://croquet.io/privacy.html)._
 
-### Step 3 - Customize Your World
+### Download Your Web Showcase
+1. On the Croquet Developer Portal's "Web Showcase" tab, click the "Download" button.
 
-Your showcase includes the ability for you to place your own documents, videos and images as well as enable high quality Dolby&reg; spatial voice chat to engage your customers. 
+<p align="center">
+<img src="./assets/WebShowcaseDownload.png" width="800"/>
+</p>
 
-In just the same way that you placed your showcase.html file into your web directory, you can also place the content you wish to display. You can then replace the content references in your showcase file with your own content. 
+This Web Showcase HTML file already contains your public Croquet API key.
+
+If you wanted to, you could host this `webshowcase.html` file directly on your Web server and view it that way.
+
+### Customize Your Showcase
+
+Within your Showcase, you can place your images, videos, and documents by modifying `webshowcase.html`.
+
+1. Open `webshowcase.html` in your favorite text editor.
+
+2. Modify the `cards: []` array with links to your own content.
 
 Showcase supports three content types:
 - Images, which can include links to other pages:
 <br>```{place: 1, type: "image", path: "./CallToAction.png", urlLink: "https://yoursite.com"},```
-- PDF documents - fully scrollable and synchronized for all users in that showcase:
+- PDF documents, whose scroll state is synchronized among all session participants:
 <br>```{place: 2, type: "pdf", path: "./CompanyDeck.pdf"},```
-- Synchronized videos. 
-<br>```{place: 1, type: "video", path: "./CustomerVideo.mov",```
+    - Large PDF files may impact performance on some devices.
+- Videos with the `.mov` or `.mp4` extension. Video playback state and position are synchronized among all session participants:
+<br>```{place: 3, type: "video", path: "./CustomerVideo.mov",```
+    - Large, high-resolution video files may impact performance on some devices.
 
-Working examples of each of these are already in the code snippet.
+### Embed Your Showcase on _Your_ Site
 
-***WARNING:*** Very large PDF files and videos can degrade your visitors experience and may not even work properly on some devices. It is best to keep these both relatively small and short.
+After you upload `webshowcase.html` to your Web server, you and your customers can access your Showcase via a link to that document directly.
 
-### Step 4: - Embed Your Showcase in YOUR Site
-As an example, if you named your Showcase HTML file ***showcase.html*** you can embed it into your main page using an iFrame:
+You can also embed your Showcase within existing pages on your site using an `<iframe>` with the `src` parameter set to `webshowcase.html`. For example:
 
 ```HTML
-   <iframe width=1024 height=768 src="./showcase.html"/>
+   <iframe width="640" height="360" src="webshowcase.html" />
 ```
 
-## Customizing Web Showcase
-The Metaverse Web Showcase is a free low code, configurable Metaverse world you can customize with presentations, video testimonials, customer logos, calls to action and more. 
+### Done
 
-If you wish to expand the Showcase world, further customize it or add and create new features you can do so with ***Croquet Microverse World Builder***. Microverse is an open source development environment available now on GitHub at https://github.com/croquet/microverse. It enables developers to freely customize and extend any Metaverse project. Accounts using World Builder are subject to Croquet OS licensing and usage fees, which include 10,000 free user minutes per month.
+Welcome to the Metaverse. You can invite customers to your Showcase using the invite menu item.
+
+<p align="center">
+<img src="./assets/WebShowcaseInvite.png" width="800"/>
+</p>
+
+If you'd like to learn more about Croquet, or how to further customize your Showcase, continue reading.
+
+-----
+
+## Customizing Web Showcase
+
+The Metaverse Web Showcase is a free low code, configurable Metaverse world you can customize with presentations, video testimonials, customer logos, calls to action and more.
+
+If you wish to expand beyond your free Showcase world, further customize it or add and create new features you can do so with ***Croquet Microverse World Builder***.
+
+Microverse is an open source development environment available now on GitHub at https://github.com/croquet/microverse. It enables developers to freely customize and extend any Metaverse project. Accounts using World Builder are subject to Croquet OS licensing and usage fees, which include 10,000 free user minutes per month.
 
 Welcome to the Metaverse.
 
@@ -70,25 +104,23 @@ The template you download from https://croquet.io/keys should look like this:
   <head><meta charset="utf-8"></head>
   <body>
     <script type="module">
-      import {load} from "https://croquet.dev/showcase/showcase.js";
+      import {load} from "https://croquet.io/webshowcase/v1.js";
       load({
-        title: "My Showcase", 
-        showcase: "gallery", 
+        title: "My Web Showcase",
+        showcase: "gallery",
         cards: [
           // each item in cards array has a 'place' to specify the location in the art gallery
           // 'type' is either "image", "pdf", or "video"
           // 'path' specifies the location of the asset, either as full URL or as path relative to this html file
-          {place: 1, type: "image", path: "https://croquet.dev/showcase/site/CompanyLogo.jpg"},
-          {place: 2, type: "pdf", path: "https://croquet.dev/showcase/site/CompanyDeck.pdf"},
-          {place: 3, type: "video", path: "https://croquet.dev/showcase/site/CustomerVideo.mp4", 
-		  	muted: false},
-          {place: 4, type: "image", path: "https://croquet.dev/showcase/site/CustomerLogos.png"},
-          {place: 5, type: "image", path: "https://croquet.dev/showcase/site/CallToAction.png", 
-		  	urlLink: "https://croquet.dev/webshowcase"},
+          {place: 1, type: "image", path: "https://croquet.io/webshowcase/site/CompanyLogo.jpg"},
+          {place: 2, type: "pdf", path: "https://croquet.io/webshowcase/site/CompanyDeck.pdf"},
+          {place: 3, type: "video", path: "https://croquet.io/webshowcase/site/CustomerVideo.mp4", muted: false},
+          {place: 4, type: "image", path: "https://croquet.io/webshowcase/site/CustomerLogos.png"},
+          {place: 5, type: "image", path: "https://croquet.io/webshowcase/site/CallToAction.png", urlLink: "https://croquet.io/webshowcase"},
         ],
         voiceChat: true,
-        appId: "com.yourdomain.youremailname.showcase",
-        apiKey: "dev:123456789abcdefg",
+        appId: "com.yourdomain.youremailname.webshowcase",
+        apiKey: "123456789abcdefg",
       });
     </script>
   </body>
@@ -107,9 +139,9 @@ This field specifies which showcase world to be used. Currently only "gallery" i
 
 ### cards:Array<Spec>
 
-The `cards` property is an array of object references and and modifiers to specify your own content.
+The `cards` property is an array of object references and modifiers to specify your own content.
 
-The `place` property specifies the predefined location in the showcase. The `type` property defines the kind of content, either `image`, `pdf` or `video`. The `path` property specifies where in the web to find the asset. the location can be a relative path from `showcase.html` or a full URL starting with "http" or "https". There are also additional modifiers that may be used.
+The `place` property specifies the predefined location in the showcase. The `type` property defines the kind of content, either `image`, `pdf` or `video`. The `path` property specifies where in the web to find the asset. The location can be a relative path from `webshowcase.html` or a full URL starting with "http" or "https". There are also additional modifiers that may be used.
 
 ### Images
 
@@ -139,7 +171,7 @@ If you would like to have a video play audio, set `muted: false`. If you wish to
 
 ### apiKey:string
 
-This is your Croquet API key. The value is filled in automatically when you create this file. 
+This is your Croquet API key. The value is filled in automatically when you create this file.
 
 ### appId:string
 
@@ -154,7 +186,7 @@ This field is currently for information only. A future version of Metaverse it m
 If true, the spatial voice chat is enabled and the voice chat widget is added. Clicking on the green phone icon will turn on the audio device.
 
 <p align="center">
-<img src="./assets/gallery.jpg" width="277"/>
+<img src="./assets/gallery.jpg" width="803"/>
 </p>
 
 ## Error Messages
@@ -163,38 +195,38 @@ There are sensible error messages displayed in the browser's console. Typical er
 
 ### "Error verifying Croque APIkey: Invalid API Key"
 
-<p align="center">
-<img src="./assets/invalid-api.png" width="552"/>
+<p align="left">
+<img src="./assets/invalid-api.png" width="481"/>
 </p>
 
 ### "Error verifying Croque APIkey: API Key not valid for domain"
 
-<p align="center">
-<img src="./assets/restriction.png" width="602"/>
+<p align="left">
+<img src="./assets/restriction.png" width="629"/>
 </p>
 
-Make sure that your key can be used for the domain where your showcase.html is located.
+Make sure that your key can be used for the domain where your webshowcase.html is located.
 
 ### "place 1 is already occupied"
 
-<p align="center">
-<img src="./assets/occupied.png" width="389"/>
+<p align="left">
+<img src="./assets/occupied.png" width="301"/>
 </p>
 
 The place property has to be all different from each other in the cards array.
 
 ### "Required property named "path" is missing from ..."
 
-<p align="center">
-<img src="./assets/missing.png" width="679"/>
+<p align="left">
+<img src="./assets/missing.png" width="508"/>
 </p>
 
 A required property, such as `path` in this image, or `type` or `place` is missing from the Spec.
 
 ### "Access to fetch at ... has been blocked by CORS policy"
 
-<p align="center">
-<img src="./assets/cors.png" width="916"/>
+<p align="left">
+<img src="./assets/cors.png" width="705"/>
 </p>
 
-The web technology uses security measures that rely upon the concept of `origin`, which means where a file is loaded from. Typically, "cross origin resource sharing" (CORS), which is the situation where a web page loaded from one site (origin)  requests resources from another site, is carefully guarded and only allowed when the other site allows it. In the Showcase, your showcase.html is located on one site, and it loads files specified as the `path` property in card spec. Those files need to be served from the same origin, or CORS needs to be enabled for those files.
+The web technology uses security measures that rely upon the concept of `origin`, which means where a file is loaded from. Typically, "cross origin resource sharing" (CORS), which is the situation where a web page loaded from one site (origin)  requests resources from another site, is carefully guarded and only allowed when the other site allows it. In the Showcase, your webshowcase.html is located on one site, and it loads files specified as the `path` property in card spec. Those files need to be served from the same origin, or CORS needs to be enabled for those files.
