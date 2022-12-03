@@ -12,7 +12,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/showcase/",
+    "destination": "../build/webshowcase/",
     "mainpagetitle": "Croquet Metaverse Web Showcase",
     "theme_opts": {
         "theme": "light",

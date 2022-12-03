@@ -2,7 +2,7 @@
 cd `dirname "$0"`
 
 PACKAGES="$@"
-[ -z "$PACKAGES" ] && PACKAGES="croquet croquet-react virtual-dom worldcore microverse showcase"
+[ -z "$PACKAGES" ] && PACKAGES="croquet croquet-react virtual-dom worldcore microverse webshowcase"
 
 [ -x node_modules/.bin/jsdoc ] || npm ci
 
