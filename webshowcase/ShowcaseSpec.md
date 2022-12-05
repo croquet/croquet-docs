@@ -3,10 +3,10 @@
 [https://croquet.io](https://croquet.io)
 
 ## TL;DR
-[Access your unique Web Showcase via this link.](https://croquet.io/webshowcase/index.html) Keep reading to learn more about Web Showcase and how to customize it.
+[Access your unique Web Showcase via this link.](https://croquet.io/webshowcase/) Keep reading to learn more about Web Showcase and how to customize it.
 
 ## Introduction
-Currently, developers download the Microverse platform and work with the entire thing - our goal is to move all of this development - internal and external - into live behavior programming. The development process then becomes more of a drag and drop and associate behaviors. Developers are able to use an external IDE like Visual Studio Code to modify behaviors even while the system is running. We have been moving more and more of the Microverse components into that model. 
+Currently, developers download the Microverse platform and work with the entire thing - our goal is to move all of this development - internal and external - into live behavior programming. The development process then becomes more of a drag and drop and associate behaviors. Developers are able to use an external IDE like Visual Studio Code to modify behaviors even while the system is running. We have been moving more and more of the Microverse components into that model.
 Your site, your content, your world.
 
 Welcome to the ***Croquet Metaverse Web Showcase***.
@@ -20,13 +20,12 @@ This guide will teach you how to quickly create and populate a Web Showcase worl
 After reading this document, if you need help setting up your Web Showcase, connect with us at [support@croquet.io](mailto:support@croquet.io) and we will be happy to step you through the process.
 
 ## Building Your Web Showcase
-**Complexity:** ★☆☆☆☆
 
-**Estimated Time to Completion:** 20 minutes
+**Estimated Time to Completion:** 15 minutes
 
 ### Create an Account
 
-1. Visit [the Web Showcase landing page on Croquet.io](https://croquet.io/webshowcase/index.html).
+1. Visit [the Web Showcase landing page on Croquet.io](https://croquet.io/webshowcase/).
 2. Submit your name and email address.
 3. Check your email account for a unique link to your Developer Portal, which contains your personalized Web Showcase HTML template code.
 
