@@ -6,7 +6,7 @@
 [Access your unique Web Showcase via this link.](https://croquet.io/webshowcase/) Keep reading to learn more about Web Showcase and how to customize it.
 
 ## Introduction
-Currently, developers download the Microverse platform and work with the entire thing - our goal is to move all of this development - internal and external - into live behavior programming. The development process then becomes more of a drag and drop and associate behaviors. Developers are able to use an external IDE like Visual Studio Code to modify behaviors even while the system is running. We have been moving more and more of the Microverse components into that model.
+
 Your site, your content, your world.
 
 Welcome to the ***Croquet Metaverse Web Showcase***.
