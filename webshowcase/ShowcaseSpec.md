@@ -133,7 +133,7 @@ The actual work is done by the `load` function with the single argument of an ob
 This field specifies which showcase world to be used. Currently only "gallery" is supported. The gallery model looks like an art gallery shown below.
 
 <p align="center">
-<img src="./assets/gallery.jpg" width="800"/>
+<img src="./assets/gallery.png" width="800"/>
 </p>
 
 ### cards:Array<Spec>
@@ -185,7 +185,7 @@ This field is currently for information only. A future version of Metaverse it m
 If true, the spatial voice chat is enabled and the voice chat widget is added. Clicking on the green phone icon will turn on the audio device.
 
 <p align="center">
-<img src="./assets/gallery.jpg" width="803"/>
+<img src="./assets/phoneIcon.png" width="803"/>
 </p>
 
 ## Error Messages
