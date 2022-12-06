@@ -59,6 +59,12 @@ Showcase supports three content types:
 - Videos with the `.mov` or `.mp4` extension. Video playback state and position are synchronized among all session participants:
 <br>```{place: 3, type: "video", path: "./CustomerVideo.mov",```
     - Large, high-resolution video files may impact performance on some devices.
+<br><br>
+
+>_***Important!***_<br>
+>_Avoid large video and PDF documents. Web Showcase loads these into memory when it is started. Larger files can both take much longer to load and will use significantly more memory in your application. A simple rule of thumb is to keep videos at less than 30 seconds and use a resolution of 640 or 720 pixels wide. PDFs should be less than ten slides. Larger images can also take a long time to load. We suggest resolutions of 1024 wide._
+
+<br>
 
 ### Embed Your Showcase on _Your_ Site
 
