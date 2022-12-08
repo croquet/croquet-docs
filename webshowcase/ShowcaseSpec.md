@@ -62,7 +62,10 @@ Showcase supports three content types:
 <br><br>
 
 >_***Important!***_<br>
->_Avoid large video and PDF documents. Web Showcase loads these into memory when it is started. Larger files can both take much longer to load and will use significantly more memory in your application. A simple rule of thumb is to keep videos at less than 30 seconds and use a resolution of 640 or 720 pixels wide. PDFs should be less than ten slides. Larger images can also take a long time to load. We suggest resolutions of 1024 wide._
+>
+>_1. Avoid large video and PDF documents. Web Showcase loads these into memory when it is started. Larger files can both take much longer to load and will use significantly more memory in your application. A simple rule of thumb is to keep videos at less than 30 seconds and use a resolution of 640 or 720 pixels wide. PDFs should be less than ten slides. Larger images can also take a long time to load. We suggest resolutions of 1024 wide._
+>
+>_2. The web uses security measures that rely upon the concept of `origin`, which just means where a file is loaded from. ***"Cross origin resource sharing"*** (CORS), is the situation where a web page loaded from the origin site requests resources from another site. This is typically carefully guarded and only allowed when the other site allows it. This applies to the Web Showcase. There should be no problems if the content you are adding to the `path:` property is co-located on the same site as the webshowcase.html file. Otherwise, CORS needs to be enabled for those files on the site they are accessed from._
 
 <br>
 
@@ -126,10 +129,10 @@ The template you download from https://croquet.io/keys should look like this:
           {place: 5, type: "image", 
             path: "https://croquet.io/webshowcase/site/CallToAction.png", 
             urlLink: "https://croquet.io/webshowcase"},
-          {place: 6, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-1.png"},
-          {place: 7, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-2.png"},
-          {place: 8, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-1.png"},
-          {place: 9, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-2.png"}, 
+          {place: 6, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-1.jpg"},
+          {place: 7, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-2.jpg"},
+          {place: 8, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-1.jpg"},
+          {place: 9, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-2.jpg"}, 
         ],
         voiceChat: true,
         appId: "com.yourdomain.youremailname.webshowcase",
@@ -242,4 +245,4 @@ A required property, such as `path` in this image, or `type` or `place` is missi
 <img src="./assets/cors.png" width="705"/>
 </p>
 
-The web technology uses security measures that rely upon the concept of `origin`, which means where a file is loaded from. Typically, "cross origin resource sharing" (CORS), which is the situation where a web page loaded from one site (origin)  requests resources from another site, is carefully guarded and only allowed when the other site allows it. In the Showcase, your webshowcase.html is located on one site, and it loads files specified as the `path` property in card spec. Those files need to be served from the same origin, or CORS needs to be enabled for those files.
+
