@@ -97,13 +97,13 @@ The Metaverse Web Showcase is a free low code, configurable Metaverse world you 
 
 If you wish to expand beyond your free Showcase world, further customize it or add and create new features you can do so with ***Croquet Microverse World Builder***.
 
-Microverse is an open source development environment available now on GitHub at https://github.com/croquet/microverse. It enables developers to freely customize and extend any Metaverse project. Accounts using World Builder are subject to Croquet OS licensing and usage fees, which include 10,000 free user minutes per month.
+Microverse is an open source development environment available now on GitHub at [github.com/croquet/microverse](https://github.com/croquet/microverse). It enables developers to freely customize and extend any Metaverse project. Accounts using World Builder are subject to Croquet OS licensing and usage fees, which include 10,000 free user minutes per month.
 
 Welcome to the Metaverse.
 
 ## A Deeper Dive
 
-The template you download from https://croquet.io/keys should look like this:
+The template you download from [croquet.io/account](https://croquet.io/account/) should look like this:
 
 
 ```HTML
@@ -123,16 +123,16 @@ The template you download from https://croquet.io/keys should look like this:
           // either as full URL or as path relative to this html file
           {place: 1, type: "image", path: "https://croquet.io/webshowcase/site/CompanyLogo.jpg"},
           {place: 2, type: "pdf", path: "https://croquet.io/webshowcase/site/CompanyDeck.pdf"},
-          {place: 3, type: "video", 
+          {place: 3, type: "video",
             path: "https://croquet.io/webshowcase/site/CustomerVideo.mp4", muted: false},
           {place: 4, type: "image", path: "https://croquet.io/webshowcase/site/CustomerLogos.png"},
-          {place: 5, type: "image", 
-            path: "https://croquet.io/webshowcase/site/CallToAction.png", 
+          {place: 5, type: "image",
+            path: "https://croquet.io/webshowcase/site/CallToAction.png",
             urlLink: "https://croquet.io/webshowcase"},
           {place: 6, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-1.jpg"},
           {place: 7, type: "image", path: "https://croquet.io/webshowcase/site/sunset-tree-on-hill-2.jpg"},
           {place: 8, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-1.jpg"},
-          {place: 9, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-2.jpg"}, 
+          {place: 9, type: "image", path: "https://croquet.io/webshowcase/site/zen-garden-2.jpg"},
         ],
         voiceChat: true,
         appId: "com.yourdomain.youremailname.webshowcase",
