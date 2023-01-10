@@ -76,7 +76,7 @@ After you upload `webshowcase.html` to your Web server, you and your customers c
 You can also embed your Showcase within existing pages on your site using an `<iframe>` with the `src` parameter set to `webshowcase.html`. For example:
 
 ```HTML
-   <iframe width="640" height="360" src="webshowcase.html" />
+   <iframe width="640" height="360" src="webshowcase.html"></iframe>
 ```
 
 ### Done
@@ -209,13 +209,13 @@ If true, the spatial voice chat is enabled and the voice chat widget is added. C
 
 There are sensible error messages displayed in the browser's console. Typical error messages are as follows.
 
-### "Error verifying Croque APIkey: Invalid API Key"
+### "Error verifying Croquet API key: Invalid API Key"
 
 <p align="left">
 <img src="./assets/invalid-api.png" width="481"/>
 </p>
 
-### "Error verifying Croque APIkey: API Key not valid for domain"
+### "Error verifying Croquet API key: API Key not valid for domain"
 
 <p align="left">
 <img src="./assets/restriction.png" width="629"/>
