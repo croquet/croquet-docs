@@ -70,10 +70,10 @@ First of all, I would like to refer to `examples/counter.js` and `counter.html` 
 First, copy the Croquet library file into a directory called `croquet.
 
 ~~~~~~~~
-# mkdir -p croquet; curl -L -o croquet/croquet-latest.min.js https://unpkg.com/@croquet/croquet@1.0
+# mkdir -p croquet; curl -L -o croquet/croquet-latest.min.js https://cdn.jsdelivr.net/npm/@croquet/croquet@1
 ~~~~~~~~
 
-The `-L` option specifies to follow redirection. You may also copy the file from `https://unpkg.com/@croquet/croquet@1.0/pub/croquet.min.js`, or replace the `&lt;script&gt;` tag to point to the unpkg URL.
+The `-L` option specifies to follow redirection. You may also copy the file from `https://cdn.jsdelivr.net/npm/@croquet/croquet@1/pub/croquet.min.js`, or replace the `&lt;script&gt;` tag to point to the jsdelivr URL.
 
 Run `server.js` in the top directory from a terminal using `node`.
 ~~~~~~~~
@@ -293,7 +293,7 @@ Picking out some details:
 ~~~~~~~~ HTML
   &lt;script type="text/javascript" charset="UTF-8" src="croquet/croquet-latest.min.js"&gt;&lt;/script&gt;
 ~~~~~~~~
-This loads the Croquet library copied into the `croquet` directory. Alternatively, you can load a stable version of Croquet from `https://unpkg.com/@croquet/croquet@1.0`.
+This loads the Croquet library copied into the `croquet` directory. Alternatively, you can load a stable version of Croquet from `https://cdn.jsdelivr.net/npm/@croquet/croquet@1`.
 
 ~~~~~~~~ JavaScript
 import {makeMain, Library} from "./src/framework.js";
