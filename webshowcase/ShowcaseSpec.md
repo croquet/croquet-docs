@@ -197,6 +197,13 @@ This is the appId of your showcase. The value is filled in with a string generat
 
 This field is currently for information only. A future version of Metaverse it may be used to set the title element of the HTML header.
 
+### privacy:string
+
+By default, Web Showcase sessions are invite-only (equivalent to `privacy: "invite"`).
+That means every visitor to your site will get their own session, and they can use the "invite" menu item to invite others.
+
+If you specify `privacy: "public"` then all visitors to your site will be put into the same session and see each other.
+
 ### voiceChat:boolean
 
 If true, the spatial voice chat is enabled and the voice chat widget is added. Clicking on the green phone icon will turn on the audio device.
