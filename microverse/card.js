@@ -31,6 +31,10 @@ Microverse uses the vector types defined in the Worldcore library. Those vectors
 
 `type Quaternion = [<number>, <number, <number>, <number>]`
 
+Some rotation related methods take an array with 3 elements as an Euler angle. Internally it converts the Euler angle to a Quaternion. Thus they may take a union of `Quaternion` or `Vector3` as a generic rotation argument.
+
+`type Rotation = Quaternion|Vector3`
+
 Also, the Card can handle certain kinds of pointer events. The EventName type is defined as:
 
 `type EventName = "pointerDown"|"pointerUp"|pointerMove"|"pointerTap"|"pointerLeave"|"pointerEnter"|"wheel"|"doubleDown"|"click"|"keyUp"|"keyDown"`
@@ -249,17 +253,22 @@ This method moves the translation of the card to the specified `[x, y, z]` coord
     translateTo(v) {}
 
     /**
-This method sets the translation of the card to the specified by a quaternion (`[x, y, z, w]`).
+When rot is a 4 element array, it is interpreted as a quaternion.
+When rot is a 3 element array, it is interpreted as an Euler angle.
+When rot is a number, it is interpreted as [0, rot, 0].
+
+This method sets the rotation of the card to the specified by the argument.
        @public
-       @param {Quaternion} q - the rotation for the card
+       @param {Rotation|number} rot - the rotation for the card
     */
-    rotateTo(q) {}
+    rotateTo(rot) {}
 
     /**
-       * This method sets the scale of the card to the specified by scale factors in [x, y, z] axis.
+When s is a number, it is interpreted as `[s, s, s]`.
+This method sets the scale of the card to the specified by scale factors in [x, y, z] axis.
 
        @public
-       @param {Vector3} s - the scale for the card
+       @param {Vector3|number} s - the scale for the card
     */
     scaleTo(s) {}
 
@@ -281,19 +290,33 @@ This method moves the translation of the card by the specified `[x, y, z]` vecto
     translateBy(v) {}
 
     /**
-This method combines the rotation of the card by  the specified by a quaternion (`[x, y, z, w]`).
+When rot is a 4 element array, it is interpreted as a quaternion.
+When rot is a 3 element array, it is interpreted as an Euler angle.
+When rot is a number, it is interpreted as [0, rot, 0].
+
+This method combines the rotation of the card by the specified rotation.
        @public
-       @param {Quaternion} q - the additional rotation for the card
+       @param {Rotation|number} rot - the additional rotation for the card
     */
-    rotateBy(q) {}
+    rotateBy(rot) {}
 
     /**
+When s is a number, it is interpreted as [s, s, s].
 This method multiplies the scale of the card by the specified by scale factors in [x, y, z] axis.
 
        @public
        @param {Vector3} s - the scale offset
     */
     scaleBy(s) {}
+
+    /**
+When v is a number, it is interpreted as [0, 0, v].
+
+This method translates the object by `the specified offset, in the reference frame of the object.
+       @public
+       @param {Vector3|number} v - the offset
+    */
+    forwardBy(v) {}
 
     /**
 A Three.js keyframe based animation is supported. The animation clip can contain multiple tracks. The index specified here dictates which track to play. A cardData called animationStartTime specifiy the base for time offset.
