@@ -21,6 +21,7 @@ var detailsKeys = [
     'since',
     'todo',
     'tutorials',
+    'technicalsupport',
     'version',
 ]
 
@@ -178,6 +179,17 @@ for(; loopVar < detailsKeys.length; loopVar += 1) {
             <dd class="tag-tutorial">
                 <ul><?js tutorials.forEach(function(t) { ?>
                     <li><?js= self.tutoriallink(t) ?></li>
+                <?js }); ?></ul>
+            </dd>
+        </div>
+    <?js } ?>
+
+    <?js if (data.technicalsupport && technicalsupport.length) {?>
+        <div class="details-item-container">
+            <dt class="tag-technicalsupport">Technical Support:</dt>
+            <dd class="tag-technicalsupport">
+                <ul><?js technicalsupport.forEach(function(t) { ?>
+                    <li><?js= self.technicalsupportlink(t) ?></li>
                 <?js }); ?></ul>
             </dd>
         </div>
