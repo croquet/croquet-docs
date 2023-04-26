@@ -75,15 +75,6 @@ function tutoriallink(tutorial) {
     });
 }
 
-function technicalsupportlink(technicalsupport) {
-    return
-    // return helper.toTechnicalsupport(technicalsupport, null, {
-    //     tag: 'em',
-    //     classname: 'disabled',
-    //     prefix: 'Technical Support: '
-    // });
-}
-
 function getAncestorLinks(doclet) {
     return helper.getAncestorLinks(data, doclet);
 }
@@ -586,10 +577,6 @@ function linktoTutorial(longName, name) {
     return tutoriallink(name);
 }
 
-function linktoTechnicalsupport(longName, name) {
-    return technicalsupportlink(name);
-}
-
 function linktoExternal(longName, name) {
     return linkto(longName, name.replace(/(^"|"$)/g, ''));
 }
@@ -606,7 +593,6 @@ function linktoExternal(longName, name) {
  * @param {array<object>} members.tutorials
  * @param {array<object>} members.events
  * @param {array<object>} members.interfaces
- * @param {array<object>} members.technicalsupport
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
@@ -640,7 +626,6 @@ function buildNav(members) {
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += buildMemberNav(members.globals, 'Global', seen, linkto);
-    nav += buildMemberNav(members.technicalsupport, 'Technical Support', seen, linkto);
 
     let subpackages = themeOpts.subpackages;
     if (subpackages) {
