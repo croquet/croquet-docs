@@ -10,7 +10,7 @@
   "watch": {
     "build": {
       "patterns": [
-        "dummy.js",
+        "./dummy.js",
         "./tutorials/**/*",
         "./jsdoc.json"
       ],
