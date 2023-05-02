@@ -1,0 +1,41 @@
+{
+  "source": {
+    "include": [
+    ]
+  },
+  "opts": {
+    "access": ["public"],
+    "tutorials": "./tutorials",
+    "template": "../clean-jsdoc-theme",
+    "encoding": "utf8",
+    "recurse": false,
+    "verbose": true,
+    "destination": "../build/game-tutorials/",
+    "mainpagetitle": "Croquet Microverse",
+    "theme_opts": {
+        "theme": "light",
+        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+    }
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false,
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "include": [
+          "tutorials"
+        ],
+        "includePattern": "\\.(png|jpg|svg|gif)$"
+      }
+    }
+  }
+}
