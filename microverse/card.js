@@ -106,6 +106,15 @@ The scale of the card in three axes.
     get _name() {}
 
     /**
+       The visibility of the card, and whether it responds to pointer events or not.
+
+       @public
+       @type boolean
+    */
+
+    get _hidden() {}
+
+    /**
        Any other values that the CardActor holds are stored in an object stored in the `_cardData` property. This is needed to mark the values to be stored in the persistent data.
 
        @public

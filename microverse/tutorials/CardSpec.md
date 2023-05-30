@@ -30,10 +30,10 @@ In the following, we describe the properties and how they interact with each oth
 ## Concepts
 
 A card is specified by a JSONable set of properties. The properties specify:
-1. where the card is spatially situated 
-2. how it interacts with the user pointer interaction 
-3. how it looks 
-4. what user-defined behavior it has 
+1. where the card is spatially situated
+2. how it interacts with the user pointer interaction
+3. how it looks
+4. what user-defined behavior it has
 5. data specific to user-defined behaviors.
 
 We group these properties into four categories, "spatial", "pointer", "visual", and "code"/"card data".
@@ -270,12 +270,35 @@ When it is "text", the card becomes a text area.
 When it is "code", it creates a text area but has some more functionality to support in world code editing.
 When it is "object" or `undefined`, custom behavior code is expected to set the cards' visual appearance.
 
---- 
+---
+
+### Name
+
+`hidden`
+
+### Category
+
+visual
+
+
+### Type
+
+```TypeScript
+boolean|undefined
+```
+
+### Description
+The value specifies whether the root of the Three.js objects for the card to have the `visible` flag set or not. The value defaults to false (that is the visible flag to be true).
+
+When the hidden flag is true, the card also stops responding pointer events.
+
+---
 
 ### Name
 `dataLocation`
 
 ### Category
+
 visual
 
 ### Type
@@ -751,9 +774,11 @@ When the card's type is "code" or "text", "singleLine" specifies whether the tex
 ---
 
 ### Name
+
 `margins`
 
 ### Category
+
 visual
 
 ### Type
@@ -768,6 +793,24 @@ let Pixels=number
 When the card's type is "code" or "text", "margins" specifies the margins of the text field.
 
 ---
+
+### Name
+
+`loadSynchronously`
+
+### Category
+
+visual
+
+### Type
+
+```TypeScript
+boolean?
+```
+
+### Description
+
+When there is a card with type "2d" or "3d" and with the property "loadSynchronously" set to be true, and also the SynchrnousCardLoader behavior module is attached to a card in the system, the system sends synchronousLoadCardsStarted and allSynnchronousCardsLoaded events. See the details in `behaviors/default/synchronousLoad.js` for more details.
 
 ## Code Properties
 
