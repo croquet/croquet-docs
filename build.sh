@@ -17,6 +17,7 @@ do
     VERSION=$(node -p -e "require('./"${i}/package.json"').version")
     MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
     echo $i $VERSION
-    (cd $i; npm run build)
+    (cd $i; npm run build) || exit 1
+    [ -f "build/${i}/index.html" ] || exit 1
     sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" build/${i}/*.html || true
 done
