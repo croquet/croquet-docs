@@ -73,19 +73,22 @@ p {
 }
 
 article ul {
-    list-style: none;
     padding-left: 1rem;
 }
 
-article ul li::before {
-    content: '\2022';
-    margin-right: 0.5rem;
+article ul p,
+article ol p {
+    margin: 0;
+}
+
+article ul li::marker {
     font-size: 1.2rem;
 }
 
 article ul li,
 article ol li {
     padding: 0.25rem 0;
+    margin-left: 0.5rem;
 }
 
 article ol {
