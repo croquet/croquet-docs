@@ -204,10 +204,15 @@ ol.linenums li {
     display: none;
 }
 
+pre {
+    background-color: #f5f5f5;
+}
+
 .pre-top-bar-container {
     left: initial !important;
 }
 
+pre,
 .prettyprint {
     border-radius: 8px;
     font-size: 14px;
@@ -220,6 +225,7 @@ ol.linenums li {
     width: inherit;
 }
 
+pre code,
 .prettyprint code {
     display: block;
     /*
