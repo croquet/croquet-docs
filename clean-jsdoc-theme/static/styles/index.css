@@ -33,10 +33,6 @@ a:hover {
     color: #ef493e !important;
 }
 
-.navbar-heading {
-    padding: 3rem !important;
-}
-
-.nav-hr {
+nav-hr {
     border: 1px solid #ef493e;
-}    
+}
