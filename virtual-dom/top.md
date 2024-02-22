@@ -1,3 +1,4 @@
-The Croquet Virtual DOM framework offers a canonical way of writing Croquet applications that uses browser's DOM as multiplayer user interface elements.
+Croquet Virtual DOM
 
-To read about concepts used in the Virtual DOM framework, refer to the [tutorial](tutorial-Virtual_DOM_Tutorial.html). For detailed list of available classes, refer to [class reference documents](./Element.html).
+The Croquet Virtual DOM is a high-level framework that extends the core capabilities of Croquet. It’s a set of tools for writing Croquet applications that use a browser’s DOM as multiuser interface elements.
+Yoshiki Ohshima [gave a talk](https://youtu.be/kn8TZdgYMWc?t=286) on Croquet and the live programming functionality built into the Virtual DOM Framework. The talk was in Japanese but you can turn on the English subtitles.
