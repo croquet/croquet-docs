@@ -1,13 +1,18 @@
-# Croquet Microverse Quick Start Guide
+The Croquet Microverse Builder is a tool that lets you build shared Metaverse worlds with a few lines of code.
+It shares some basic concepts with [Worldcore](../worldcore/), which sits on top of the [Croquet kernel](../croquet/).
 
-[https://croquet.io](https://croquet.io)
+- [Watch a demo](https://www.youtube.com/watch?v=1xNMPGtx4Ck)
+- Listen to this [podcast](https://voicesofvr.com/1088-croquets-browser-based-operating-system-for-the-metaverse-an-architectural-philosophical-deep-dive-into-real-time-collaboration/) episode with our CTO David Smith
+- A [blog post](../../blog/april2022/microverse/) about the Microverse
+- A [blog post](https://davidasmith.medium.com/multiplane-portals-for-the-metaverse-a4b7af913e8e) about portals
 
 ## TL;DR
 
 * `npm create croquet-microverse`
 * `npm start`
 
----
+# Quick Start
+
 ## Introduction
 
 This guide will enable you to quickly set up your own Croquet Microverse project. Refer to tutorials in the [docs directory](index.md) for its key concepts and features that let you build shared worlds.
