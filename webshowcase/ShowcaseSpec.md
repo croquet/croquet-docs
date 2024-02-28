@@ -1,9 +1,10 @@
-# Croquet Metaverse Web Showcase
+Metaverse Web Showcase is a fully immersive Metaverse world that can be embedded interoperably in any 2D website to dramatically enhance site experiences, improve engagement and increase sales.
 
-[https://croquet.io](https://croquet.io)
+* [Watch Web Showcase Demo](https://vimeo.com/778002531)
 
 ## TL;DR
-[Access your unique Web Showcase via this link.](https://croquet.io/webshowcase/) Keep reading to learn more about Web Showcase and how to customize it.
+* [Access your unique Web Showcase via this link.](../../webshowcase/)
+* Keep reading to learn more about Web Showcase and how to customize it.
 
 ## Introduction
 
@@ -25,11 +26,11 @@ After reading this document, if you need help setting up your Web Showcase, conn
 
 ### Create an Account
 
-1. Visit [the Web Showcase landing page on Croquet.io](https://croquet.io/webshowcase/).
+1. Visit [the Web Showcase landing page on Croquet.io](../../webshowcase/).
 2. Submit your name and email address.
 3. Check your email account for a unique link to your Developer Portal, which contains your personalized Web Showcase HTML template code.
 
-_A Croquet developer account is required to create a Web Showcase. Croquet will never share your personal information or send you unsolicited email. Usage of your personal data is governed by [the Croquet Privacy Policy](https://croquet.io/privacy.html)._
+_A Croquet developer account is required to create a Web Showcase. Croquet will never share your personal information or send you unsolicited email. Usage of your personal data is governed by [the Croquet Privacy Policy](../../privacy.html)._
 
 ### Download Your Web Showcase
 1. On the Croquet Developer Portal's "Web Showcase" tab, click the "Download" button.
@@ -103,7 +104,7 @@ Welcome to the Metaverse.
 
 ## A Deeper Dive
 
-The template you download from [croquet.io/account](https://croquet.io/account/) should look like this:
+The template you download from [croquet.io/keys](../../keys/) should look like this:
 
 
 ```HTML
