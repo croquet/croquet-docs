@@ -2,7 +2,14 @@
 cd `dirname "$0"`
 
 PACKAGES="$@"
-[ -z "$PACKAGES" ] && PACKAGES="croquet croquet-react virtual-dom worldcore microverse webshowcase"
+if [ -z "$PACKAGES" ] ; then
+    PACKAGES="croquet-react virtual-dom worldcore microverse webshowcase"
+    if [ -d "../wonderland/croquet/teatime" ] ; then
+        PACKAGES="croquet $PACKAGES"
+    else
+        echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"
+    fi
+fi
 
 [ -x node_modules/.bin/jsdoc ] || npm ci
 
