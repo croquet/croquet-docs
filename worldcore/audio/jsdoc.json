@@ -10,7 +10,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/audio",
+    "destination": "../../dist/worldcore/audio",
     "template": "../../clean-jsdoc-theme",
     "mainpagetitle": "Croquet Worldcore Audio Overview",
     "theme_opts": {

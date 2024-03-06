@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/webgl",
+    "destination": "../../dist/worldcore/webgl",
     "mainpagetitle": "Croquet Worldcore WebGL Overview",
     "theme_opts": {
         "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],

@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/widget",
+    "destination": "../../dist/worldcore/widget",
     "mainpagetitle": "Croquet Worldcore Widget Overview",
     "theme_opts": {
         "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],

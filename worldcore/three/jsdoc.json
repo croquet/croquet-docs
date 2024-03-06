@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/three",
+    "destination": "../../dist/worldcore/three",
     "mainpagetitle": "Croquet Worldcore Three Overview",
     "theme_opts": {
         "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],

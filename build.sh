@@ -6,11 +6,11 @@ PACKAGES="$@"
 
 [ -x node_modules/.bin/jsdoc ] || npm ci
 
-rm -rf ./build; mkdir ./build
+rm -rf ./dist; mkdir ./dist
 
 # right now images and styles go one directory above... but it is probably saner if it is kept
 # in docs
-cp -rp ./clean-jsdoc-theme/static/ ./build/
+cp -rp ./clean-jsdoc-theme/static/ ./dist/
 
 for i in $PACKAGES
 do
@@ -18,6 +18,6 @@ do
     MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
     echo $i $VERSION
     (cd $i; npm run build) || exit 1
-    [ -f "build/${i}/index.html" ] || exit 1
-    sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" build/${i}/*.html || true
+    [ -f "dist/${i}/index.html" ] || exit 1
+    sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" dist/${i}/*.html || true
 done

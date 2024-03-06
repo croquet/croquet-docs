@@ -14,7 +14,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/worldcore/",
+    "destination": "../dist/worldcore/",
     "mainpagetitle": "Croquet Worldcore @CROQUET_VERSION@ Overview",
     "theme_opts": {
         "theme": "light",

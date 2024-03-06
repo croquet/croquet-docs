@@ -12,7 +12,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/croquet-react/",
+    "destination": "../dist/croquet-react/",
     "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
     "theme_opts": {
         "theme": "light",

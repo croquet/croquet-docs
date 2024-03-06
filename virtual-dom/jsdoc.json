@@ -12,7 +12,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/virtual-dom/",
+    "destination": "../dist/virtual-dom/",
     "mainpagetitle": "Croquet Virtual DOM @CROQUET_VERSION@ Class References",
     "theme_opts": {
         "theme": "light",

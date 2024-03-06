@@ -10,7 +10,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/game-tutorials/",
+    "destination": "../dist/game-tutorials/",
     "mainpagetitle": "Croquet Microverse",
     "theme_opts": {
         "theme": "light",

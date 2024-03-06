@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/vector/",
+    "destination": "../../dist/worldcore/vector/",
     "mainpagetitle": "Croquet Worldcore Vector Overview",
     "theme_opts": {
         "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],

@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../build/worldcore/behavior",
+    "destination": "../../dist/worldcore/behavior",
     "mainpagetitle": "Croquet Worldcore Behavior Overview",
     "theme_opts": {
         "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],

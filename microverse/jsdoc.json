@@ -13,7 +13,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../build/microverse/",
+    "destination": "../dist/microverse/",
     "mainpagetitle": "Croquet Microverse",
     "theme_opts": {
         "theme": "light",
