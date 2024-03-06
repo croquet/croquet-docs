@@ -1,8 +1,13 @@
-# Croquet Docs
+# Croquet Docs Generator
 
 This is a document generator that uses jsdoc to build the docs deployed at [croquet.io/docs](https://croquet.io/docs/)
 
 It accommodates multiple projects. Each project is a subdirectory.
+
+## TODO
+
+* move all project-specific docs to their respective repos
+* this repo should only have the theme and build tools
 
 ## How to build all docs
 
