@@ -20,7 +20,7 @@ The generated docs will be in `dist/`. There is no top-level `index.html`, that 
     cd <project>
     npm start
 
-This will start a watcher that continuously builds this project into `../dist` whenever a filer is edited.
+This will start a watcher that continuously builds this project into `../dist` whenever a file is edited.
 
 ## How to add a new project
 

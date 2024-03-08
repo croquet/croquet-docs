@@ -3,11 +3,16 @@ cd `dirname "$0"`
 
 PACKAGES="$@"
 if [ -z "$PACKAGES" ] ; then
-    PACKAGES="croquet-react virtual-dom worldcore microverse webshowcase"
+    PACKAGES="virtual-dom worldcore microverse webshowcase"
     if [ -d "../wonderland/croquet/teatime" ] ; then
         PACKAGES="croquet $PACKAGES"
     else
         echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"
+    fi
+    if [ -d "croquet-react/" ] ; then
+        PACKAGES="croquet-react $PACKAGES"
+    else
+        echo "Not building react docs because source not present in ../croquet-react/docs"
     fi
 fi
 
