@@ -1,6 +1,6 @@
 {
   "name": "croquet-doc-react",
-  "version": "1.4.1",
+  "version": "1.4.4",
   "description": "Croquet React Bindings",
   "scripts": {
     "start": "npm-watch",
@@ -19,6 +19,6 @@
       "quiet": false
     }
   },
-  "author": "Croquet Corporation",
-  "license": "UNLICENSED"
+  "author": "Croquet Labs",
+  "license": "Apache-2.0"
 }
