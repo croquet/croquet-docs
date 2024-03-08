@@ -4,17 +4,17 @@
   "description": "Croquet React Bindings",
   "scripts": {
     "start": "npm-watch",
-    "build": "../node_modules/.bin/jsdoc -c jsdoc.json",
+    "build": "jsdoc -c jsdoc.json",
     "watch": "npm-watch"
   },
   "watch": {
     "build": {
       "patterns": [
-        "..",
+        "../",
         "../../croquet-react/docs"
       ],
       "ignore": [
-        "../dist/"
+        "dist/"
       ],
       "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
       "quiet": false

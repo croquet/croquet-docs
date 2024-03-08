@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "description": "Croquet Metaverse Web Showcase Documentation",
   "scripts": {
-    "start": "npx npm-watch",
-    "build": "../node_modules/.bin/jsdoc -c jsdoc.json",
-    "watch": "npx npm-watch"
+    "start": "npm-watch",
+    "build": "jsdoc -c jsdoc.json",
+    "watch": "npm-watch"
   },
   "watch": {
     "build": {
@@ -14,9 +14,9 @@
         "./jsdoc.json"
       ],
       "ignore": [
-        "build"
+        "dist/"
       ],
-      "extensions": "js,json,html,css,tmpl,md",
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
       "quiet": false
     }
   },

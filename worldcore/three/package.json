@@ -3,9 +3,9 @@
   "version": "1.0.3",
   "description": "Croquet Worldcore Three Documentation",
   "scripts": {
-    "start": "npx npm-watch",
-    "build": "npx jsdoc -c jsdoc.json",
-    "watch": "npx npm-watch"
+    "start": "npm-watch",
+    "build": "jsdoc -c jsdoc.json",
+    "watch": "npm-watch"
   },
   "watch": {
     "build": {
@@ -15,9 +15,9 @@
         "./jsdoc.json"
       ],
       "ignore": [
-        "build"
+        "dist/"
       ],
-      "extensions": "js,json,html,css,tmpl,md",
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
       "quiet": false
     }
   },
