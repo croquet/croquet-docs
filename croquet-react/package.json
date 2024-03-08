@@ -10,12 +10,13 @@
   "watch": {
     "build": {
       "patterns": [
-        "../../croquet-react/docs/top.md",
-        "../../croquet-react/docs/react-doc.js",
-        "../../croquet-react/docs/tutorials/*",
-        "./jsdoc.json"
+        "..",
+        "../../croquet-react/docs"
       ],
-      "extensions": "js,json,html,css,tmpl,md",
+      "ignore": [
+        "../dist/"
+      ],
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
       "quiet": false
     }
   },

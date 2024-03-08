@@ -1,8 +1,8 @@
 # Croquet-React Docs
 
-The docs are in the croquet-react repo now: https://github.com/croquet/croquet-react/
+The actual docs are in the croquet-react repo now: https://github.com/croquet/croquet-react/
 
-This repo expects `croquet-react` to be checked out next to `croquet-docs`.
+This repo has the doc generator and theme. It expects `croquet-react` to be checked out next to `croquet-docs`.
 
 
     ├── croquet-react

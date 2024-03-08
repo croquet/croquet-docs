@@ -9,8 +9,8 @@ if [ -z "$PACKAGES" ] ; then
     else
         echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"
     fi
-    if [ -d "croquet-react/" ] ; then
-        PACKAGES="croquet-react $PACKAGES"
+    if [ -d "../croquet-react/docs" ] ; then
+        PACKAGES="$PACKAGES croquet-react"
     else
         echo "Not building react docs because source not present in ../croquet-react/docs"
     fi
