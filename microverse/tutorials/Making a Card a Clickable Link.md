@@ -44,7 +44,7 @@ The process for adding a clickable link to a card involves several steps:
 8. Open your Microverse world in your browser.
 	- If you are running Microverse locally, double click `index.html`.
 	- If you are using GitHub Pages, visit the URL associated with your Microverse world.
-	
+
 9. Drag the object you want to make clickable into your Microverse world.
 	- Microverse can import the following file formats: `GLB`, `OBJ`, `FBX`, `SVG`, `PNG`, `JPG`, `GIF`, `EXR`, `WRL`, `PDF`, `VRSE`
 
@@ -57,14 +57,14 @@ The process for adding a clickable link to a card involves several steps:
     behaviorModules: ["URLLink"],
     ```
     - Replace "https://croquet.io" with whatever URL you want your visitors to go to when they click the link.
-	
+
 12. Click "Save" at the bottom right of the card's property sheet.
 	- Alternatively, press CTRL+S.
-	
+
 13. You're done! Now, when you hover over the card, you should see a highlight overlay appear on the object, indicating that it is clickable. When you click the card, your browser should open a new tab to the URL you specified in the card's property sheet.
 
 ## Conclusion
 
 We hope you enjoy linking people to places around the Web from within the Open Metaverse using Microverse World Builder. We look forward to interacting with your creations.
 
-**Copyright (c) 2023 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

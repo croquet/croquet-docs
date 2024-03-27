@@ -22,5 +22,5 @@ The `handleElected` event does not have an argument when it was sent in response
 
 The implementation of the handler for `handleElected` is expected to start its action when argument is `undefined` or its `to` field is the viewId of the peer.
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**
 

@@ -113,4 +113,4 @@ This will update your `package.json` and the installed version of Microverse to 
 
    The best resource for help in developing Croquet Microverse worlds is our Discord community. The Croquet Discord server is where you can chat with fellow developers, ask questions, and show off your own creations. Join the [Croquet Discord server](https://croquet.io/discord/).
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

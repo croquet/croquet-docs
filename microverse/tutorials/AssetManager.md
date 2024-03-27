@@ -61,4 +61,4 @@ The `revoke()` method tells the AssetManager that the object  specified by `id` 
 
 While the caching mechanism of the AssetManager expects that `revoke()` is called manually, Microverse manages the revoke call automatically for known cases. For a card of `"3d"` type, the loaded buffer is added to the cache to avoid multiple loading. (The created 3D model is not cached however as Microverse sometimes mutates a loaded 3D model.)  For a `"2d"` card with a texture, Microverse caches the Texture object. The `destroy()` method of a CardPawn calls `revoke()` for those data, so if the card being destroyed is the last user the resource is freed.
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

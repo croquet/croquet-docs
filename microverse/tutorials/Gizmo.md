@@ -31,6 +31,6 @@ The gizmo created by another participant is displayed in white. You cannot opera
 <img src="./assets/gizmo-w.png" width="800"/>
 </p>
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**
 
 

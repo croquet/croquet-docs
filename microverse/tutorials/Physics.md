@@ -120,4 +120,4 @@ By creating a `physicsManager.createGlobalWorld()`, accessing the `physicsWorld`
 
 Also note that adding and removing a behavior can be done dynamically. You can start with a card that does not participate in the simulation but later you can add the card to the simulation by attaching "Physics" behavior. This gives you more flexibility in creating your own worlds.
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

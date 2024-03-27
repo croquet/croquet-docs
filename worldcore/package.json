@@ -24,7 +24,7 @@
       "quiet": false
     }
   },
-  "author": "Croquet Corporation",
+  "author": "Croquet Labs",
   "license": "UNLICENSED",
   "dependencies": {
     "fs-extra": "^10.0.0"

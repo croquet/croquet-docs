@@ -251,5 +251,5 @@ The last thing we want to do is enable you to remove the SimpleSpin behavior. Th
     delete this.spinning;
 ```
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**
 

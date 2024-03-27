@@ -15,10 +15,6 @@ As you can see, this world is shared with another user. tutorial1 is made up of 
 The first value is `Constants.AvatarNames`, which specifies the name of the 3D model files in microverse/assets/avatars folder. When you add your own avatars, you can simply place them in the same folder and specify their names here.
 
 ```Javascript
-// Copyright 2022 by Croquet Corporation, Inc. All Rights Reserved.
-// https://croquet.io
-// info@croquet.io
-
 export function init(Constants) {
     Constants.AvatarNames = [
         "newwhite", "fixmadhatter", "marchhare", "queenofhearts", "cheshirecat", "alice"
@@ -163,5 +159,5 @@ The last part of the behavior code is an export specification. A behavior module
 
 * [Tutorial2]{@tutorial Tutorial2}
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**
 

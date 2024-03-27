@@ -3,7 +3,7 @@
 [https://croquet.io](https://croquet.io)
 
 ## Introduction
-Croquet Microverse has a pluggable mechanism to specify how your avatar should walk (or fly) in the 3D scene. By default 3D models marked with the "walk" layer build geometry to test collision, and the avatar uses them to stay on a "ground" or collide with a wall. But the world you would like to build may require more elaborated logic for avatar to move around in the world. 
+Croquet Microverse has a pluggable mechanism to specify how your avatar should walk (or fly) in the 3D scene. By default 3D models marked with the "walk" layer build geometry to test collision, and the avatar uses them to stay on a "ground" or collide with a wall. But the world you would like to build may require more elaborated logic for avatar to move around in the world.
 
 The view-side `WalkManager` provides a way to customize how an avatar moves around in a world.
 
@@ -47,4 +47,4 @@ The `checkPortal` method checks if the avatar collides with a portal (thus it wi
 
 The Mythos project is an example of the custom walk logic. (`https://github.com/croquet/mythos/behaviors/default/walk.js`). The pipeline in the project consists of `checkPortal`, `bvh` and new `checkHillside` method defined in the file. The `checkHillside` method obtains the "height" of the proposed position of the avatar from procedurally generated terrains, and adjusts the y position. Because the procedurally generated terrain is infinitely large, we don't have to have the check done by `backoutFromFall`.
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

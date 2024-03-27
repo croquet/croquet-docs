@@ -140,4 +140,4 @@ When you import a `.vrse` file into a session, certain Card properties, such as 
 
 We hope you enjoy building with Microverse World Builder, and we look forward to interacting with your creations. See you in the Open Metaverse!
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

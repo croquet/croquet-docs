@@ -481,7 +481,7 @@ When it is undefined, it does not allocate a texture
 
 The created texture is assigned to `this.texture` property of the `CardPawn`.
 
---- 
+---
 
 ### Name
 
@@ -503,7 +503,7 @@ It contains the location of an image data. It is a URL, either full URL or a rel
 
 If you drag and drop an image to create a card, you can open the Property Sheet by ctrl- or alt-click and then click on the property sheet icon to check the value of textureLocation for its Data ID.
 
---- 
+---
 
 ### Name
 
@@ -1002,4 +1002,4 @@ As long as a value can be serialized in JSON, you can specify a new property in 
 
 A behavior can create a property on the model directly, namely to execute something like `this.foo = 42`. this is fine but the value will not be stored in the persistent data; so when you run the new session with a new version of Croquet Microverse, such a value will not be carried over. Choose to store the value in `_cardData` if you want to carry a value over to a new session from persistent data, or store it directly in the actor when that is not necessary.
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

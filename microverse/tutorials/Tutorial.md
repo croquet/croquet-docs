@@ -26,7 +26,7 @@ This guide will enable you to quickly set up Croquet Microverse and introduce yo
 
     `npm create croquet-microverse@latest`
 
-    If you want to develop the core system, clone the GitHub repository https://github.com/croquet/microverse . 
+    If you want to develop the core system, clone the GitHub repository https://github.com/croquet/microverse .
 
 2. If you clone the repository, open a terminal and set the path to your new Microverse folder.
 
@@ -214,4 +214,4 @@ The following tutorials will provide a great start to creating your own living M
 * [Tutorial1]{@tutorial Tutorial1}
 * [Tutorial2]{@tutorial Tutorial2}
 
-**Copyright (c) 2022 Croquet Corporation**
+**Copyright (c) 2024 Croquet Labs**

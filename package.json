@@ -5,7 +5,7 @@
   "scripts": {
     "build": "./build.sh"
   },
-  "author": "Croquet Corporation",
+  "author": "Croquet Labs",
   "license": "ISC",
   "devDependencies": {
     "jsdoc": "git+https://github.com/croquet/jsdoc#croquet-3.6",
