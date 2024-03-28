@@ -24,6 +24,11 @@ if [ -z "$PACKAGES" ] ; then
     else
         echo "Not building react docs because source not present in ../croquet-react/docs"
     fi
+    if [ -d "../croquet-for-unity-tutorials/docs" ] ; then
+        PACKAGES="$PACKAGES unity"
+    else
+        echo "Not building unity docs because source not present in ../croquet-for-unity-tutorials/docs"
+    fi
 fi
 
 # right now images and styles go one directory above... but it is probably saner if it is kept

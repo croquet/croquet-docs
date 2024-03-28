@@ -1,0 +1,25 @@
+{
+  "name": "croquet-for-unity",
+  "version": "0.9.1",
+  "description": "Croquet for Unity Guide",
+  "scripts": {
+    "start": "npm-watch",
+    "build": "jsdoc -c jsdoc.json;",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "./guide.md",
+        "./jsdoc.json"
+      ],
+      "ignore": [
+        "dist/"
+      ],
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Labs",
+  "license": "Apache-2.0"
+}

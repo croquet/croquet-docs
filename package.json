@@ -1,7 +1,6 @@
 {
   "name": "croquet-docs",
-  "version": "1.0.5",
-  "description": "",
+  "description": "Croquet Docs Generator",
   "scripts": {
     "build": "./build.sh"
   },

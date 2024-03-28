@@ -779,7 +779,7 @@ exports.publish = function (taffyData, opts, tutorials) {
             var extraStaticFiles = staticFileScanner.scan([filePath], 10, staticFileFilter);
 
             extraStaticFiles.forEach(function (fileName) {
-                var sourcePath = fs.toDir(filePath);
+                var sourcePath = path.resolve(fs.toDir(filePath));
                 var toDir = fs.toDir(fileName.replace(sourcePath, outdir));
 
                 fs.mkPath(toDir);

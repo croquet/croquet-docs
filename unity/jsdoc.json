@@ -1,0 +1,42 @@
+{
+  "source": {
+    "include": [
+        "./index.js",
+        "../../croquet-for-unity-tutorials/docs/guide.md"
+    ]
+  },
+  "opts": {
+    "access": ["public"],
+    "template": "../clean-jsdoc-theme",
+    "encoding": "utf8",
+    "recurse": false,
+    "verbose": true,
+    "destination": "../dist/unity/",
+    "mainpagetitle": "Croquet For Unity Guide",
+    "theme_opts": {
+        "theme": "light",
+        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+    }
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false,
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "include": [
+          "../../croquet-for-unity-tutorials/docs"
+        ],
+        "includePattern": "\\.(png|jpg|svg|gif)$"
+      }
+    }
+  }
+}
