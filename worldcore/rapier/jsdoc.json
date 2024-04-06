@@ -7,16 +7,14 @@
   },
   "opts": {
     "access": ["public"],
-    "template": "../../clean-jsdoc-theme",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../../dist/worldcore/rapier",
     "mainpagetitle": "Croquet Worldcore Rapier Physics Overview",
     "theme_opts": {
-        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webgl", "widget"],
+        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
         "theme": "light",
-        "include_css": ["../../clean-jsdoc-theme/static/styles/index.css"]
+        "include_css": ["../../templates/croquet/static/styles/index.css"]
     }
   },
   "plugins": ["plugins/markdown"],

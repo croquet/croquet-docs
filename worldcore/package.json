@@ -4,7 +4,7 @@
   "description": "Croquet Worldcore Documentation",
   "scripts": {
     "start": "npm-watch",
-    "build": "jsdoc -c jsdoc.json; ./build-dirs.sh",
+    "build": "./build.sh",
     "watch": "npm-watch"
   },
   "watch": {
