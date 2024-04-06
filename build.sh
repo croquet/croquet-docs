@@ -33,26 +33,25 @@ rm -rf ./dist; mkdir ./dist
 
 # right now images and styles go one directory above... but it is probably saner if it is kept
 # in docs
-cp -rp ./clean-jsdoc-theme/static/ ./dist/croquet
-cp -rp ./jsdoc-theme/static/ ./dist/multisynq
 
 PACKAGES="croquet-react"
 TARGETS="croquet multisynq"
 
 for t in ${TARGETS}
 do
+    THEME_DIR=./themes/${t}
+
     mkdir dist/${t}
+    # TODO: use ln instead of cp
+    cp -rp ${THEME_DIR}/static/ ./dist/${t}
     for p in $PACKAGES
     do
-        output="dist/${t}/${p}"
-        echo ${t} ${p} ${output}
+        OUTPUT_DIR="dist/${t}/${p}"
         VERSION=$(node -p -e "require('./"${p}/package.json"').version")
         MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
-        echo $p $VERSION
-        echo ${output} ${VERSION}
-        (cd $p; npm run build -- --template ../themes/${t}) || exit 1
-        # mv ${p}/out/ ${output}
-        [ -f "${output}/index.html" ] || exit 1
-        # sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${output}/*.html || true
+        echo Building $p $VERSION with theme ${t}
+        (cd $p; npm run build -- --template ../themes/${t} --destination ../${OUTPUT_DIR}) || exit 1
+        [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
+        sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
     done
 done
