@@ -14,7 +14,7 @@
     "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
     "theme_opts": {
         "theme": "light",
-        "include_css": ["../themes/croquet/static/styles/index.css"]
+        "include_css": ["../templates/croquet/static/styles/index.css"]
     }
   },
   "plugins": ["plugins/markdown"],

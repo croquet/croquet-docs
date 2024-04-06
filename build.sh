@@ -39,18 +39,18 @@ TARGETS="croquet multisynq"
 
 for t in ${TARGETS}
 do
-    THEME_DIR=./themes/${t}
+    TEMPLATE_DIR=templates/${t}
 
     mkdir dist/${t}
     # TODO: use ln instead of cp
-    cp -rp ${THEME_DIR}/static/* ./dist/${t}
+    cp -rp ./${TEMPLATE_DIR}/static/* ./dist/${t}
     for p in $PACKAGES
     do
         OUTPUT_DIR="dist/${t}/${p}"
         VERSION=$(node -p -e "require('./"${p}/package.json"').version")
         MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
         echo Building $p $VERSION with theme ${t}
-        (cd $p; npm run build -- --template ../themes/${t} --destination ../${OUTPUT_DIR}) || exit 1
+        (cd $p; npm run build -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
         [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
         sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
     done
