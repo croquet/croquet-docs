@@ -1,0 +1,20 @@
+.navbar-heading {
+  display: flex;
+  justify-content: center;
+
+  padding: 1rem 3rem;
+}
+
+.sidebar-section-title.with-arrow:hover {
+  border-radius: 0;
+  text-decoration: underline;
+}
+
+.sidebar-section-children:hover * {
+  color: #007bff !important;
+}
+
+.sidebar-items-container {
+  margin-top: 1rem !important; 
+  box-shadow: 0px -30px 30px -20px rgba(0,0,0,0.1);
+}

@@ -8,13 +8,22 @@
   "opts": {
     "access": ["public"],
     "tutorials": "../../croquet-react/docs/tutorials",
+    "template": "../jsdoc-theme",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
+    "destination": "../dist/multisynq-react/",
+    "mainpagetitle": "Multisynq React Bindings @MULTISYNQ_VERSION@ References",
     "theme_opts": {
-        "theme": "light",
-        "include_css": ["../themes/croquet/static/styles/index.css"]
+      "include_css": [
+        "../jsdoc-theme/static/styles/clean-jsdoc-theme-base.css", 
+        "../jsdoc-theme/static/styles/multisynq.css"
+      ],
+      "theme": "light",
+      "logo": "multisynq_vertical_white.svg",
+      "title": "<div class=\"navbar-heading\" id=\"navbar-heading\"><a href=\"index.html\"><img src=\"images/multisynq_vertical_blue.svg\"/></a></div>",
+      "subdirectory": "../multisynq-react",
+      "search": true
     }
   },
   "plugins": ["plugins/markdown"],
