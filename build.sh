@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -euo pipefail
+TEMPLATES="croquet multisynq"
 
 cd `dirname "$0"`
 
@@ -41,10 +41,7 @@ fi
 
 # right now images and styles go one directory above... but it is probably saner if it is kept
 # in docs
-
-TARGETS="croquet multisynq"
-
-for t in ${TARGETS}
+for t in ${TEMPLATES}
 do
     TEMPLATE_DIR=templates/${t}
 
