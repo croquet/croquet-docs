@@ -43,7 +43,7 @@ do
 
     mkdir dist/${t}
     # TODO: use ln instead of cp
-    cp -rp ${THEME_DIR}/static/ ./dist/${t}
+    cp -rp ${THEME_DIR}/static/* ./dist/${t}
     for p in $PACKAGES
     do
         OUTPUT_DIR="dist/${t}/${p}"
