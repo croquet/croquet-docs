@@ -530,7 +530,10 @@ function buildNavbar() {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildSidebar(members) {
-    const title = themeOpts.title || 'Home';
+    let home = themeOpts.subdirectory ? themeOpts.subdirectory : './';
+
+    let logoSrc = `${home}/images/${themeOpts.logo || 'multisynq_vertical_blue.svg'}`;
+    const title = themeOpts.title || `<div class="navbar-heading" id="navbar-heading"><a href="${home}/index.html"><img src="${logoSrc}"/></a></div>`;
 
     const isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
 
@@ -928,7 +931,7 @@ exports.publish = async function (taffyData, opts, tutorials) {
     files = find({ kind: 'file' });
     packages = find({ kind: 'package' });
     // added by clean-jsdoc-theme-devs
-    const homepageTitle = themeOpts.homepageTitle || 'Home';
+    const homepageTitle = themeOpts.homepageTitle || 'Multisynq';
     const includeFilesListInHomepage =
         themeOpts.includeFilesListInHomepage || false;
 

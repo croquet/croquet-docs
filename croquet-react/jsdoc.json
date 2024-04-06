@@ -13,8 +13,7 @@
     "verbose": true,
     "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
     "theme_opts": {
-        "theme": "light",
-        "include_css": ["../templates/croquet/static/styles/index.css"]
+      "theme": "light"
     }
   },
   "plugins": ["plugins/markdown"],

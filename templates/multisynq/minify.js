@@ -34,6 +34,7 @@ const cssFilePaths = [
     path.join(cssPath, 'clean-jsdoc-theme-base.css'),
     path.join(cssPath, 'clean-jsdoc-theme-dark.css'),
     path.join(cssPath, 'clean-jsdoc-theme-light.css'),
+    path.join(cssPath, 'multisynq.css'),
 ];
 
 let css = '';
@@ -41,6 +42,7 @@ let css = '';
 for (const p of cssFilePaths) {
     css += fs.readFileSync(p, 'utf-8');
 }
+
 
 const cssWithScrollbar =
     css +

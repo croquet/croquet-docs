@@ -56,6 +56,6 @@ do
         echo Building $p $VERSION with theme ${t}
         (cd $p; npm run build -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
         [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
-        sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
+        sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
     done
 done

@@ -2,7 +2,9 @@
   "name": "croquet-docs",
   "description": "Croquet Docs Generator",
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "build-and-minify": "./build.sh && ./minify.sh",
+    "minify": "./minify.sh"
   },
   "author": "Croquet Labs",
   "license": "ISC",
@@ -12,6 +14,7 @@
     "npm-watch": "^0.9.0"
   },
   "dependencies": {
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.0",
+    "taffydb": "^2.7.3"
   }
 }
