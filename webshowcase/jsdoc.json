@@ -8,15 +8,13 @@
   "opts": {
     "access": ["public"],
     "tutorials": "./tutorials",
-    "template": "../clean-jsdoc-theme",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "destination": "../dist/webshowcase/",
     "mainpagetitle": "Croquet Metaverse Web Showcase",
     "theme_opts": {
         "theme": "light",
-        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+        "include_css": ["../templates/croquet/static/styles/index.css"]
     }
   },
   "plugins": ["plugins/markdown"],
