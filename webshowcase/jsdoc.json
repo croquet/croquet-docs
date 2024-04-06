@@ -13,8 +13,7 @@
     "verbose": true,
     "mainpagetitle": "Croquet Metaverse Web Showcase",
     "theme_opts": {
-        "theme": "light",
-        "include_css": ["../templates/croquet/static/styles/index.css"]
+        "theme": "light"
     }
   },
   "plugins": ["plugins/markdown"],

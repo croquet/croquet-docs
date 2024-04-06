@@ -14,8 +14,7 @@
     "verbose": true,
     "mainpagetitle": "Croquet Microverse",
     "theme_opts": {
-        "theme": "light",
-        "include_css": ["../templates/croquet/static/styles/index.css"]
+        "theme": "light"
     }
   },
   "plugins": ["plugins/markdown"],

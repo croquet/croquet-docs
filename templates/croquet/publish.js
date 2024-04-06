@@ -44,19 +44,30 @@ function copyStaticFolder() {
 copyStaticFolder();
 
 function copyToOutputFolder(filePath) {
-    var filePathNormalized = path.normalize(filePath);
+    const filePathNormalized = path.normalize(filePath);
 
-    fs.copyFileSync(filePathNormalized, outdir);
+    if (fs.existsSync(filePathNormalized)) {
+        fs.copyFileSync(filePathNormalized, outdir);
+    } else {
+        console.log(`=============== File not found: ${filePathNormalized}`);
+    }
 }
 
 function copyToOutputFolderFromArray(filePathArray) {
-    var i = 0;
-    var outputList = [];
+    let outputList = [];
+
+    console.log('---------', __dirname);
 
     if (Array.isArray(filePathArray)) {
-        for (; i < filePathArray.length; i++) {
-            copyToOutputFolder(filePathArray[i]);
-            outputList.push(path.basename(filePathArray[i]));
+        for (const filePath of filePathArray) {
+            const filePathNormalized = path.normalize(filePath);
+
+            if (fs.existsSync(filePathNormalized)) {
+                copyToOutputFolder(filePathNormalized);
+                outputList.push(path.basename(filePathNormalized));
+            } else {
+                console.log(`=============== File not found: ${filePathNormalized}`);
+            }
         }
     }
 
@@ -416,7 +427,12 @@ function returnPathOfStyleSrc() {
 }
 
 function includeCss() {
-    var stylePath = themeOpts.include_css || undefined;
+    const alwaysInclude = [
+        '../templates/croquet/static/styles/index.css',
+        '../../templates/croquet/static/styles/index.css',
+    ]
+
+    var stylePath = [...alwaysInclude, ...themeOpts.include_css || []];
 
     if (stylePath) {
         stylePath = copyToOutputFolderFromArray(stylePath);

@@ -13,8 +13,7 @@
     "destination": "../dist/game-tutorials/",
     "mainpagetitle": "Croquet Microverse",
     "theme_opts": {
-        "theme": "light",
-        "include_css": ["../clean-jsdoc-theme/static/styles/index.css"]
+        "theme": "light"
     }
   },
   "plugins": ["plugins/markdown"],
