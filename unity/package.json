@@ -4,7 +4,7 @@
   "description": "Croquet for Unity Guide",
   "scripts": {
     "start": "npm-watch",
-    "build": "jsdoc -c jsdoc.json;",
+    "build": "jsdoc -c jsdoc.json",
     "watch": "npm-watch"
   },
   "watch": {
