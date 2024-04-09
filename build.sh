@@ -41,6 +41,8 @@ fi
 
 # right now images and styles go one directory above... but it is probably saner if it is kept
 # in docs
+
+# Setup 
 for t in ${TEMPLATES}
 do
     TEMPLATE_DIR=templates/${t}
@@ -48,14 +50,21 @@ do
     mkdir -p dist/${t}
     # TODO: use ln instead of cp
     cp -rp ./${TEMPLATE_DIR}/static/* ./dist/${t}
-    for p in $PACKAGES
+done
+
+# Build docs
+for p in $PACKAGES
+do
+    for t in ${TEMPLATES}
     do
+        TEMPLATE_DIR=templates/${t}
+
         OUTPUT_DIR="dist/${t}/${p}"
         VERSION=$(node -p -e "require('./"${p}/package.json"').version")
         MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
         echo Building $p $VERSION with theme ${t}
         (cd $p; npm run build -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
         [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
-        sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
+        sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html || true
     done
 done
