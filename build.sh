@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -euo pipefail
+
 TEMPLATES="croquet multisynq"
 
 cd `dirname "$0"`
