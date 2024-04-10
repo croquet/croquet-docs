@@ -129,7 +129,7 @@ function getMetaTagData(themeOpts) {
 }
 
 function getTheme(themeOpts) {
-    var theme = themeOpts.default_theme || 'dark';
+    var theme = themeOpts.default_theme || 'fallback-light';
 
     return theme;
 }

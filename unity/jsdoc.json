@@ -12,10 +12,7 @@
     "recurse": false,
     "verbose": true,
     "destination": "../dist/unity/",
-    "mainpagetitle": "Croquet For Unity Guide",
-    "theme_opts": {
-        "theme": "light"
-    }
+    "mainpagetitle": "Croquet For Unity Guide"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {

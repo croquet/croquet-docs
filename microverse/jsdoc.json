@@ -12,10 +12,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "mainpagetitle": "Croquet Microverse",
-    "theme_opts": {
-        "theme": "light"
-    }
+    "mainpagetitle": "Croquet Microverse"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {

@@ -11,10 +11,7 @@
     "recurse": false,
     "verbose": true,
     "destination": "../dist/game-tutorials/",
-    "mainpagetitle": "Croquet Microverse",
-    "theme_opts": {
-        "theme": "light"
-    }
+    "mainpagetitle": "Croquet Microverse"
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
