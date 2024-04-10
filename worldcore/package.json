@@ -4,7 +4,8 @@
   "description": "Croquet Worldcore Documentation",
   "scripts": {
     "start": "npm-watch",
-    "build": "./build.sh",
+    "doBuild": "./build.sh",
+    "build": "../build.sh worldcore",
     "watch": "npm-watch"
   },
   "watch": {

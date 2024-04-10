@@ -4,7 +4,8 @@
   "description": "Croquet Microverse Documentation",
   "scripts": {
     "start": "npm-watch",
-    "build": "./build.sh",
+    "build": "../build.sh microverse",
+    "doBuild": "./build.sh",
     "watch": "npm-watch"
   },
   "watch": {
@@ -14,7 +15,9 @@
         "./card.js",
         "./avatar.js",
         "./tutorials/**/*",
-        "./jsdoc.json"
+        "./jsdoc.json",
+        "./build.sh",
+        "./package.json"
       ],
       "ignore": [
         "dist/"

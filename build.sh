@@ -63,7 +63,7 @@ do
         VERSION=$(node -p -e "require('./"${p}/package.json"').version")
         MINOR_VERSION=`echo $VERSION | sed 's/\.[^.]*$//'`
         echo Building $p $VERSION with theme ${t}
-        (cd $p; npm run build -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
+        (cd $p; npm run doBuild -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
         [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
         
         if [[ "$OSTYPE" == "darwin"* ]]; then
