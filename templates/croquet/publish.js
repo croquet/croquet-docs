@@ -426,21 +426,13 @@ function returnPathOfStyleSrc() {
     return stylePath;
 }
 
-function includeCss(templatePath) {
-    // const alwaysInclude = [
-    //     '../templates/croquet/static/styles/index.css',
-    //     '../../templates/croquet/static/styles/index.css',
-    // ]
+function includeCss() {
+    const alwaysInclude = [
+        '../templates/croquet/static/styles/index.css',
+        '../../templates/croquet/static/styles/index.css',
+    ]
 
-    // Get all CSS files from template
-    const cssDir = path.join(templatePath, 'static', 'styles')
-    const files = fs.readdirSync(cssDir);
-    var stylePath = files
-        .filter(file => file.endsWith('.css'))
-        .map((name) => path.join(cssDir, name));
-
-
-    // var stylePath = [...alwaysInclude, ...themeOpts.include_css || []];
+    var stylePath = [...alwaysInclude, ...themeOpts.include_css || []];
 
     if (stylePath) {
         stylePath = copyToOutputFolderFromArray(stylePath);
@@ -898,7 +890,7 @@ exports.publish = function (taffyData, opts, tutorials) {
     view.dynamicScript = createDynamicsScripts();
     view.dynamicScriptSrc = returnPathOfScriptScr();
     view.includeScript = includeScript();
-    view.includeCss = includeCss(templatePath);
+    view.includeCss = includeCss();
     view.meta = getMetaTagData();
     view.overlayScrollbar = overlayScrollbarOptions();
     view.theme = getTheme();
