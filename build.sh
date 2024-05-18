@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Partially using bash strict mode
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 
 TEMPLATES="croquet multisynq"
@@ -72,6 +74,27 @@ do
             sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html
         else
             sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html
+        fi
+
+        if [[ ${t} == "multisynq" ]]; then
+            echo "===========> Updating Multisynq links to point to croquet.io"
+            BAD_LINKS="../../webshowcase ../../privacy.html ../../keys/"
+
+            for l in ${BAD_LINKS}
+            do
+                NEW_LINK=$(echo "$l" | awk '{sub(/\.\.\/../, "https://croquet.io"); print}')
+                echo Changing \"${l}\" to: \"${NEW_LINK}\"
+
+                # sed "s|$path|$new_path|g;/\$new_path/p" your_script.sh
+                grep -o -E "<[^<]*${l}[^>]*>" ${OUTPUT_DIR}/*.html | grep --color ${l} || true
+                # using | as the delimiter (instead of /)
+                # to avoid conflicts with the slashes in the paths
+                if [[ "$OSTYPE" == "darwin"* ]]; then
+                    sed -i '' "s|${l}|${NEW_LINK}|g" ${OUTPUT_DIR}/*.html
+                else
+                    sed -i "s|${l}|${NEW_LINK}|g" ${OUTPUT_DIR}/*.html
+                fi
+            done
         fi
     done
 done
