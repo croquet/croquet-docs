@@ -78,7 +78,7 @@ do
 
         if [[ ${t} == "multisynq" ]]; then
             echo "===========> Updating Multisynq links to point to croquet.io"
-            BAD_LINKS="../../webshowcase ../../privacy.html ../../keys/"
+            BAD_LINKS="../../webshowcase ../../privacy.html ../../keys ../../react-counter ../../react-musicbox"
 
             for l in ${BAD_LINKS}
             do
