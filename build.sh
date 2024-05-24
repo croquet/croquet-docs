@@ -1,10 +1,97 @@
 #!/bin/sh
 
-# Partially using bash strict mode
+# Using bash strict mode
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 
-TEMPLATES="croquet multisynq"
+VALID_TEMPLATES=(
+    "croquet"
+    "multisynq"
+)
+
+VALID_TARGETS=(
+    "virtual-dom"
+    "worldcore"
+    "microverse"
+    "webshowcase"
+    "croquet"
+    "croquet-react"
+    "unity"
+)
+
+print_help() {
+  cat << EOF
+Usage: $0 [-t template]... [target]...
+
+Script for generating the croquet docs.
+
+Options:
+  -t template   Specify a template to build. This option can be repeated
+                to provide multiple templates. If no -t options are provided,
+                the script will build for all valid templates.
+
+Arguments:
+  target        Specify a target to build. Multiple targets can be provided.
+                If no targets are provided, the script will build for all targets.
+
+Valid templates:
+$(printf "  %s\n" "${VALID_TEMPLATES[@]}")
+
+Valid targets:
+$(printf "  %s\n" "${VALID_TARGETS[@]}")
+
+Examples:
+  $0 -t croquet
+    Build for the 'croquet' template.
+
+  $0 -t croquet -t multisynq
+    Build for the 'croquet' and 'multisynq' templates.
+
+  $0
+    Build for all valid templates.
+EOF
+}
+
+is_valid_template() {
+    local TEMPLATE="$1"
+    for VALID_TEMPLATE in ${VALID_TEMPLATES[@]}; do
+        if [[ "$VALID_TEMPLATE" == "$TEMPLATE" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Parse opts. Get templates from command line
+TEMPLATES=()
+while getopts ":ht:" opt; do
+    case $opt in
+        t)
+            if is_valid_template $OPTARG; then
+                TEMPLATES+=("$OPTARG")
+            else
+                echo "Invalid template: $OPTARG. Ignoring..."
+            fi
+            ;;
+        h)
+            print_help
+            exit 0
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+# If no templates provided, use all valid templates
+if [ "${#TEMPLATES[@]}" -eq 0 ]; then
+    echo "No templates provided, building for all templates"
+    TEMPLATES=${VALID_TEMPLATES[@]}
+fi
 
 cd `dirname "$0"`
 
@@ -52,7 +139,6 @@ do
     TEMPLATE_DIR=templates/${t}
 
     mkdir -p dist/${t}
-    # TODO: use ln instead of cp
     cp -rp ./${TEMPLATE_DIR}/static/* ./dist/${t}
 done
 
