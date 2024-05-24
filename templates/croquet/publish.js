@@ -10,6 +10,9 @@ var template = require('jsdoc/template');
 var util = require('util');
 var fse = require('fs-extra');
 
+// Used to parse markdown from markdown files
+const markdown = require('jsdoc/util/markdown');
+
 var htmlsafe = helper.htmlsafe;
 var linkto = helper.linkto;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
@@ -1019,4 +1022,28 @@ exports.publish = function (taffyData, opts, tutorials) {
     }
 
     saveChildren(tutorials);
+    
+    // Render extra_md files
+    const extra_md = themeOpts['extra_md'] || []
+    
+    for(const md of extra_md) {
+        const { title, path: inputPath } = md
+
+        // Get just the filename (this won't work with escaped slashes)
+        const fileName = inputPath.split('/').pop()
+
+        // rename extension to html
+        const outName = fileName.split('.').slice(0, -1).concat('html').join('.')
+    
+        const content = fs.readFileSync(inputPath).toString()
+        var templateData = {
+            title: title,
+            header: '',
+            content: markdown.getParser()(content),
+            children: []
+        };
+        var outputPath = path.join(outdir, outName);
+        var html = view.render('extra_md.tmpl', templateData);
+        fs.writeFileSync(outputPath, html, 'utf8');
+    }
 };

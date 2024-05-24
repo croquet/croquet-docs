@@ -11,7 +11,15 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References"
+    "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
+    "theme_opts": {
+      "extra_md": [
+        {
+          "title": "v2.0.0 Migration Guide",
+          "path": "../../croquet-react/docs/v2.0.0_migration_guide.md"
+        }
+      ]
+    }
   },
   "plugins": ["plugins/markdown"],
   "markdown": {
