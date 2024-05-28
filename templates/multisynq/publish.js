@@ -482,6 +482,20 @@ function buildSidebarMembers({
     return navProps;
 }
 
+function buildSidebarSubpackagesMember(config) {
+    return {
+        name: "Packages",
+        items: config.map((name) => {
+            return {
+                name,
+                anchor: `<a href="./${name}/index.html">${name}</a>`,
+                children: []
+            }
+        }),
+        id: "sidebar-packages",
+      }
+}
+
 function buildSearchListForData() {
     data().each((item) => {
         if (item.kind !== 'package' && !item.inherited) {
@@ -647,7 +661,11 @@ function buildSidebar(members) {
             throw new Error(errorMsg);
         }
     });
-
+    
+    const subpackages = themeOpts.subpackages;
+    if (subpackages) {
+        nav.sections.push(buildSidebarSubpackagesMember(subpackages))
+    }
     return nav;
 }
 
