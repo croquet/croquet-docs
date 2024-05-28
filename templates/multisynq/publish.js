@@ -482,16 +482,29 @@ function buildSidebarMembers({
     return navProps;
 }
 
-function buildSidebarSubpackagesMember(config) {
+function buildSidebarSubpackagesMember(subpackages, allpackages) {
+    // Subpackages are used at the root level
+    const subpackagesLink = (name) => `./${name}`
+
+    // Allpackages are used inside each subpackage
+    // Hence they have to reference the parent package
+    const allpackagesLink = (name) => name === "worldcore" ? "../" : `../${name}`
+
     return {
         name: "Packages",
-        items: config.map((name) => {
+        items: subpackages.map((name) => {
             return {
                 name,
-                anchor: `<a href="./${name}/index.html">${name}</a>`,
+                anchor: `<a href="${subpackagesLink(name)}">${name}</a>`,
                 children: []
             }
-        }),
+        }).concat(allpackages.map((name => {
+            return {
+                name,
+                anchor: `<a href="${allpackagesLink(name)}">${name}</a>`,
+                children: []
+            }
+        }))),
         id: "sidebar-packages",
       }
 }
@@ -662,9 +675,10 @@ function buildSidebar(members) {
         }
     });
     
-    const subpackages = themeOpts.subpackages;
-    if (subpackages) {
-        nav.sections.push(buildSidebarSubpackagesMember(subpackages))
+    const subpackages = themeOpts.subpackages || [];
+    const allpackages = themeOpts.allpackages || [];
+    if (subpackages.length + allpackages.length > 0) {
+        nav.sections.push(buildSidebarSubpackagesMember(subpackages, allpackages))
     }
     return nav;
 }
