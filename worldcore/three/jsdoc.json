@@ -12,9 +12,7 @@
     "verbose": true,
     "mainpagetitle": "Croquet Worldcore Three Overview",
     "theme_opts": {
-        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"],
-        "theme": "light",
-        "include_css": ["../../templates/croquet/static/styles/index.css"]
+        "allpackages": ["worldcore", "audio", "behavior", "input", "rapier", "three", "vector", "webGL", "widget"]
     }
   },
   "plugins": ["plugins/markdown"],
