@@ -11,7 +11,7 @@
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
-    "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@ References",
+    "mainpagetitle": "Croquet React Bindings @CROQUET_VERSION@",
     "theme_opts": {
       "extra_md": [
         {
