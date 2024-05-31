@@ -563,7 +563,7 @@ function buildSidebar(members) {
     let home = themeOpts.subdirectory ? themeOpts.subdirectory : './';
 
     let logoSrc = `${home}/images/${themeOpts.logo || 'multisynq_vertical_blue.svg'}`;
-    const title = themeOpts.title || `<div class="navbar-heading" id="navbar-heading"><a href=".."><img src="${logoSrc}"/></a></div>`;
+    const title = themeOpts.title || `<div class="navbar-heading" id="navbar-heading"><a href="./"><img src="${logoSrc}"/></a></div>`;
 
     const isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i);
 
