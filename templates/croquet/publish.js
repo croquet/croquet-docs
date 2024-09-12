@@ -622,9 +622,8 @@ function buildNav(members) {
 
     let nav = `<div class="navbar-heading" id="navbar-heading"><a href="./"><img src="${home}/images/logotype.png"/></a></div>`;
 
-    if (haveSearch) {
-        nav += buildSearch();
-    }
+    if (haveSearch) nav += buildSearch();
+
     nav += '<div class="sidebar-main-content" id="sidebar-main-content">';
     var seen = {};
     var seenTutorials = {};
@@ -633,10 +632,8 @@ function buildNav(members) {
     var menuLocation = themeOpts.menuLocation || 'up';
 
 
+    if (menu !== undefined && menuLocation === 'up') nav += buildMenuNav(menu);
 
-    if (menu !== undefined && menuLocation === 'up') {
-        nav += buildMenuNav(menu);
-    }
     nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial, true);
     nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
     nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
@@ -672,9 +669,47 @@ function buildNav(members) {
         nav += buildMemberNav(items, "Packages", seen, link);
     }
 
-    if (menu !== undefined && menuLocation === 'down') {
-        nav += buildMenuNav(menu);
+    let extra_sidebar_items = themeOpts.extra_sidebar_items;
+    if (extra_sidebar_items) {
+        for(const item of extra_sidebar_items) {
+            // If path does not exist, skip to the next one 
+            if (!item.path) { console.log("Path not provided. Skipping item ", item); continue }
+            if (!fs.existsSync(item.path)) { console.log(`Extra sidebar item with path: "${path}" not found. Skipping...`); continue }
+
+            // Check if directory of file
+            let isDir = fs.lstatSync(item.path).isDirectory();
+            console.log('Extra sidebar item', {item, isDir});
+
+            // If not a directory, simply add the link to the sidebar
+            if (!isDir) {
+                const fileName = item.path.split('/').pop();
+                const extension = fileName.split(".").pop();
+                if (extension !== "md") { console.log("Error: Extra sidebar file is not md. Skipping..."); continue }
+                const outName = fileName.split('.').slice(0, -1).concat('html').join('.')
+
+                nav += `<hr class="nav-hr"/>`;
+                nav += `<div><a href="${outName}"><h3 class="accordion-heading">${item.title}</h3></a></div>`;
+            } else {
+                const structurePath = path.join(item.path, 'structure.json');
+                if (!fs.existsSync(structurePath)) { console.log(`Structure file not found for extra sidebar item. Skipping...`); continue }
+                const structure = JSON.parse(fs.readFileSync(structurePath));
+
+                nav += `<hr class="nav-hr"/>`;
+                nav += `<div class="accordion collapsed"> <h3 class="accordion-heading">${item.title}<svg><use xlink:href="#down-icon"></use></svg></h3>`;
+                nav += `<ul class="accordion-content">`;
+
+                Object.keys(structure).forEach((key) => {
+                    console.log('Extra sidebar item', {item, key});
+                    nav += `<li><a href="${key}.html">${structure[key].title}</a></li>`;
+                });
+
+                nav += `</ul>`;
+            }
+
+        }
     }
+
+    if (menu !== undefined && menuLocation === 'down') nav += buildMenuNav(menu);
     nav += '</div>';
 
     return nav;
@@ -1025,8 +1060,29 @@ exports.publish = function (taffyData, opts, tutorials) {
     
     // Render extra_md files
     const extra_md = themeOpts['extra_md'] || []
-    
-    for(const md of extra_md) {
+    extra_md.forEach(renderExtraMd)
+
+    const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
+    extra_sidebar_items.forEach((item) => {
+        let isDir = fs.lstatSync(item.path).isDirectory();
+        if (isDir) {
+            // we can assume each directory has a file named structure.json
+            // we will renderExtraMd for each key in the structure.json using it as the path
+            const structurePath = path.join(item.path, 'structure.json');
+            if (!fs.existsSync(structurePath)) { console.log(`Structure file not found for extra sidebar item. Skipping...`); return }
+            const structure = JSON.parse(fs.readFileSync(structurePath));
+
+            Object.keys(structure).forEach((key) => {
+                console.log('Extra sidebar item', {item, key});
+                renderExtraMd({
+                    title: structure[key].title,
+                    path: path.join(item.path, `${key}.md`)
+                })
+            })
+        } else renderExtraMd(item)
+    })
+
+    function renderExtraMd(md) {
         const { title, path: inputPath } = md
 
         // Get just the filename (this won't work with escaped slashes)
