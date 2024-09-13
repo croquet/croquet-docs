@@ -27,8 +27,8 @@
           "path": "../../croquet-for-unity-tutorials/docs/projects"
         },
         {
-          "title": "Resources",
-          "path": "../../croquet-for-unity-tutorials/docs/resources.md"
+          "title": "Photon Migration Guide",
+          "path": "../../croquet-for-unity-tutorials/docs/photon_migration_guide.md"
         }
       ],
       "extra_directories": [

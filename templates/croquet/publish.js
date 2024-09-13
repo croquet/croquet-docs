@@ -10,6 +10,8 @@ var template = require('jsdoc/template');
 var util = require('util');
 var fse = require('fs-extra');
 
+const { createNavigationScript, createNavigationStyles } = require('./helpers/navigation.js')
+
 // Used to parse markdown from markdown files
 const markdown = require('jsdoc/util/markdown');
 
@@ -31,7 +33,6 @@ var haveSearch = (themeOpts.search === undefined) ? true : Boolean(themeOpts.sea
 // eslint-disable-next-line no-restricted-globals
 var outdir = path.normalize(env.opts.destination);
 
-
 function copyStaticFolder() {
     var staticDir = themeOpts.static_dir || undefined;
 
@@ -47,7 +48,6 @@ copyStaticFolder();
 
 function copyToOutputFolder(filePath) {
     const filePathNormalized = path.normalize(filePath);
-
     if (fs.existsSync(filePathNormalized)) fs.copyFileSync(filePathNormalized, outdir);
     else console.log(`=============== File not found: ${filePathNormalized}`);
 }
@@ -71,9 +71,7 @@ function copyToOutputFolderFromArray(filePathArray) {
     return outputList;
 }
 
-function find(spec) {
-    return helper.find(data, spec);
-}
+function find(spec) { return helper.find(data, spec) }
 
 function tutoriallink(tutorial) {
     return helper.toTutorial(tutorial, null, {
@@ -83,9 +81,7 @@ function tutoriallink(tutorial) {
     });
 }
 
-function getAncestorLinks(doclet) {
-    return helper.getAncestorLinks(data, doclet);
-}
+function getAncestorLinks(doclet) { return helper.getAncestorLinks(data, doclet) }
 
 function hashToLink(doclet, hash) {
     if (!/^(#.+)/.test(hash)) return hash;
@@ -117,11 +113,9 @@ function needsSignature(doclet) {
 
 function getSignatureAttributes(item) {
     var attributes = [];
-
     if (item.optional) attributes.push('opt');
     if (item.nullable === true) attributes.push('nullable');
     else if (item.nullable === false) attributes.push('non-null');
-
     return attributes;
 }
 
@@ -130,7 +124,6 @@ function updateItemName(item) {
     var itemName = item.name || '';
 
     if (item.variable) itemName = '&hellip;' + itemName;
-
     if (attributes && attributes.length) {
         itemName = util.format('%s<span class="signature-attributes">%s</span>', itemName, attributes.join(', '));
     }
@@ -164,17 +157,12 @@ function buildAttribsString(attribs) {
 
 function addNonParamAttributes(items) {
     var types = [];
-
-    items.forEach(function (item) {
-        types = types.concat(buildItemTypeStrings(item));
-    });
-
+    items.forEach(function (item) { types = types.concat(buildItemTypeStrings(item)) }) //prettier-ignore
     return types;
 }
 
 function addSignatureParams(f) {
     var params = f.params ? addParamAttributes(f.params) : [];
-
     f.signature = util.format('%s(%s)', (f.signature || ''), params.join(', '));
 }
 
@@ -190,12 +178,9 @@ function addSignatureReturns(f) {
     if (f.returns) {
         f.returns.forEach(function (item) {
             helper.getAttribs(item).forEach(function (attrib) {
-                if (attribs.indexOf(attrib) === -1) {
-                    attribs.push(attrib);
-                }
+                if (attribs.indexOf(attrib) === -1) attribs.push(attrib);
             });
         });
-
         attribsString = buildAttribsString(attribs);
     }
 
@@ -208,15 +193,12 @@ function addSignatureReturns(f) {
 
 function addSignatureTypes(f) {
     var types = f.type ? buildItemTypeStrings(f) : [];
-
-    f.signature = (f.signature || '') + '<span class="type-signature">' +
-        (types.length ? ' :' + types.join('|') : '') + '</span>';
+    f.signature = (f.signature || '') + '<span class="type-signature">' + (types.length ? ' :' + types.join('|') : '') + '</span>';
 }
 
 function addAttribs(f) {
     var attribs = helper.getAttribs(f);
     var attribsString = buildAttribsString(attribs);
-
     f.attribs = util.format('<span class="type-signature">%s</span>', attribsString);
 }
 
@@ -248,9 +230,7 @@ function generate(type, title, docs, filename, resolveLinks) {
     };
 
     var outpath = path.join(outdir, filename), html = view.render('container.tmpl', docData);
-
     if (resolveLinks) html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
-
     fs.writeFileSync(outpath, html, 'utf8');
 }
 
@@ -335,7 +315,6 @@ function buildMenuNav(menu) {
     });
 
     m += '</ul>';
-
     return m;
 }
 
@@ -354,56 +333,22 @@ function buildSearch() {
     return searchHTML;
 }
 
-function buildFooter() {
-    var footer = themeOpts.footer || '';
-    return footer;
-}
-
-function getFavicon() {
-    var favicon = themeOpts.favicon || undefined
-    return favicon
-}
-
-// function copy
-function createDynamicStyleSheet() {
-    var styleClass = themeOpts.create_style || undefined;
-    /* prettier-ignore-start */
-    return styleClass;
-}
-
-function createDynamicsScripts() {
-    var scripts = themeOpts.add_scripts || undefined;
-    return scripts;
-}
-
-function returnPathOfScriptScr() {
-    var scriptPath = themeOpts.add_script_path || undefined;
-    return scriptPath;
-}
-
-function returnPathOfStyleSrc() {
-    var stylePath = themeOpts.add_style_path || undefined;
-    return stylePath;
-}
+function buildFooter() {             return themeOpts.footer                     || ''        } // prettier-ignore
+function getFavicon() {              return themeOpts.favicon                    || undefined } // prettier-ignore
+function createDynamicStyleSheet() { return themeOpts.create_style               || undefined } // prettier-ignore
+function createDynamicsScripts() {   return themeOpts.add_scripts                || undefined } // prettier-ignore
+function returnPathOfScriptScr() {   return themeOpts.add_script_path            || undefined } // prettier-ignore
+function returnPathOfStyleSrc() {    return stylePath = themeOpts.add_style_path || undefined } // prettier-ignore
+function resizeable() {              return resizeOpts = themeOpts.resizeable    || {};       } // prettier-ignore
+function codepen() {                 return themeOpts.codepen                    || {};       } // prettier-ignore
+function getMetaTagData() {          return themeOpts.meta                       || undefined } // prettier-ignore
 
 function includeCss(templatePath) {
     const cssDir = path.join(templatePath, 'static', 'styles')
     const alwaysInclude = [ path.join(cssDir, 'index.css') ]
-
     var stylePath = [...alwaysInclude, ...themeOpts.include_css || []];
-
     if (stylePath) stylePath = copyToOutputFolderFromArray(stylePath);
     return stylePath;
-}
-
-function resizeable() {
-    var resizeOpts = themeOpts.resizeable || {};
-    return resizeOpts;
-}
-
-function codepen() {
-    var codepenOpts = themeOpts.codepen || {};
-    return codepenOpts;
 }
 
 function overlayScrollbarOptions() {
@@ -418,28 +363,19 @@ function includeScript() {
     return scriptPath;
 }
 
-function getMetaTagData() {
-    var meta = themeOpts.meta || undefined;
-    return meta;
-}
-
 function getTheme() {
     var theme = themeOpts.theme || 'light';
     var baseThemeName = 'clean-jsdoc-theme';
     var themeSrc = `${baseThemeName}-${theme}.css`.trim();
-
     return themeSrc;
 }
 
-
 function search() {
     var searchOption = themeOpts.search;
-
     var obj = {
         list: searchListArray,
         options: JSON.stringify(searchOption)
     };
-
     return obj;
 }
 
@@ -466,9 +402,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                  */
                 var accordionClassName = (methods.length) ? '"accordion collapsed child"' : '"accordion-list"';
 
-                itemsNav += '<li class=' +
-                    accordionClassName +
-                    '>';
+                itemsNav += '<li class=' + accordionClassName + '>';
 
                 var linkTitle = linktoFn(item.longname, item.name.replace(/^module:/, ''));
 
@@ -526,13 +460,8 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
     return nav;
 }
 
-function linktoTutorial(longName, name) {
-    return tutoriallink(name);
-}
-
-function linktoExternal(longName, name) {
-    return linkto(longName, name.replace(/(^"|"$)/g, ''));
-}
+function linktoTutorial(longName, name) { return tutoriallink(name) }
+function linktoExternal(longName, name) { return linkto(longName, name.replace(/(^"|"$)/g, '')) }
 
 /**
  * Create the navigation sidebar.
@@ -550,9 +479,7 @@ function linktoExternal(longName, name) {
  */
 function buildNav(members) {
     var title = (themeOpts.title) || 'Croquet';
-
     let home = ".."; // themeOpts.subdirectory ? "../.." : "..";
-
     let nav = `<div class="navbar-heading" id="navbar-heading"><a href="./"><img src="${home}/images/logotype.png"/></a></div>`;
 
     if (haveSearch) nav += buildSearch();
@@ -564,27 +491,22 @@ function buildNav(members) {
     var menu = (themeOpts.menu) || undefined;
     var menuLocation = themeOpts.menuLocation || 'up';
 
-
     if (menu !== undefined && menuLocation === 'up') nav += buildMenuNav(menu);
 
-    nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial, true);
-    nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
-    nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
-    nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
-    nav += buildMemberNav(members.events, 'Events', seen, linkto);
-    nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
-    nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
-    nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
-    nav += buildMemberNav(members.globals, 'Global', seen, linkto);
+    nav += buildMemberNav(members.tutorials,  'Tutorials',  seenTutorials, linktoTutorial, true) //prettier-ignore
+    nav += buildMemberNav(members.classes,    'Classes',    seen,          linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.modules,    'Modules',    {},            linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.externals,  'Externals',  seen,          linktoExternal      ) //prettier-ignore
+    nav += buildMemberNav(members.events,     'Events',     seen,          linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.namespaces, 'Namespaces', seen,          linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.mixins,     'Mixins',     seen,          linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.interfaces, 'Interfaces', seen,          linkto              ) //prettier-ignore
+    nav += buildMemberNav(members.globals,    'Global',     seen,          linkto              ) //prettier-ignore
 
     let subpackages = themeOpts.subpackages;
     if (subpackages) {
         let items = subpackages.map((n) => ({name: n, longname: n}));
-
-        let link = (longname, name) => {
-            return linkto(`${name}`, `<a href="./${longname}/">${name}</a>`);
-        }
-
+        let link = (longname, name) => linkto(`${name}`, `<a href="./${longname}/">${name}</a>`);
         nav += `<hr class="nav-hr"/>`;
         nav += buildMemberNav(items, "Packages", seen, link);
     }
@@ -592,7 +514,6 @@ function buildNav(members) {
     let allpackages = themeOpts.allpackages;
     if (allpackages) {
         let items = allpackages.map((n) => ({name: n, longname: n}));
-
         let link = (longname, name) => {
             let path = name === "worldcore" ? "../.." : "..";
             return linkto(`${name}`, `<a href="${path}/${longname}/">${name}</a>`);
@@ -656,11 +577,8 @@ exports.publish = function (taffyData, opts, tutorials) {
 
     // eslint-disable-next-line no-restricted-globals
     var conf = env.conf.templates || {};
-
     conf.default = conf.default || {};
-
     var templatePath = path.normalize(opts.template);
-
     view = new template.Template(path.join(templatePath, 'tmpl'));
 
     // claim some special filenames in advance, so the All-Powerful Overseer of Filename Uniqueness
@@ -669,7 +587,6 @@ exports.publish = function (taffyData, opts, tutorials) {
     // don't call registerLink() on this one! 'index' is also a valid longname
 
     var globalUrl = helper.getUniqueFilename('global');
-
     helper.registerLink('global', globalUrl);
 
     // set up templating
@@ -706,11 +623,7 @@ exports.publish = function (taffyData, opts, tutorials) {
                 };
             });
         }
-        if (doclet.see) {
-            doclet.see.forEach(function (seeItem, i) {
-                doclet.see[i] = hashToLink(doclet, seeItem);
-            });
-        }
+        if (doclet.see) doclet.see.forEach(function (seeItem, i) { doclet.see[i] = hashToLink(doclet, seeItem) });
 
         // build a list of source files
         var sourcePath;
@@ -811,7 +724,6 @@ exports.publish = function (taffyData, opts, tutorials) {
     });
 
     var members = helper.getMembers(data);
-
     members.tutorials = tutorials.children;
 
     const newClasses = [], newMixins = [];
@@ -858,7 +770,6 @@ exports.publish = function (taffyData, opts, tutorials) {
 
     // generate the pretty-printed source files first so other pages can link to them
     if (outputSourceFiles) generateSourceFiles(sourceFiles, opts.encoding);
-
     if (members.globals.length) generate('', 'Global', [{ kind: 'globalobj' }], globalUrl);
 
     // index page displays information from package.json and lists files
@@ -1085,98 +996,4 @@ function processMarkdownContent(content, mdFilePath, outdir) {
         const newImagePath = copyImageAndUpdateLink(imagePath, mdFilePath, outdir);
         return `![${altText}](${newImagePath})`;
     });
-}
-
-function createNavigationScript() {
-    return `
-    document.addEventListener('DOMContentLoaded', function() {
-        const nav = document.querySelector('.sidebar-main-content');
-        
-        nav.addEventListener('click', function(e) {
-            const target = e.target;
-            
-            // Handle accordion toggles
-            if (target.matches('.accordion-heading')) {
-                const content = target.nextElementSibling;
-                target.classList.toggle('active');
-                content.style.display = content.style.display === 'block' ? 'none' : 'block';
-                e.preventDefault();
-            }
-            
-            // Handle link clicks
-            if (target.matches('a')) {
-                // Remove 'active' class from all links
-                nav.querySelectorAll('a').forEach(link => link.classList.remove('active'));
-                
-                // Add 'active' class to clicked link
-                target.classList.add('active');
-                
-                // Don't prevent default here, let the link navigate
-            }
-        });
-
-        function saveNavState() {
-            const activeLinks = Array.from(document.querySelectorAll('.sidebar-main-content a.active'))
-                .map(link => link.getAttribute('href'));
-            localStorage.setItem('activeNavLinks', JSON.stringify(activeLinks));
-        }
-
-        function loadNavState() {
-            const activeLinks = JSON.parse(localStorage.getItem('activeNavLinks') || '[]');
-            activeLinks.forEach(href => {
-                const link = document.querySelector(\`.sidebar-main-content a[href="\${href}"]\`);
-                if (link) {
-                    link.classList.add('active');
-                    // Expand parent accordions if necessary
-                    let parent = link.closest('.accordion-content');
-                    while (parent) {
-                        parent.style.display = 'block';
-                        parent.previousElementSibling.classList.add('active');
-                        parent = parent.parentElement.closest('.accordion-content');
-                    }
-                }
-            });
-        }
-
-        // Call loadNavState when the page loads
-        loadNavState();
-
-        // Call saveNavState when a link is clicked
-        nav.addEventListener('click', function(e) {
-            if (e.target.matches('a')) {
-                saveNavState();
-            }
-        });
-    });
-    `;
-}
-
-function createNavigationStyles() {
-    return `
-    .sidebar-main-content a {
-        color: #333;
-        text-decoration: none;
-    }
-
-    .sidebar-main-content a:visited {
-        color: #666;
-    }
-
-    .sidebar-main-content a.active {
-        font-weight: bold;
-        color: #000;
-    }
-
-    .accordion-heading {
-        cursor: pointer;
-    }
-
-    .accordion-content {
-        display: none;
-    }
-
-    .accordion-heading.active + .accordion-content {
-        display: block;
-    }
-    `;
 }
