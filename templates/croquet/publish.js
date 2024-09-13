@@ -930,10 +930,16 @@ exports.publish = function (taffyData, opts, tutorials) {
 
     saveChildren(tutorials);
 
-
     // Render extra_md files
     const extra_md = themeOpts['extra_md'] || []
     extra_md.forEach(renderExtraMd)
+
+    const extra_directories = themeOpts['extra_directories'] || []
+    extra_directories.forEach((dir) => {
+        const source = path.resolve(dir.path)
+        const destination = path.resolve(outdir, dir.destination)
+        fse.copySync(source, destination)
+    })
 
     const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
     let otherItems = [];
@@ -1028,12 +1034,9 @@ function extraItemToUrl(category, name) {
 }
 
 function copyImageAndUpdateLink(imagePath, mdFilePath, outdir) {
+    // Ensure outdir is an absolute path
+    outdir = path.resolve(outdir);
     const imageOutDir = path.join(outdir, 'images');
-    if (!fs.existsSync(imageOutDir)) fs.mkdirSync(imageOutDir, { recursive: true });
-
-    console.log('Image Output Directory:', imageOutDir);
-    console.log('Original image path:', imagePath);
-    console.log('Markdown file path:', mdFilePath);
 
     let fullImagePath;
     if (path.isAbsolute(imagePath)) fullImagePath = imagePath;
@@ -1045,30 +1048,31 @@ function copyImageAndUpdateLink(imagePath, mdFilePath, outdir) {
         fullImagePath = path.resolve(path.dirname(mdFilePath), imagePath);
         
         // If that doesn't exist, try to resolve it relative to the docs/images directory
-        if (!fs.existsSync(fullImagePath)) {
+        if (!fse.pathExistsSync(fullImagePath)) {
             const docsImagePath = path.resolve(path.dirname(mdFilePath), '..', 'images', path.basename(imagePath));
-            if (fs.existsSync(docsImagePath)) fullImagePath = docsImagePath;
+            if (fse.pathExistsSync(docsImagePath)) fullImagePath = docsImagePath;
         }
     }
-
-    console.log('Resolved full image path:', fullImagePath);
 
     const imageName = path.basename(imagePath);
     const newImagePath = path.join(imageOutDir, imageName);
 
-    console.log('Destination image path:', newImagePath);
-
-    if (fs.existsSync(fullImagePath)) {
+    if (fse.pathExistsSync(fullImagePath)) {
         try {
-            fs.copyFileSync(fullImagePath, newImagePath);
-            console.log(`Copied image: ${fullImagePath} to ${newImagePath}`);
+            // console.log(`Copying image \n  From: ${fullImagePath}\n    To: ${newImagePath}`);
+            fse.copySync(fullImagePath, newImagePath);
             return path.join('images', imageName);
         } catch (error) {
-            console.error(`Error copying file: ${error.message}`);
             return imagePath; // Return original path if copy fails
         }
     } else {
         console.log(`Image not found: ${fullImagePath}`);
+        console.log('Directories in path:');
+        let currentPath = path.dirname(fullImagePath);
+        while (currentPath !== '/') {
+            console.log(`  ${currentPath}: ${fse.pathExistsSync(currentPath)}`);
+            currentPath = path.dirname(currentPath);
+        }
         return imagePath; // Return original path if image not found
     }
 }
@@ -1079,7 +1083,6 @@ function processMarkdownContent(content, mdFilePath, outdir) {
 
     return content.replace(imageRegex, (match, altText, imagePath) => {
         const newImagePath = copyImageAndUpdateLink(imagePath, mdFilePath, outdir);
-        console.log(`Replacing image path: ${imagePath} with ${newImagePath}`, outdir);
         return `![${altText}](${newImagePath})`;
     });
 }

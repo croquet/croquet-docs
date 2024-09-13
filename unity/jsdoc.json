@@ -30,6 +30,12 @@
           "title": "Resources",
           "path": "../../croquet-for-unity-tutorials/docs/resources.md"
         }
+      ],
+      "extra_directories": [
+        {
+          "path": "../../croquet-for-unity-tutorials/docs/images",
+          "destination": "images"
+        }
       ]
     }
   },
