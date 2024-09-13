@@ -38,7 +38,6 @@ function copyStaticFolder() {
     if (staticDir) {
         for (var i = 0; i < staticDir.length; i++) {
             var output = path.join(outdir, staticDir[i]);
-
             fse.copySync(staticDir[i], output);
         }
     }
@@ -49,11 +48,8 @@ copyStaticFolder();
 function copyToOutputFolder(filePath) {
     const filePathNormalized = path.normalize(filePath);
 
-    if (fs.existsSync(filePathNormalized)) {
-        fs.copyFileSync(filePathNormalized, outdir);
-    } else {
-        console.log(`=============== File not found: ${filePathNormalized}`);
-    }
+    if (fs.existsSync(filePathNormalized)) fs.copyFileSync(filePathNormalized, outdir);
+    else console.log(`=============== File not found: ${filePathNormalized}`);
 }
 
 function copyToOutputFolderFromArray(filePathArray) {
@@ -68,9 +64,7 @@ function copyToOutputFolderFromArray(filePathArray) {
             if (fs.existsSync(filePathNormalized)) {
                 copyToOutputFolder(filePathNormalized);
                 outputList.push(path.basename(filePathNormalized));
-            } else {
-                console.log(`=============== File not found: ${filePathNormalized}`);
-            }
+            } else console.log(`=============== File not found: ${filePathNormalized}`);
         }
     }
 
@@ -94,12 +88,9 @@ function getAncestorLinks(doclet) {
 }
 
 function hashToLink(doclet, hash) {
-    if (!/^(#.+)/.test(hash)) {
-        return hash;
-    }
+    if (!/^(#.+)/.test(hash)) return hash;
 
     var url = helper.createLink(doclet);
-
     url = url.replace(/(#.+|$)/, hash);
 
     return '<a href="' + url + '">' + hash + '</a>';
@@ -109,9 +100,7 @@ function needsSignature(doclet) {
     var needsSig = false;
 
     // function and class definitions always get a signature
-    if (doclet.kind === 'function' || doclet.kind === 'class') {
-        needsSig = true;
-    }
+    if (doclet.kind === 'function' || doclet.kind === 'class') needsSig = true;
     // typedefs that contain functions get a signature, too
     else if (doclet.kind === 'typedef' && doclet.type && doclet.type.names &&
         doclet.type.names.length) {
@@ -129,15 +118,9 @@ function needsSignature(doclet) {
 function getSignatureAttributes(item) {
     var attributes = [];
 
-    if (item.optional) {
-        attributes.push('opt');
-    }
-
-    if (item.nullable === true) {
-        attributes.push('nullable');
-    } else if (item.nullable === false) {
-        attributes.push('non-null');
-    }
+    if (item.optional) attributes.push('opt');
+    if (item.nullable === true) attributes.push('nullable');
+    else if (item.nullable === false) attributes.push('non-null');
 
     return attributes;
 }
@@ -146,13 +129,10 @@ function updateItemName(item) {
     var attributes = getSignatureAttributes(item);
     var itemName = item.name || '';
 
-    if (item.variable) {
-        itemName = '&hellip;' + itemName;
-    }
+    if (item.variable) itemName = '&hellip;' + itemName;
 
     if (attributes && attributes.length) {
-        itemName = util.format('%s<span class="signature-attributes">%s</span>', itemName,
-            attributes.join(', '));
+        itemName = util.format('%s<span class="signature-attributes">%s</span>', itemName, attributes.join(', '));
     }
 
     return itemName;
@@ -178,11 +158,7 @@ function buildItemTypeStrings(item) {
 
 function buildAttribsString(attribs) {
     var attribsString = '';
-
-    if (attribs && attribs.length) {
-        attribsString = htmlsafe(util.format('(%s) ', attribs.join(', ')));
-    }
-
+    if (attribs && attribs.length) attribsString = htmlsafe(util.format('(%s) ', attribs.join(', ')));
     return attribsString;
 }
 
@@ -223,12 +199,8 @@ function addSignatureReturns(f) {
         attribsString = buildAttribsString(attribs);
     }
 
-    if (f.returns) {
-        returnTypes = addNonParamAttributes(f.returns);
-    }
-    if (returnTypes.length) {
-        returnTypesString = util.format(' &rarr; %s{%s}', attribsString, returnTypes.join('|'));
-    }
+    if (f.returns) returnTypes = addNonParamAttributes(f.returns);
+    if (returnTypes.length) returnTypesString = util.format(' &rarr; %s{%s}', attribsString, returnTypes.join('|'));
 
     f.signature = '<span class="signature">' + (f.signature || '') + '</span>' +
         '<span class="type-signature">' + returnTypesString + '</span>';
@@ -259,9 +231,7 @@ function shortenPaths(files, commonPrefix) {
 }
 
 function getPathFromDoclet(doclet) {
-    if (!doclet.meta) {
-        return null;
-    }
+    if (!doclet.meta) return null;
 
     return doclet.meta.path && doclet.meta.path !== 'null' ?
         path.join(doclet.meta.path, doclet.meta.filename) :
@@ -277,12 +247,9 @@ function generate(type, title, docs, filename, resolveLinks) {
         docs: docs
     };
 
-    var outpath = path.join(outdir, filename),
-        html = view.render('container.tmpl', docData);
+    var outpath = path.join(outdir, filename), html = view.render('container.tmpl', docData);
 
-    if (resolveLinks) {
-        html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
-    }
+    if (resolveLinks) html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
 
     fs.writeFileSync(outpath, html, 'utf8');
 }
@@ -389,14 +356,11 @@ function buildSearch() {
 
 function buildFooter() {
     var footer = themeOpts.footer || '';
-
-
     return footer;
 }
 
 function getFavicon() {
     var favicon = themeOpts.favicon || undefined
-
     return favicon
 }
 
@@ -404,86 +368,58 @@ function getFavicon() {
 function createDynamicStyleSheet() {
     var styleClass = themeOpts.create_style || undefined;
     /* prettier-ignore-start */
-
     return styleClass;
 }
 
 function createDynamicsScripts() {
     var scripts = themeOpts.add_scripts || undefined;
-
-
     return scripts;
 }
 
 function returnPathOfScriptScr() {
     var scriptPath = themeOpts.add_script_path || undefined;
-
-
     return scriptPath;
 }
 
 function returnPathOfStyleSrc() {
     var stylePath = themeOpts.add_style_path || undefined;
-
-
     return stylePath;
 }
 
 function includeCss(templatePath) {
     const cssDir = path.join(templatePath, 'static', 'styles')
-    
-    const alwaysInclude = [
-        path.join(cssDir, 'index.css'),
-    ]
+    const alwaysInclude = [ path.join(cssDir, 'index.css') ]
 
     var stylePath = [...alwaysInclude, ...themeOpts.include_css || []];
 
-    if (stylePath) {
-        stylePath = copyToOutputFolderFromArray(stylePath);
-    }
-
-
+    if (stylePath) stylePath = copyToOutputFolderFromArray(stylePath);
     return stylePath;
 }
 
 function resizeable() {
     var resizeOpts = themeOpts.resizeable || {};
-
     return resizeOpts;
 }
 
 function codepen() {
     var codepenOpts = themeOpts.codepen || {};
-
     return codepenOpts;
 }
 
 function overlayScrollbarOptions() {
     var overlayOptions = themeOpts.overlay_scrollbar || undefined;
-
-    if (overlayOptions) {
-        return JSON.stringify(overlayOptions);
-    }
-
-
+    if (overlayOptions) return JSON.stringify(overlayOptions);
     return undefined;
 }
 
 function includeScript() {
     var scriptPath = themeOpts.include_js || undefined;
-
-    if (scriptPath) {
-        scriptPath = copyToOutputFolderFromArray(scriptPath);
-    }
-
-
+    if (scriptPath) scriptPath = copyToOutputFolderFromArray(scriptPath);
     return scriptPath;
 }
 
 function getMetaTagData() {
     var meta = themeOpts.meta || undefined;
-
-
     return meta;
 }
 
@@ -541,10 +477,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
                         linkTitle +
                         '<svg><use xlink:href="#down-icon"></use></svg>' +
                         '</div>';
-                } else {
-                    itemsNav += linkTitle;
-                }
-
+                } else itemsNav += linkTitle;
 
                 if (haveSearch) {
                     searchListArray.push(JSON.stringify({
@@ -670,43 +603,41 @@ function buildNav(members) {
     }
 
     let extra_sidebar_items = themeOpts.extra_sidebar_items;
+    let otherItems = [];
+
     if (extra_sidebar_items) {
-        for(const item of extra_sidebar_items) {
-            // If path does not exist, skip to the next one 
-            if (!item.path) { console.log("Path not provided. Skipping item ", item); continue }
-            if (!fs.existsSync(item.path)) { console.log(`Extra sidebar item with path: "${path}" not found. Skipping...`); continue }
-
-            // Check if directory of file
-            let isDir = fs.lstatSync(item.path).isDirectory();
-            console.log('Extra sidebar item', {item, isDir});
-
-            // If not a directory, simply add the link to the sidebar
-            if (!isDir) {
-                const fileName = item.path.split('/').pop();
-                const extension = fileName.split(".").pop();
-                if (extension !== "md") { console.log("Error: Extra sidebar file is not md. Skipping..."); continue }
-                const outName = fileName.split('.').slice(0, -1).concat('html').join('.')
-
-                nav += `<hr class="nav-hr"/>`;
-                nav += `<div><a href="${outName}"><h3 class="accordion-heading">${item.title}</h3></a></div>`;
-            } else {
-                const structurePath = path.join(item.path, 'structure.json');
-                if (!fs.existsSync(structurePath)) { console.log(`Structure file not found for extra sidebar item. Skipping...`); continue }
-                const structure = JSON.parse(fs.readFileSync(structurePath));
-
+        extra_sidebar_items.forEach((item) => {
+            if (fs.lstatSync(item.path).isDirectory()) {
                 nav += `<hr class="nav-hr"/>`;
                 nav += `<div class="accordion collapsed"> <h3 class="accordion-heading">${item.title}<svg><use xlink:href="#down-icon"></use></svg></h3>`;
                 nav += `<ul class="accordion-content">`;
 
-                Object.keys(structure).forEach((key) => {
-                    console.log('Extra sidebar item', {item, key});
-                    nav += `<li><a href="${key}.html">${structure[key].title}</a></li>`;
-                });
+                const structure = readStructureJson(item.path);
+                if (structure) {
+                    Object.entries(structure).forEach(([fileName, data]) => {
+                        const url = extraItemToUrl(item.title.toLowerCase(), fileName);
+                        nav += `<li><a href="${url}">${data.title}</a></li>`;
+                    });
+                }
 
-                nav += `</ul>`;
+                nav += `</ul></div>`;
+            } else {
+                const category = `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`;
+                otherItems.push({ title: item.title, category });
             }
+        });
+    }
 
-        }
+    // Add "Other" category
+    if (otherItems.length > 0) {
+        nav += `<hr class="nav-hr"/>`;
+        nav += `<div class="accordion collapsed"> <h3 class="accordion-heading">Other<svg><use xlink:href="#down-icon"></use></svg></h3>`;
+        nav += `<ul class="accordion-content">`;
+        otherItems.forEach(item => {
+            const url = extraItemToUrl(item.category, item.title);
+            nav += `<li><a href="${url}">${item.title}</a></li>`;
+        });
+        nav += `</ul></div>`;
     }
 
     if (menu !== undefined && menuLocation === 'down') nav += buildMenuNav(menu);
@@ -786,24 +717,15 @@ exports.publish = function (taffyData, opts, tutorials) {
 
         if (doclet.meta) {
             sourcePath = getPathFromDoclet(doclet);
-            sourceFiles[sourcePath] = {
-                resolved: sourcePath,
-                shortened: null
-            };
-            if (sourceFilePaths.indexOf(sourcePath) === -1) {
-                sourceFilePaths.push(sourcePath);
-            }
+            sourceFiles[sourcePath] = { resolved: sourcePath, shortened: null };
+            if (sourceFilePaths.indexOf(sourcePath) === -1) sourceFilePaths.push(sourcePath);
         }
     });
 
     // update outdir if necessary, then create outdir
-    var packageInfo = (find({
-        kind: 'package'
-    }) || [])[0];
+    var packageInfo = (find({ kind: 'package' }) || [])[0];
 
-    if (packageInfo && packageInfo.name) {
-        outdir = path.join(outdir, packageInfo.name, (packageInfo.version || ''));
-    }
+    if (packageInfo && packageInfo.name) outdir = path.join(outdir, packageInfo.name, (packageInfo.version || ''));
     fs.mkPath(outdir);
 
     // copy the template's static files to outdir
@@ -825,8 +747,7 @@ exports.publish = function (taffyData, opts, tutorials) {
     if (conf.default.staticFiles) {
         // The canonical property name is `include`. We accept `paths` for backwards compatibility
         // with a bug in JSDoc 3.2.x.
-        staticFilePaths = conf.default.staticFiles.include ||
-            conf.default.staticFiles.paths || [];
+        staticFilePaths = conf.default.staticFiles.include || conf.default.staticFiles.paths || [];
         staticFileFilter = new(require('jsdoc/src/filter')).Filter(conf.default.staticFiles);
         staticFileScanner = new(require('jsdoc/src/scanner')).Scanner();
 
@@ -848,7 +769,6 @@ exports.publish = function (taffyData, opts, tutorials) {
     }
     data().each(function (doclet) {
         var url = helper.createLink(doclet);
-
         helper.registerLink(doclet.longname, url);
 
         // add a shortened version of the full path
@@ -857,20 +777,15 @@ exports.publish = function (taffyData, opts, tutorials) {
         if (doclet.meta) {
             docletPath = getPathFromDoclet(doclet);
             docletPath = sourceFiles[docletPath].shortened;
-            if (docletPath) {
-                doclet.meta.shortpath = docletPath;
-            }
+            if (docletPath) doclet.meta.shortpath = docletPath;
         }
     });
 
     data().each(function (doclet) {
         var url = helper.longnameToUrl[doclet.longname];
 
-        if (url.indexOf('#') > -1) {
-            doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop();
-        } else {
-            doclet.id = doclet.name;
-        }
+        if (url.indexOf('#') > -1) doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop();
+        else doclet.id = doclet.name;
 
         if (needsSignature(doclet)) {
             addSignatureParams(doclet);
@@ -903,12 +818,10 @@ exports.publish = function (taffyData, opts, tutorials) {
     members.classes.forEach(cl => {
         const tags = cl.tags;
         if (tags && tags.some(t => t.title === "worldcoremixin")) {
-                cl.hideconstructor = true;
-                newMixins.push(cl);
-            } else {
-                newClasses.push(cl);
-            }
-        });
+            cl.hideconstructor = true;
+            newMixins.push(cl);
+        } else newClasses.push(cl);
+    });
     members.classes = newClasses;
     members.mixins = newMixins;
 
@@ -933,35 +846,24 @@ exports.publish = function (taffyData, opts, tutorials) {
     view.meta = getMetaTagData();
     view.overlayScrollbar = overlayScrollbarOptions();
     view.theme = getTheme();
+    view.navigationScript = createNavigationScript();
+    view.navigationStyles = createNavigationStyles();
     // once for all
     view.nav = buildNav(members);
     view.search = search();
     view.resizeable = resizeable();
     view.codepen = codepen();
-    attachModuleSymbols(find({
-        longname: {
-            left: 'module:'
-        }
-    }), members.modules);
+
+    attachModuleSymbols(find({ longname: { left: 'module:' } }), members.modules);
 
     // generate the pretty-printed source files first so other pages can link to them
-    if (outputSourceFiles) {
-        generateSourceFiles(sourceFiles, opts.encoding);
-    }
+    if (outputSourceFiles) generateSourceFiles(sourceFiles, opts.encoding);
 
-    if (members.globals.length) {
-        generate('', 'Global', [{
-            kind: 'globalobj'
-        }], globalUrl);
-    }
+    if (members.globals.length) generate('', 'Global', [{ kind: 'globalobj' }], globalUrl);
 
     // index page displays information from package.json and lists files
-    var files = find({
-        kind: 'file'
-    });
-    var packages = find({
-        kind: 'package'
-    });
+    var files = find({ kind: 'file' });
+    var packages = find({ kind: 'package' });
 
     generate('', 'Home',
         packages.concat(
@@ -971,7 +873,7 @@ exports.publish = function (taffyData, opts, tutorials) {
                 longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'
             }]
         ).concat(files),
-        indexUrl);
+    indexUrl);
 
     // set up the lists that we'll use to generate pages
     var classes = taffy(members.classes);
@@ -982,53 +884,23 @@ exports.publish = function (taffyData, opts, tutorials) {
     var interfaces = taffy(members.interfaces);
 
     Object.keys(helper.longnameToUrl).forEach(function (longname) {
-        var myModules = helper.find(modules, {
-            longname: longname
-        });
+        var myModules = helper.find(modules, { longname: longname });
+        if (myModules.length) generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
 
-        if (myModules.length) {
-            generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
-        }
+        var myClasses = helper.find(classes, { longname: longname });
+        if (myClasses.length) generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
 
-        var myClasses = helper.find(classes, {
-            longname: longname
-        });
+        var myNamespaces = helper.find(namespaces, { longname: longname });
+        if (myNamespaces.length) generate('Namespace', myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
 
-        if (myClasses.length) {
-            generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
-        }
+        var myMixins = helper.find(mixins, { longname: longname });
+        if (myMixins.length) generate('Mixin', myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
 
-        var myNamespaces = helper.find(namespaces, {
-            longname: longname
-        });
+        var myExternals = helper.find(externals, { longname: longname });
+        if (myExternals.length) generate('External', myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
 
-        if (myNamespaces.length) {
-            generate('Namespace', myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
-        }
-
-        var myMixins = helper.find(mixins, {
-            longname: longname
-        });
-
-        if (myMixins.length) {
-            generate('Mixin', myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
-        }
-
-        var myExternals = helper.find(externals, {
-            longname: longname
-        });
-
-        if (myExternals.length) {
-            generate('External', myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
-        }
-
-        var myInterfaces = helper.find(interfaces, {
-            longname: longname
-        });
-
-        if (myInterfaces.length) {
-            generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
-        }
+        var myInterfaces = helper.find(interfaces, { longname: longname });
+        if (myInterfaces.length) generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
     });
 
     // TODO: move the tutorial functions to templateHelper.js
@@ -1057,49 +929,251 @@ exports.publish = function (taffyData, opts, tutorials) {
     }
 
     saveChildren(tutorials);
-    
+
+
     // Render extra_md files
     const extra_md = themeOpts['extra_md'] || []
     extra_md.forEach(renderExtraMd)
 
     const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
-    extra_sidebar_items.forEach((item) => {
-        let isDir = fs.lstatSync(item.path).isDirectory();
-        if (isDir) {
-            // we can assume each directory has a file named structure.json
-            // we will renderExtraMd for each key in the structure.json using it as the path
-            const structurePath = path.join(item.path, 'structure.json');
-            if (!fs.existsSync(structurePath)) { console.log(`Structure file not found for extra sidebar item. Skipping...`); return }
-            const structure = JSON.parse(fs.readFileSync(structurePath));
+    let otherItems = [];
 
-            Object.keys(structure).forEach((key) => {
-                console.log('Extra sidebar item', {item, key});
-                renderExtraMd({
-                    title: structure[key].title,
-                    path: path.join(item.path, `${key}.md`)
-                })
-            })
-        } else renderExtraMd(item)
+    extra_sidebar_items.forEach((item) => {
+        const isDir = fs.lstatSync(item.path).isDirectory()
+        if (isDir) {
+            const defaultTemplate = item.defaultTemplate || 'extra_md.tmpl'
+            saveExtraItems(item.title.toLowerCase(), item.path, defaultTemplate)
+        } else {
+            const fileName = path.basename(item.path, '.md');
+            const category = `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`;
+            saveExtraItems(category, path.dirname(item.path), 'extra_md.tmpl', {[fileName]: item});
+            otherItems.push({ title: item.title, category});
+        }
     })
 
+    if (otherItems.length > 0) addOtherCategoryToNav(otherItems);
+
     function renderExtraMd(md) {
-        const { title, path: inputPath } = md
-
-        // Get just the filename (this won't work with escaped slashes)
-        const fileName = inputPath.split('/').pop()
-
-        // rename extension to html
-        const outName = fileName.split('.').slice(0, -1).concat('html').join('.')
+        const { title, path: inputPath } = md;
+        const fileName = path.basename(inputPath);
+        const outName = fileName.replace(/\.md$/, '.html');
     
-        const content = fs.readFileSync(inputPath).toString()
-        var templateData = {
+        const content = fs.readFileSync(inputPath, 'utf8');
+        const processedContent = processMarkdownContent(content, inputPath, outdir);
+    
+        const templateData = {
             title: title,
             header: '',
-            content: markdown.getParser()(content),
+            content: markdown.getParser()(processedContent),
             children: []
         };
-        var outputPath = path.join(outdir, outName);
-        var html = view.render('extra_md.tmpl', templateData);
+    
+        const outputPath = path.join(outdir, outName);
+        const html = view.render('extra_md.tmpl', templateData);
         fs.writeFileSync(outputPath, html, 'utf8');
     }
 };
+
+function readStructureJson(dirPath) {
+    const structurePath = path.join(dirPath, 'structure.json')
+    if (fs.existsSync(structurePath)) return JSON.parse(fs.readFileSync(structurePath, 'utf8'))
+    return null
+}
+
+function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', singleItem = null) {
+    const structure = singleItem || readStructureJson(dirPath);
+    if (!structure) return;
+
+    Object.entries(structure).forEach(([fileName, data]) => {
+        const filePath = singleItem ? data.path : path.join(dirPath, `${fileName}.md`);
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            const processedContent = processMarkdownContent(content, filePath, outdir);
+            const parsedContent = markdown.getParser()(processedContent);
+
+            const templateData = {
+                title: `${category}: ${data.title || fileName}`,
+                header: data.title || fileName,
+                content: parsedContent,
+                children: []
+            };
+
+            const outputFileName = extraItemToUrl(category, fileName);
+            const outputPath = path.join(outdir, outputFileName);
+            
+            const templateToUse = data.template || defaultTemplate;
+            const html = view.render(templateToUse, templateData);
+            
+            const resolvedHtml = helper.resolveLinks(html);
+            fs.writeFileSync(outputPath, resolvedHtml, 'utf8');
+        }
+    });
+}
+
+function addOtherCategoryToNav(otherItems) {
+    let otherNav = '<div class="accordion collapsed"> <h3 class="accordion-heading">Other<svg><use xlink:href="#down-icon"></use></svg></h3>'
+    otherNav += '<ul class="accordion-content">'
+
+    otherItems.forEach(item => {
+        const url = extraItemToUrl(item.category, item.title)
+        otherNav += `<li><a href="${url}">${item.title}</a></li>`
+    })
+
+    otherNav += '</ul></div>'
+    view.nav = view.nav.replace('</div>', otherNav + '</div>')
+}
+
+function extraItemToUrl(category, name) {
+    return category + '-' + name.replace(/\s+/g, '_').toLowerCase() + '.html'
+}
+
+function copyImageAndUpdateLink(imagePath, mdFilePath, outdir) {
+    const imageOutDir = path.join(outdir, 'images');
+    if (!fs.existsSync(imageOutDir)) fs.mkdirSync(imageOutDir, { recursive: true });
+
+    console.log('Image Output Directory:', imageOutDir);
+    console.log('Original image path:', imagePath);
+    console.log('Markdown file path:', mdFilePath);
+
+    let fullImagePath;
+    if (path.isAbsolute(imagePath)) fullImagePath = imagePath;
+    else if (imagePath.startsWith('images/')) {
+        // If the image path starts with 'images/', assume it's relative to the docs directory
+        fullImagePath = path.resolve(path.dirname(mdFilePath), '..', imagePath);
+    } else {
+        // First, try to resolve the image path relative to the Markdown file
+        fullImagePath = path.resolve(path.dirname(mdFilePath), imagePath);
+        
+        // If that doesn't exist, try to resolve it relative to the docs/images directory
+        if (!fs.existsSync(fullImagePath)) {
+            const docsImagePath = path.resolve(path.dirname(mdFilePath), '..', 'images', path.basename(imagePath));
+            if (fs.existsSync(docsImagePath)) fullImagePath = docsImagePath;
+        }
+    }
+
+    console.log('Resolved full image path:', fullImagePath);
+
+    const imageName = path.basename(imagePath);
+    const newImagePath = path.join(imageOutDir, imageName);
+
+    console.log('Destination image path:', newImagePath);
+
+    if (fs.existsSync(fullImagePath)) {
+        try {
+            fs.copyFileSync(fullImagePath, newImagePath);
+            console.log(`Copied image: ${fullImagePath} to ${newImagePath}`);
+            return path.join('images', imageName);
+        } catch (error) {
+            console.error(`Error copying file: ${error.message}`);
+            return imagePath; // Return original path if copy fails
+        }
+    } else {
+        console.log(`Image not found: ${fullImagePath}`);
+        return imagePath; // Return original path if image not found
+    }
+}
+
+function processMarkdownContent(content, mdFilePath, outdir) {
+    // Regular expression to find image references in Markdown
+    const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+
+    return content.replace(imageRegex, (match, altText, imagePath) => {
+        const newImagePath = copyImageAndUpdateLink(imagePath, mdFilePath, outdir);
+        console.log(`Replacing image path: ${imagePath} with ${newImagePath}`, outdir);
+        return `![${altText}](${newImagePath})`;
+    });
+}
+
+function createNavigationScript() {
+    return `
+    document.addEventListener('DOMContentLoaded', function() {
+        const nav = document.querySelector('.sidebar-main-content');
+        
+        nav.addEventListener('click', function(e) {
+            const target = e.target;
+            
+            // Handle accordion toggles
+            if (target.matches('.accordion-heading')) {
+                const content = target.nextElementSibling;
+                target.classList.toggle('active');
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                e.preventDefault();
+            }
+            
+            // Handle link clicks
+            if (target.matches('a')) {
+                // Remove 'active' class from all links
+                nav.querySelectorAll('a').forEach(link => link.classList.remove('active'));
+                
+                // Add 'active' class to clicked link
+                target.classList.add('active');
+                
+                // Don't prevent default here, let the link navigate
+            }
+        });
+
+        function saveNavState() {
+            const activeLinks = Array.from(document.querySelectorAll('.sidebar-main-content a.active'))
+                .map(link => link.getAttribute('href'));
+            localStorage.setItem('activeNavLinks', JSON.stringify(activeLinks));
+        }
+
+        function loadNavState() {
+            const activeLinks = JSON.parse(localStorage.getItem('activeNavLinks') || '[]');
+            activeLinks.forEach(href => {
+                const link = document.querySelector(\`.sidebar-main-content a[href="\${href}"]\`);
+                if (link) {
+                    link.classList.add('active');
+                    // Expand parent accordions if necessary
+                    let parent = link.closest('.accordion-content');
+                    while (parent) {
+                        parent.style.display = 'block';
+                        parent.previousElementSibling.classList.add('active');
+                        parent = parent.parentElement.closest('.accordion-content');
+                    }
+                }
+            });
+        }
+
+        // Call loadNavState when the page loads
+        loadNavState();
+
+        // Call saveNavState when a link is clicked
+        nav.addEventListener('click', function(e) {
+            if (e.target.matches('a')) {
+                saveNavState();
+            }
+        });
+    });
+    `;
+}
+
+function createNavigationStyles() {
+    return `
+    .sidebar-main-content a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .sidebar-main-content a:visited {
+        color: #666;
+    }
+
+    .sidebar-main-content a.active {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .accordion-heading {
+        cursor: pointer;
+    }
+
+    .accordion-content {
+        display: none;
+    }
+
+    .accordion-heading.active + .accordion-content {
+        display: block;
+    }
+    `;
+}
