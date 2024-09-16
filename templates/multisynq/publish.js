@@ -1,3 +1,4 @@
+// multisynq/publish.js
 const _ = require('lodash')
 const env = require('jsdoc/env')
 const fs = require('fs-extra')
@@ -293,6 +294,8 @@ function buildSidebarMembers({ items, itemHeading, itemsSeen, linktoFn, sectionN
     id: `sidebar-${itemHeading.toLowerCase()}`,
   }
 
+  if (!items?.length) return null
+
   if (items.length) {
     items.forEach(function (item) {
       const currentItem = {
@@ -307,9 +310,7 @@ function buildSidebarMembers({ items, itemHeading, itemsSeen, linktoFn, sectionN
           : find({
               kind: 'function',
               memberof: item.longname,
-              inherited: {
-                '!is': Boolean(themeOpts.exclude_inherited),
-              },
+              inherited: { '!is': Boolean(themeOpts.exclude_inherited) },
             })
 
       if (!hasOwnProp.call(itemsSeen, item.longname)) {
@@ -321,13 +322,11 @@ function buildSidebarMembers({ items, itemHeading, itemsSeen, linktoFn, sectionN
               name: method.longName,
               link: linktoFn(method.longname, method.name),
             }
-
             currentItem.children.push(itemChild)
           })
         }
         itemsSeen[item.longname] = true
       }
-
       navProps.items.push(currentItem)
     })
   }
@@ -428,6 +427,9 @@ function buildSidebar(members) {
 
   const sectionsOrder = themeOpts.sections || defaultSections
 
+  // console.log('Debug: Members object', JSON.stringify(members, null, 2))
+  console.log('members.path --> ', members?.path)
+
   const sections = {
     [SECTION_TYPE.Modules]: buildSidebarMembers({
       itemHeading: 'Modules',
@@ -436,7 +438,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Modules,
     }),
-
     [SECTION_TYPE.Classes]: buildSidebarMembers({
       itemHeading: 'Classes',
       items: members.classes,
@@ -444,7 +445,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Classes,
     }),
-
     [SECTION_TYPE.Externals]: buildSidebarMembers({
       itemHeading: 'Externals',
       items: members.externals,
@@ -452,7 +452,6 @@ function buildSidebar(members) {
       linktoFn: linktoExternal,
       sectionName: SECTION_TYPE.Externals,
     }),
-
     [SECTION_TYPE.Events]: buildSidebarMembers({
       itemHeading: 'Events',
       items: members.events,
@@ -460,7 +459,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Events,
     }),
-
     [SECTION_TYPE.Namespaces]: buildSidebarMembers({
       itemHeading: 'Namespaces',
       items: members.namespaces,
@@ -468,7 +466,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Namespaces,
     }),
-
     [SECTION_TYPE.Mixins]: buildSidebarMembers({
       itemHeading: 'Mixins',
       items: members.mixins,
@@ -476,7 +473,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Mixins,
     }),
-
     [SECTION_TYPE.Tutorials]: buildSidebarMembers({
       itemHeading: 'Tutorials',
       items: members.tutorials,
@@ -484,7 +480,6 @@ function buildSidebar(members) {
       linktoFn: linktoTutorial,
       sectionName: SECTION_TYPE.Tutorials,
     }),
-
     [SECTION_TYPE.Interfaces]: buildSidebarMembers({
       itemHeading: 'Interfaces',
       items: members.interfaces,
@@ -492,7 +487,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Interfaces,
     }),
-
     [SECTION_TYPE.Global]: buildSidebarMembers({
       itemHeading: 'Global',
       items: members.globals,
@@ -502,19 +496,73 @@ function buildSidebar(members) {
     }),
   }
 
+  // Add non-empty sections to nav
   sectionsOrder.forEach((section) => {
-    if (SECTION_TYPE[section] !== undefined) nav.sections.push(sections[section])
-    else {
-      const errorMsg = `While building nav. Section name: ${section} is not recognized.
-        Accepted sections are: ${defaultSections.join(', ')}
-      `
-      throw new Error(errorMsg)
+    if (sections[section] && sections[section].items && sections[section].items.length > 0) {
+      console.log(`Debug: Adding section ${section} with ${sections[section].items.length} items`)
+      nav.sections.push(sections[section])
+    } else {
+      console.log(`Debug: Skipping empty section ${section}`)
     }
   })
 
-  const subpackages = themeOpts.subpackages || []
-  const allpackages = themeOpts.allpackages || []
-  if (subpackages.length + allpackages.length > 0) nav.sections.push(buildSidebarSubpackagesMember(subpackages, allpackages))
+  // Add extra sidebar items
+  if (themeOpts.extra_sidebar_items) {
+    themeOpts.extra_sidebar_items.forEach((item) => {
+      const sidebarItem = {
+        name: item.title,
+        items: [],
+        id: `sidebar-${item.title.toLowerCase().replace(/\s+/g, '-')}`,
+      }
+
+      if (fs.lstatSync(item.path).isDirectory()) {
+        const files = fs.readdirSync(item.path).filter((file) => file.endsWith('.md'))
+        files.forEach((file) => {
+          // We found a md file inside the directory. We will add it to the directory section
+          // console.log('====: ', item, file)
+
+          const filename = path.basename(file, '.md')
+          const structure = readStructureJson(item.path)
+
+          const content = fs.readFileSync(path.join(item.path, file), 'utf8')
+          const fallbackTitle = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
+
+          // Look into structure.json file and use the filename as the key, and the value as the title
+          const title = structure[filename]?.title || fallbackTitle
+
+          console.log({ title, fallbackTitle })
+
+          sidebarItem.items.push({
+            name: title || fallbackTitle,
+            anchor: `<a href="${extraItemToUrl(item.title, filename)}">${title || fallbackTitle}</a>`,
+            children: [],
+          })
+        })
+      } else {
+        // We found a single md file, we will add it to the Other section
+        const fileName = path.basename(item.path, '.md')
+        const content = fs.readFileSync(item.path, 'utf8')
+        const title = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
+
+        console.log('OTHER: Adding extra sidebar item', item.title, 'with title', title)
+
+        sidebarItem.items.push({
+          name: title || item.title,
+          anchor: `<a href="${extraItemToUrl(`other-${item.title.toLowerCase().replace(/\s+/g, '_')}`, fileName)}">${title || item.title}</a>`,
+          children: [],
+        })
+      }
+
+      if (sidebarItem.items.length > 0) {
+        console.log(`Debug: Adding extra sidebar item ${item.title} with ${sidebarItem.items.length} items`)
+        nav.sections.push(sidebarItem)
+      } else {
+        console.log(`Debug: Skipping empty extra sidebar item ${item.title}`)
+      }
+    })
+  }
+
+  // console.log('Debug: Final nav object', JSON.stringify(nav, null, 2))
   return nav
 }
 
@@ -703,33 +751,34 @@ exports.publish = async function (taffyData, opts, tutorials) {
   outputSourceFiles = Boolean(conf.default && conf.default.outputSourceFiles !== false)
 
   // add template helpers
-  view.find = find
-  view.linkto = linkto
-  view.resolveAuthorLinks = resolveAuthorLinks
-  view.tutoriallink = tutoriallink
-  view.htmlsafe = htmlsafe
-  view.outputSourceFiles = outputSourceFiles
-  view.footer = buildFooter(themeOpts)
-  view.displayModuleHeader = moduleHeader(themeOpts)
-  view.favicon = getFavicon(themeOpts)
-  view.dynamicStyle = createDynamicStyleSheet(themeOpts)
-  view.dynamicStyleSrc = returnPathOfStyleSrc(themeOpts)
-  view.dynamicScript = createDynamicsScripts(themeOpts)
-  view.dynamicScriptSrc = returnPathOfScriptScr(themeOpts)
-  view.includeScript = includeScript(themeOpts, outdir)
-  view.includeCss = includeCss(themeOpts, outdir)
-  view.meta = getMetaTagData(themeOpts)
-  view.theme = getTheme(themeOpts)
-  view.navigationScript = createNavigationScript()
-  view.navigationStyles = createNavigationStyles()
+  view.find                = find // prettier-ignore
+  view.linkto              = linkto // prettier-ignore
+  view.resolveAuthorLinks  = resolveAuthorLinks // prettier-ignore
+  view.tutoriallink        = tutoriallink // prettier-ignore
+  view.htmlsafe            = htmlsafe // prettier-ignore
+  view.outputSourceFiles   = outputSourceFiles // prettier-ignore
+  view.footer              = buildFooter(themeOpts) // prettier-ignore
+  view.displayModuleHeader = moduleHeader(themeOpts) // prettier-ignore
+  view.favicon             = getFavicon(themeOpts) // prettier-ignore
+  view.dynamicStyle        = createDynamicStyleSheet(themeOpts) // prettier-ignore
+  view.dynamicStyleSrc     = returnPathOfStyleSrc(themeOpts) // prettier-ignore
+  view.dynamicScript       = createDynamicsScripts(themeOpts) // prettier-ignore
+  view.dynamicScriptSrc    = returnPathOfScriptScr(themeOpts) // prettier-ignore
+  view.includeScript       = includeScript(themeOpts, outdir) // prettier-ignore
+  view.includeCss          = includeCss(themeOpts, outdir) // prettier-ignore
+  view.meta                = getMetaTagData(themeOpts) // prettier-ignore
+  view.theme               = getTheme(themeOpts) // prettier-ignore
+  view.navigationScript    = createNavigationScript() // prettier-ignore
+  view.navigationStyles    = createNavigationStyles() // prettier-ignore
   // once for all
-  view.sidebar = buildSidebar(members)
-  view.navbar = buildNavbar(themeOpts)
-  view.resizeable = resizeable(themeOpts)
-  view.codepen = codepen(themeOpts)
-  view.excludeInherited = Boolean(themeOpts.exclude_inherited)
-  view.baseURL = getBaseURL(themeOpts)
+  view.sidebar             = buildSidebar(view, members) // prettier-ignore
+  view.navbar              = buildNavbar(themeOpts) // prettier-ignore
+  view.resizeable          = resizeable(themeOpts) // prettier-ignore
+  view.codepen             = codepen(themeOpts) // prettier-ignore
+  view.baseURL             = getBaseURL(themeOpts) // prettier-ignore
+  view.excludeInherited           = Boolean(themeOpts.exclude_inherited) // prettier-ignore
   view.shouldRemoveScrollbarStyle = Boolean(themeOpts.shouldRemoveScrollbarStyle)
+
   attachModuleSymbols(find({ longname: { left: 'module:' } }), members.modules)
 
   if (themeOpts.prefixModuleToSidebarItems_experimental) {
@@ -893,7 +942,7 @@ exports.publish = async function (taffyData, opts, tutorials) {
     }
   })
 
-  if (otherItems.length > 0) addOtherCategoryToNav(otherItems)
+  // if (otherItems.length > 0) addOtherCategoryToNav(view, otherItems)
 
   function renderExtraMd(md) {
     const { title, path: inputPath } = md
@@ -914,20 +963,12 @@ exports.publish = async function (taffyData, opts, tutorials) {
     const html = view.render('extra_md.tmpl', templateData)
     fs.writeFileSync(outputPath, html, 'utf8')
   }
+}
 
-  function addOtherCategoryToNav(otherItems) {
-    let otherNav =
-      '<div class="accordion collapsed"> <h3 class="accordion-heading">Other<svg><use xlink:href="#down-icon"></use></svg></h3>'
-    otherNav += '<ul class="accordion-content">'
-
-    otherItems.forEach((item) => {
-      const url = extraItemToUrl(item.category, item.title)
-      otherNav += `<li><a href="${url}">${item.title}</a></li>`
-    })
-
-    otherNav += '</ul></div>'
-    view.nav = view.nav.replace('</div>', otherNav + '</div>')
-  }
+function readStructureJson(dirPath) {
+  const structurePath = path.join(dirPath, 'structure.json')
+  if (fs.existsSync(structurePath)) return JSON.parse(fs.readFileSync(structurePath, 'utf8'))
+  return null
 }
 
 function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', singleItem = null) {
@@ -958,12 +999,6 @@ function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', si
       fs.writeFileSync(outputPath, resolvedHtml, 'utf8')
     }
   })
-}
-
-function readStructureJson(dirPath) {
-  const structurePath = path.join(dirPath, 'structure.json')
-  if (fs.existsSync(structurePath)) return JSON.parse(fs.readFileSync(structurePath, 'utf8'))
-  return null
 }
 
 function extraItemToUrl(category, name) {

@@ -741,30 +741,30 @@ exports.publish = function (taffyData, opts, tutorials) {
     var outputSourceFiles = Boolean(conf.default && conf.default.outputSourceFiles !== false);
 
     // add template helpers
-    view.find = find;
-    view.linkto = linkto;
-    view.resolveAuthorLinks = resolveAuthorLinks;
-    view.tutoriallink = tutoriallink;
-    view.htmlsafe = htmlsafe;
-    view.outputSourceFiles = outputSourceFiles;
-    view.footer = buildFooter();
-    view.favicon = getFavicon();
-    view.dynamicStyle = createDynamicStyleSheet();
-    view.dynamicStyleSrc = returnPathOfStyleSrc();
-    view.dynamicScript = createDynamicsScripts();
-    view.dynamicScriptSrc = returnPathOfScriptScr();
-    view.includeScript = includeScript();
-    view.includeCss = includeCss(templatePath);
-    view.meta = getMetaTagData();
-    view.overlayScrollbar = overlayScrollbarOptions();
-    view.theme = getTheme();
-    view.navigationScript = createNavigationScript();
-    view.navigationStyles = createNavigationStyles();
+    view.find               = find // prettier-ignore
+    view.linkto             = linkto // prettier-ignore
+    view.resolveAuthorLinks = resolveAuthorLinks // prettier-ignore
+    view.tutoriallink       = tutoriallink // prettier-ignore
+    view.htmlsafe           = htmlsafe // prettier-ignore
+    view.outputSourceFiles  = outputSourceFiles // prettier-ignore
+    view.footer             = buildFooter() // prettier-ignore
+    view.favicon            = getFavicon() // prettier-ignore
+    view.dynamicStyle       = createDynamicStyleSheet() // prettier-ignore
+    view.dynamicStyleSrc    = returnPathOfStyleSrc() // prettier-ignore
+    view.dynamicScript      = createDynamicsScripts() // prettier-ignore
+    view.dynamicScriptSrc   = returnPathOfScriptScr() // prettier-ignore
+    view.includeScript      = includeScript() // prettier-ignore
+    view.includeCss         = includeCss(templatePath) // prettier-ignore
+    view.meta               = getMetaTagData() // prettier-ignore
+    view.overlayScrollbar   = overlayScrollbarOptions() // prettier-ignore
+    view.theme              = getTheme() // prettier-ignore
+    view.navigationScript   = createNavigationScript() // prettier-ignore
+    view.navigationStyles   = createNavigationStyles() // prettier-ignore
     // once for all
-    view.nav = buildNav(members);
-    view.search = search();
-    view.resizeable = resizeable();
-    view.codepen = codepen();
+    view.nav                = buildNav(members) // prettier-ignore
+    view.search             = search() // prettier-ignore
+    view.resizeable         = resizeable() // prettier-ignore
+    view.codepen            = codepen() // prettier-ignore
 
     attachModuleSymbols(find({ longname: { left: 'module:' } }), members.modules);
 

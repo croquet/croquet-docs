@@ -15,12 +15,6 @@
     "destination": "../dist/unity/",
     "mainpagetitle": "Croquet For Unity Documentation",
     "theme_opts": {
-      "extra_md": [
-        {
-          "title": "Photon Migration Guide",
-          "path": "../../croquet-for-unity-tutorials/docs/photon_migration_guide.md"
-        }
-      ],
       "extra_sidebar_items": [
         {
           "title": "Projects",
@@ -29,6 +23,10 @@
         {
           "title": "Photon Migration Guide",
           "path": "../../croquet-for-unity-tutorials/docs/photon_migration_guide.md"
+        },
+        {
+          "title": "Build Assistant Window",
+          "path": "../../croquet-for-unity-tutorials/docs/build_assistant_window.md"
         }
       ],
       "extra_directories": [
@@ -39,7 +37,10 @@
       ]
     }
   },
-  "plugins": ["plugins/markdown"],
+  "plugins": [
+    "plugins/markdown",
+    "jsdoc-plugin-typescript"
+  ],
   "markdown": {
     "parser": "gfm",
     "hardwrap": false,
