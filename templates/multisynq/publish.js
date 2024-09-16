@@ -519,43 +519,26 @@ function buildSidebar(members) {
         const files = fs.readdirSync(item.path).filter((file) => file.endsWith('.md'))
         files.forEach((file) => {
           // We found a md file inside the directory. We will add it to the directory section
-          // console.log('====: ', item, file)
-
-          const filename = path.basename(file, '.md')
-          const structure = readStructureJson(item.path)
-
-          const content = fs.readFileSync(path.join(item.path, file), 'utf8')
-          const fallbackTitle = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
-
-          // Look into structure.json file and use the filename as the key, and the value as the title
-          const title = structure[filename]?.title || fallbackTitle
-
-          console.log({ title, fallbackTitle })
-
-          sidebarItem.items.push({
-            name: title || fallbackTitle,
-            anchor: `<a href="${extraItemToUrl(item.title, filename)}">${title || fallbackTitle}</a>`,
-            children: [],
-          })
+          const structurePath = item.path
+          console.log(item)
+          addSidebarForMdFile(file, structurePath, path.join(structurePath, file), sidebarItem, item.title)
         })
       } else {
         // We found a single md file, we will add it to the Other section
-        const fileName = path.basename(item.path, '.md')
-        const content = fs.readFileSync(item.path, 'utf8')
-        const title = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
-
-        console.log('OTHER: Adding extra sidebar item', item.title, 'with title', title)
-
-        sidebarItem.items.push({
-          name: title || item.title,
-          anchor: `<a href="${extraItemToUrl(`other-${item.title.toLowerCase().replace(/\s+/g, '_')}`, fileName)}">${title || item.title}</a>`,
-          children: [],
-        })
+        addSidebarForMdFile(item.path, item.path, item.path, sidebarItem, `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`, true)
       }
 
       if (sidebarItem.items.length > 0) {
         console.log(`Debug: Adding extra sidebar item ${item.title} with ${sidebarItem.items.length} items`)
-        nav.sections.push(sidebarItem)
+
+        // If the section.name is already in nav, then we will append the items to the existing section
+        if (nav.sections.find((section) => section.name === sidebarItem.name)) {
+          console.log('==== Append to existing section ====', sidebarItem.name)
+          const existingSection = nav.sections.find((section) => section.name === sidebarItem.name)
+          existingSection.items = existingSection.items.concat(sidebarItem.items)
+        } else nav.sections.push(sidebarItem)
+
+        console.log(sidebarItem)
       } else {
         console.log(`Debug: Skipping empty extra sidebar item ${item.title}`)
       }
@@ -963,6 +946,21 @@ exports.publish = async function (taffyData, opts, tutorials) {
     const html = view.render('extra_md.tmpl', templateData)
     fs.writeFileSync(outputPath, html, 'utf8')
   }
+}
+
+function addSidebarForMdFile(file, structurePath, filePath, sidebarItem, category, isOther = false) {
+  const filename = path.basename(file, '.md')
+  const structure = readStructureJson(structurePath) || {}
+
+  const content = fs.readFileSync(filePath, 'utf8')
+  const fallbackTitle = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
+
+  // Look into structure.json file and use the filename as the key, and the value as the title
+  const name = structure[filename]?.title || fallbackTitle
+  const anchor = `<a href="${extraItemToUrl(category, filename)}">${name}</a>`
+
+  if (isOther) sidebarItem.name = 'Other'
+  sidebarItem.items.push({ name, anchor, children: [] })
 }
 
 function readStructureJson(dirPath) {
