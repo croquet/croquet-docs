@@ -473,13 +473,6 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Mixins,
     }),
-    [SECTION_TYPE.Tutorials]: buildSidebarMembers({
-      itemHeading: 'Tutorials',
-      items: members.tutorials,
-      itemsSeen: seenTutorials,
-      linktoFn: linktoTutorial,
-      sectionName: SECTION_TYPE.Tutorials,
-    }),
     [SECTION_TYPE.Interfaces]: buildSidebarMembers({
       itemHeading: 'Interfaces',
       items: members.interfaces,
@@ -501,9 +494,7 @@ function buildSidebar(members) {
     if (sections[section] && sections[section].items && sections[section].items.length > 0) {
       console.log(`Debug: Adding section ${section} with ${sections[section].items.length} items`)
       nav.sections.push(sections[section])
-    } else {
-      console.log(`Debug: Skipping empty section ${section}`)
-    }
+    } else console.log(`Debug: Skipping empty section ${section}`)
   })
 
   // Add extra sidebar items
@@ -520,7 +511,6 @@ function buildSidebar(members) {
         files.forEach((file) => {
           // We found a md file inside the directory. We will add it to the directory section
           const structurePath = item.path
-          console.log(item)
           addSidebarForMdFile(file, structurePath, path.join(structurePath, file), sidebarItem, item.title)
         })
       } else {
@@ -529,19 +519,19 @@ function buildSidebar(members) {
       }
 
       if (sidebarItem.items.length > 0) {
-        console.log(`Debug: Adding extra sidebar item ${item.title} with ${sidebarItem.items.length} items`)
-
         // If the section.name is already in nav, then we will append the items to the existing section
         if (nav.sections.find((section) => section.name === sidebarItem.name)) {
-          console.log('==== Append to existing section ====', sidebarItem.name)
+          const len = sidebarItem.items.length
+          console.log(`Debug: Appending ${len} item${len == 1 ? '' : 's'} to existing section`, sidebarItem.name)
           const existingSection = nav.sections.find((section) => section.name === sidebarItem.name)
           existingSection.items = existingSection.items.concat(sidebarItem.items)
-        } else nav.sections.push(sidebarItem)
+        } else {
+          console.log(`Debug: Adding extra sidebar item ${sidebarItem.name} with ${sidebarItem.items.length} items`)
+          nav.sections.push(sidebarItem)
+        }
 
-        console.log(sidebarItem)
-      } else {
-        console.log(`Debug: Skipping empty extra sidebar item ${item.title}`)
-      }
+        // console.log(sidebarItem)
+      } else console.log(`Debug: Skipping empty extra sidebar item ${item.title}`)
     })
   }
 

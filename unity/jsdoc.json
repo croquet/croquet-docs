@@ -8,7 +8,6 @@
   },
   "opts": {
     "access": ["public"],
-    "tutorials": "../../croquet-for-unity-tutorials/docs/tutorials",
     "encoding": "utf8",
     "recurse": false,
     "verbose": true,
@@ -16,6 +15,10 @@
     "mainpagetitle": "Croquet For Unity Documentation",
     "theme_opts": {
       "extra_sidebar_items": [
+        {
+          "title": "Tutorials",
+          "path": "../../croquet-for-unity-tutorials/docs/tutorials"
+        },
         {
           "title": "Projects",
           "path": "../../croquet-for-unity-tutorials/docs/projects"
@@ -57,5 +60,13 @@
         "includePattern": "\\.(png|jpg|svg|gif)$"
       }
     }
+  },
+  "prism": {
+    "languages": [
+      "csharp",
+      "javascript",
+      "css",
+      "markup"
+    ]
   }
 }
