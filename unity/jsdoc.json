@@ -16,12 +16,16 @@
     "theme_opts": {
       "extra_sidebar_items": [
         {
-          "title": "Tutorials",
-          "path": "../../croquet-for-unity-tutorials/docs/tutorials"
+          "title": "A.P.I. Reference",
+          "path": "../../croquet-for-unity-tutorials/docs/api"
         },
         {
           "title": "Projects",
           "path": "../../croquet-for-unity-tutorials/docs/projects"
+        },
+        {
+          "title": "Tutorials",
+          "path": "../../croquet-for-unity-tutorials/docs/tutorials"
         },
         {
           "title": "Photon Migration Guide",
