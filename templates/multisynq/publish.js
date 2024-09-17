@@ -499,40 +499,44 @@ function buildSidebar(members) {
 
   // Add extra sidebar items
   if (themeOpts.extra_sidebar_items) {
+    let otherItems = []
+
     themeOpts.extra_sidebar_items.forEach((item) => {
-      const sidebarItem = {
-        name: item.title,
-        items: [],
-        id: `sidebar-${item.title.toLowerCase().replace(/\s+/g, '-')}`,
-      }
-
-      if (fs.lstatSync(item.path).isDirectory()) {
-        const files = fs.readdirSync(item.path).filter((file) => file.endsWith('.md'))
-        files.forEach((file) => {
-          // We found a md file inside the directory. We will add it to the directory section
-          const structurePath = item.path
-          addSidebarForMdFile(file, structurePath, path.join(structurePath, file), sidebarItem, item.title)
-        })
-      } else {
-        // We found a single md file, we will add it to the Other section
-        addSidebarForMdFile(item.path, item.path, item.path, sidebarItem, `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`, true)
-      }
-
-      if (sidebarItem.items.length > 0) {
-        // If the section.name is already in nav, then we will append the items to the existing section
-        if (nav.sections.find((section) => section.name === sidebarItem.name)) {
-          const len = sidebarItem.items.length
-          console.log(`Debug: Appending ${len} item${len == 1 ? '' : 's'} to existing section`, sidebarItem.name)
-          const existingSection = nav.sections.find((section) => section.name === sidebarItem.name)
-          existingSection.items = existingSection.items.concat(sidebarItem.items)
-        } else {
-          console.log(`Debug: Adding extra sidebar item ${sidebarItem.name} with ${sidebarItem.items.length} items`)
-          nav.sections.push(sidebarItem)
+      const isDir = fs.lstatSync(item.path).isDirectory()
+      if (isDir) {
+        const structure = readStructureJson(item.path) || []
+        const sidebarItem = {
+          name: item.title,
+          items: [],
+          id: `sidebar-${item.title.toLowerCase().replace(/\s+/g, '-')}`,
         }
 
-        // console.log(sidebarItem)
-      } else console.log(`Debug: Skipping empty extra sidebar item ${item.title}`)
+        structure.forEach((structureItem) => {
+          const filePath = path.join(item.path, `${structureItem.filename}.md`)
+          addSidebarForMdFile(structureItem.filename, item.path, filePath, sidebarItem, item.title.toLowerCase())
+        })
+
+        if (sidebarItem.items.length > 0) nav.sections.push(sidebarItem)
+      } else {
+        const fileName = path.basename(item.path, '.md')
+        const category = `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`
+        otherItems.push({ fileName, path: item.path, title: item.title, category })
+      }
     })
+
+    if (otherItems.length > 0) {
+      const otherSidebarItem = {
+        name: 'Other',
+        items: [],
+        id: 'sidebar-other',
+      }
+
+      otherItems.forEach((item) => {
+        addSidebarForMdFile(item.fileName, path.dirname(item.path), item.path, otherSidebarItem, item.category, true)
+      })
+
+      nav.sections.push(otherSidebarItem)
+    }
   }
 
   // console.log('Debug: Final nav object', JSON.stringify(nav, null, 2))
@@ -940,44 +944,60 @@ exports.publish = async function (taffyData, opts, tutorials) {
 
 function addSidebarForMdFile(file, structurePath, filePath, sidebarItem, category, isOther = false) {
   const filename = path.basename(file, '.md')
-  const structure = readStructureJson(structurePath) || {}
+  let structure = null
+
+  if (!isOther) structure = readStructureJson(structurePath)
 
   const content = fs.readFileSync(filePath, 'utf8')
   const fallbackTitle = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
 
-  // Look into structure.json file and use the filename as the key, and the value as the title
-  const name = structure[filename]?.title || fallbackTitle
-  const anchor = `<a href="${extraItemToUrl(category, filename)}">${name}</a>`
+  let name
+  if (structure) {
+    const structureItem = structure.find((item) => item.filename === filename)
+    name = structureItem?.title || fallbackTitle
+  } else name = fallbackTitle
 
-  if (isOther) sidebarItem.name = 'Other'
+  const anchor = `<a href="${extraItemToUrl(category, filename)}">${name}</a>`
   sidebarItem.items.push({ name, anchor, children: [] })
 }
 
 function readStructureJson(dirPath) {
   const structurePath = path.join(dirPath, 'structure.json')
-  if (fs.existsSync(structurePath)) return JSON.parse(fs.readFileSync(structurePath, 'utf8'))
+  if (fs.existsSync(structurePath)) {
+    const structure = JSON.parse(fs.readFileSync(structurePath, 'utf8'))
+    return Object.entries(structure).map(([filename, data]) => ({ filename, ...data }))
+  }
   return null
 }
 
 function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', singleItem = null) {
-  const structure = singleItem || readStructureJson(dirPath)
-  if (!structure) return
+  let structure
+  if (singleItem) structure = [{ filename: Object.keys(singleItem)[0], ...Object.values(singleItem)[0] }]
+  else {
+    structure = readStructureJson(dirPath)
+    if (!structure) {
+      // If no structure.json, use all .md files in the directory
+      const files = fs.readdirSync(dirPath).filter((file) => file.endsWith('.md'))
+      structure = files.map((file) => ({ filename: path.basename(file, '.md') }))
+    }
+  }
 
-  Object.entries(structure).forEach(([fileName, data]) => {
-    const filePath = singleItem ? data.path : path.join(dirPath, `${fileName}.md`)
+  structure.forEach((item) => {
+    const { filename, ...data } = item
+    const filePath = singleItem ? data.path : path.join(dirPath, `${filename}.md`)
     if (fs.existsSync(filePath)) {
       const content = fs.readFileSync(filePath, 'utf8')
       const processedContent = processMarkdownContent(content, filePath, outdir)
       const parsedContent = markdown.getParser()(processedContent)
 
       const templateData = {
-        title: `${category}: ${data.title || fileName}`,
-        header: data.title || fileName,
+        title: `${category}: ${data.title || filename}`,
+        header: data.title || filename,
         content: parsedContent,
         children: [],
       }
 
-      const outputFileName = extraItemToUrl(category, fileName)
+      const outputFileName = extraItemToUrl(category, filename)
       const outputPath = path.join(outdir, outputFileName)
 
       const templateToUse = data.template || defaultTemplate
