@@ -21,27 +21,19 @@
         },
         {
           "title": "[SyncVar] & [SyncRPC]",
-          "path": "../../croquet-for-unity-tutorials/docs/syncvar_syncrpc.md"
+          "path": "../../croquet-for-unity-tutorials/docs/syncvar_syncrpc"
         },
         {
-          "title": "A.P.I. Reference",
-          "path": "../../croquet-for-unity-tutorials/docs/api"
+          "title": "Deterministic (Advanced)",
+          "path": "../../croquet-for-unity-tutorials/docs/advanced"
         },
         {
-          "title": "Projects",
+          "title": "Advanced Projects",
           "path": "../../croquet-for-unity-tutorials/docs/projects"
-        },
-        {
-          "title": "Tutorials",
-          "path": "../../croquet-for-unity-tutorials/docs/tutorials"
         },
         {
           "title": "Photon Migration Guide",
           "path": "../../croquet-for-unity-tutorials/docs/photon_migration_guide.md"
-        },
-        {
-          "title": "Build Assistant Window",
-          "path": "../../croquet-for-unity-tutorials/docs/build_assistant_window.md"
         }
       ],
       "extra_directories": [
