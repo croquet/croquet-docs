@@ -100,3 +100,21 @@ pre[class*="language-"] {
   border-radius: .3em;
   white-space: normal;
 }
+
+.light .pre-top-bar-container {
+  background: #292929;
+}
+
+.light .pre-div {
+  background: #222;
+}
+
+.light .prettyprint,
+.light .prettyprint code {
+  background: #1e1e1e;
+}
+
+.light .code-lang-name,
+.code-lang-name {
+  color: #007bff;
+}
