@@ -45,8 +45,7 @@
     }
   },
   "plugins": [
-    "plugins/markdown",
-    "jsdoc-plugin-typescript"
+    "plugins/markdown"
   ],
   "markdown": {
     "parser": "gfm",
