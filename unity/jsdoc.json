@@ -24,16 +24,16 @@
           "path": "../../croquet-for-unity-tutorials/docs/synqvar_synqrpc"
         },
         {
+          "title": "Migration",
+          "path": "../../croquet-for-unity-tutorials/docs/migration"
+        },
+        {
           "title": "Deterministic (Advanced)",
           "path": "../../croquet-for-unity-tutorials/docs/advanced"
         },
         {
           "title": "Advanced Projects",
           "path": "../../croquet-for-unity-tutorials/docs/projects"
-        },
-        {
-          "title": "Photon Migration Guide",
-          "path": "../../croquet-for-unity-tutorials/docs/photon_migration_guide.md"
         }
       ],
       "extra_directories": [

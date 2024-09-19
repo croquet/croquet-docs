@@ -1,9 +1,76 @@
+:root .language-cs,
+:root .language-csharp,
+:root .pre-div:has(.language-cs),
+:root .pre-div:has(.language-csharp) {
+  --prism-text-color: #9cdcfe;
+  --prism-background: #1e1e1e;
+  --prism-comment-color: #6A9955;
+  --prism-punctuation-color: #DA70D6;
+  --prism-property-color: #b5cea8;
+  --prism-string-color: #ce9178;
+  --prism-operator-color: #d4d4d4;
+  --prism-keyword-color: #569cd6;
+  --prism-function-color: #dcdcaa;
+  --prism-class-name-color: #4ec9b0;
+  --prism-regex-color: #d16969;
+  --prism-unity-attribute-color: #9cdcfe;
+  --prism-unity-keyword-color: #569cd6;
+  --prism-pre-top-bar-bg: #292929;
+  --prism-pre-div-bg: #222;
+  --prism-code-lang-name-color: #007bff;
+  --prism-namespace-color: #4ec9b0;
+}
+
+:root .light .language-cs,
+:root .light .language-csharp,
+:root .light .pre-div:has(.language-cs),
+:root .light .pre-div:has(.language-csharp) {
+  --prism-text-color: #2A5B84;
+  --prism-background: #f9f9f9;
+  --prism-comment-color: #6A9955;
+  --prism-punctuation-color: #9D6A9A;
+  --prism-property-color: #6B8E6B;
+  --prism-string-color: #AD6F52;
+  --prism-operator-color: #4A4A4A;
+  --prism-keyword-color: #3F7CAC;
+  --prism-function-color: #B59B4D;
+  --prism-class-name-color: #3A9188;
+  --prism-regex-color: #A55050;
+  --prism-unity-attribute-color: #2A5B84;
+  --prism-unity-keyword-color: #3F7CAC;
+  --prism-pre-top-bar-bg: #E0E0E0;
+  --prism-pre-div-bg: #EAEAEA;
+  --prism-code-lang-name-color: #0066CC;
+  --prism-namespace-color: #3A9188;
+}
+
+:root .light .language-js,
+:root .light .pre-div:has(.language-js) {
+  --prism-text-color: #2A5B84;
+  --prism-background: #f9f9f9;
+  --prism-comment-color: #6A9955;
+  --prism-punctuation-color: #9D6A9A;
+  --prism-property-color: #6B8E6B;
+  --prism-string-color: #AD6F52;
+  --prism-operator-color: #4A4A4A;
+  --prism-keyword-color: #3F7CAC;
+  --prism-function-color: #B59B4D;
+  --prism-class-name-color: #3A9188;
+  --prism-regex-color: #A55050;
+  --prism-unity-attribute-color: #2A5B84;
+  --prism-unity-keyword-color: #3F7CAC;
+  --prism-pre-top-bar-bg: #E0E0E0;
+  --prism-pre-div-bg: #EAEAEA;
+  --prism-code-lang-name-color: #0066CC;
+  --prism-namespace-color: #3A9188;
+}
+
 /* PrismJS 1.29.0
 https://prismjs.com/download.html#themes=prism&languages=csharp */
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #9cdcfe; /* Changed to light blue for normal text */
-  background: #1e1e1e;
+  color: var(--prism-text-color);
+  background: var(--prism-background);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1em;
   text-align: left;
@@ -19,11 +86,11 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #6A9955;
+  color: var(--prism-comment-color);
 }
 
 .token.punctuation {
-  color: #d4d4d4; /* Kept white for punctuation */
+  color: var(--prism-punctuation-color);
 }
 
 .token.property,
@@ -32,7 +99,11 @@ pre[class*="language-"] {
 .token.number,
 .token.constant,
 .token.symbol {
-  color: #b5cea8;
+  color: var(--prism-property-color);
+}
+
+.token.namespace {
+  color: var(--prism-namespace-color);
 }
 
 .token.selector,
@@ -40,7 +111,7 @@ pre[class*="language-"] {
 .token.string,
 .token.char,
 .token.builtin {
-  color: #ce9178;
+  color: var(--prism-string-color);
 }
 
 .token.operator,
@@ -49,27 +120,27 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-  color: #d4d4d4;
+  color: var(--prism-operator-color);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #569cd6;
+  color: var(--prism-keyword-color);
 }
 
 .token.function {
-  color: #dcdcaa;
+  color: var(--prism-function-color);
 }
 
 .token.class-name {
-  color: #4ec9b0;
+  color: var(--prism-class-name-color);
 }
 
 .token.important,
 .token.regex,
 .token.variable {
-  color: #d16969;
+  color: var(--prism-regex-color);
 }
 
 .token.important,
@@ -87,11 +158,11 @@ pre[class*="language-"] {
 
 /* Custom styles for Unity-specific elements */
 .token.unity-attribute {
-  color: #9cdcfe;
+  color: var(--prism-unity-attribute-color);
 }
 
 .token.unity-keyword {
-  color: #569cd6;
+  color: var(--prism-unity-keyword-color);
 }
 
 /* Adjust the background for inline code */
@@ -102,19 +173,19 @@ pre[class*="language-"] {
 }
 
 .light .pre-top-bar-container {
-  background: #292929;
+  background: var(--prism-pre-top-bar-bg);
 }
 
 .light .pre-div {
-  background: #222;
+  background: var(--prism-pre-div-bg);
 }
 
 .light .prettyprint,
 .light .prettyprint code {
-  background: #1e1e1e;
+  background: var(--prism-background);
 }
 
 .light .code-lang-name,
 .code-lang-name {
-  color: #007bff;
+  color: var(--prism-code-lang-name-color);
 }
