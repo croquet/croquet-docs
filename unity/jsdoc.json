@@ -20,8 +20,8 @@
           "path": "../../croquet-for-unity-tutorials/docs/build_assistant"
         },
         {
-          "title": "[SyncVar] & [SyncRPC]",
-          "path": "../../croquet-for-unity-tutorials/docs/syncvar_syncrpc"
+          "title": "[SynqVar] & [SynqRPC]",
+          "path": "../../croquet-for-unity-tutorials/docs/synqvar_synqrpc"
         },
         {
           "title": "Deterministic (Advanced)",
