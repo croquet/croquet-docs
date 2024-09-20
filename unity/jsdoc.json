@@ -12,7 +12,7 @@
     "recurse": false,
     "verbose": true,
     "destination": "../dist/unity/",
-    "mainpagetitle": "Croquet For Unity Documentation",
+    "mainpagetitle": "Multisynq For Unity Documentation",
     "theme_opts": {
       "extra_sidebar_items": [
         {

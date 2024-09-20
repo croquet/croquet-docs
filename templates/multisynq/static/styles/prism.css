@@ -65,6 +65,14 @@
   --prism-namespace-color: #3A9188;
 }
 
+:root .light .changeable-fill {
+  fill: black;
+}
+
+:root .changeable-fill {
+  fill: white;
+}
+
 /* PrismJS 1.29.0
 https://prismjs.com/download.html#themes=prism&languages=csharp */
 code[class*="language-"],

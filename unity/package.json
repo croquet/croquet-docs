@@ -5,8 +5,9 @@
   "scripts": {
     "start": "npm-watch",
     "doBuild": "jsdoc -c jsdoc.json",
-    "build": "../build.sh unity",
-    "watch": "npm-watch"
+    "build": "../build.sh unity && npm run svg-inline",
+    "watch": "npm-watch",
+    "svg-inline": "node ../plugins/svg_inliner.js"
   },
   "watch": {
     "build": {
