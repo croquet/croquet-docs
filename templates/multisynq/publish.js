@@ -374,20 +374,14 @@ function buildSearchListForData() {
         title: item.longname,
         link: linkto(item.longname, item.name),
         description: cleanupDescription(item.description || ''),
+        titles: [item.name], // Add this line
       })
     }
   })
 
-  // Add extra MD files to search list
-  if (themeOpts.extra_md) searchList.push(...processExtraMdForSearch(themeOpts.extra_md))
-
-  // Add extra sidebar items to search list
-  if (themeOpts.extra_sidebar_items) searchList.push(...processExtraSidebarItemsForSearch(themeOpts.extra_sidebar_items))
-
   return searchList
 }
 
-function linktoTutorial(longName, name) { return tutoriallink(name) } //prettier-ignore
 function linktoExternal(longName, name) { return linkto(longName, name.replace(/(^"|"$)/g, '')) } //prettier-ignore
 
 /**
@@ -581,6 +575,10 @@ exports.publish = async function (taffyData, opts, tutorials) {
   let staticFiles
   let staticFileScanner
   let templatePath
+
+  const extra_md = themeOpts['extra_md'] || []
+  const extra_directories = themeOpts['extra_directories'] || []
+  const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
 
   data = taffyData
 
@@ -893,27 +891,32 @@ exports.publish = async function (taffyData, opts, tutorials) {
   // output search file if search
   if (hasSearch) {
     const searchList = buildSearchListForData()
+    const extraMdSearchList = processExtraMdForSearch(extra_md)
+    const extraSidebarSearchList = processExtraSidebarItemsForSearch(themeOpts.extra_sidebar_items || [])
+
+    const allTitles = [...searchList, ...extraMdSearchList, ...extraSidebarSearchList].reduce((acc, item) => {
+      if (item.titles) acc.push(...item.titles)
+      return acc
+    }, [])
+
     mkdirSync(path.join(outdir, 'data'))
     fs.writeFileSync(
       path.join(outdir, 'data', 'search.json'),
       JSON.stringify({
-        list: searchList,
+        list: [...searchList, ...extraMdSearchList, ...extraSidebarSearchList],
+        titles: [...new Set(allTitles)], // Remove duplicates
       })
     )
   }
 
   // Render extra_md files
-  const extra_md = themeOpts['extra_md'] || []
   extra_md.forEach(renderExtraMd)
 
-  const extra_directories = themeOpts['extra_directories'] || []
   extra_directories.forEach((dir) => {
     const source = path.resolve(dir.path)
     const destination = path.resolve(outdir, dir.destination)
     fs.copySync(source, destination)
   })
-
-  const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
 
   extra_sidebar_items.forEach((item) => {
     const isDir = fs.lstatSync(item.path).isDirectory()
@@ -1118,10 +1121,14 @@ function processExtraMdForSearch(mdFiles) {
     const { title, path: inputPath } = md
     const content = fs.readFileSync(inputPath, 'utf8')
     const processedContent = processMarkdownContent(content, inputPath, outdir)
+
+    const titles = content.match(/^#+\s+(.*)$/gm) || []
+
     return {
       title: title,
       link: path.basename(inputPath).replace(/\.md$/, '.html'),
-      description: processedContent.slice(0, 150), // Take first 150 characters as description
+      description: processedContent.slice(0, 150),
+      titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
     }
   })
 }
@@ -1140,22 +1147,28 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
         const content = fs.readFileSync(filePath, 'utf8')
         const fileName = path.basename(file, '.md')
 
-        // Find the correct title from the structure
         const structureItem = structure ? structure.find((s) => s.filename === fileName) : null
         const title = structureItem ? structureItem.title : fileName
+
+        // Extract all titles from the content
+        const titles = content.match(/^#+\s+(.*)$/gm) || []
 
         searchItems.push({
           title: title,
           link: extraItemToUrl(path.basename(item.path), fileName),
           description: cleanupSearchDescription(content),
+          titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
         })
       })
     } else {
       const content = fs.readFileSync(item.path, 'utf8')
+      const titles = content.match(/^#+\s+(.*)$/gm) || []
+
       searchItems.push({
         title: item.title,
         link: extraItemToUrl(item.path, path.basename(item.path, '.md')),
         description: cleanupSearchDescription(content),
+        titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
       })
     }
   })
