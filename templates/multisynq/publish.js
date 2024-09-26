@@ -914,18 +914,49 @@ exports.publish = async function (taffyData, opts, tutorials) {
   })
 
   const extra_sidebar_items = themeOpts['extra_sidebar_items'] || []
-  let otherItems = []
 
   extra_sidebar_items.forEach((item) => {
     const isDir = fs.lstatSync(item.path).isDirectory()
+    const extraSection = view.sidebar.sections.find((section) => section.name === 'Additional Resources')
+
     if (isDir) {
-      const defaultTemplate = item.defaultTemplate || 'extra_md.tmpl'
-      saveExtraItems(item.title.toLowerCase(), item.path, defaultTemplate)
+      const dirName = path.basename(item.path)
+      const files = fs.readdirSync(item.path).filter((file) => file.endsWith('.md'))
+
+      const dirItem = {
+        name: item.title,
+        anchor: `<span class="sidebar-section-title">${item.title}</span>`,
+        children: [],
+      }
+
+      files.forEach((file) => {
+        const filePath = path.join(item.path, file)
+        const fileName = path.basename(file, '.md')
+        const content = fs.readFileSync(filePath, 'utf8')
+        const title = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
+
+        dirItem.children.push({
+          name: title,
+          anchor: `<a href="${extraItemToUrl(dirName, fileName)}">${title}</a>`,
+          children: [],
+        })
+
+        saveExtraItems(dirName, item.path, 'extra_md.tmpl')
+      })
+
+      extraSection?.items?.push(dirItem)
     } else {
       const fileName = path.basename(item.path, '.md')
-      const category = `other-${item.title.toLowerCase().replace(/\s+/g, '_')}`
-      saveExtraItems(category, path.dirname(item.path), 'extra_md.tmpl', { [fileName]: item })
-      otherItems.push({ title: item.title, category })
+      const content = fs.readFileSync(item.path, 'utf8')
+      const title = content.split('\n')[0].replace(/^#\s*/, '') // Extract title from first line
+
+      extraSection.items.push({
+        name: title,
+        anchor: `<a href="${extraItemToUrl(item.path, fileName)}">${title}</a>`,
+        children: [],
+      })
+
+      saveExtraItems(item.path, path.dirname(item.path), 'extra_md.tmpl', { [fileName]: item })
     }
   })
 
@@ -967,7 +998,9 @@ function addSidebarForMdFile(file, structurePath, filePath, sidebarItem, categor
     name = structureItem?.title || fallbackTitle
   } else name = fallbackTitle
 
-  const anchor = `<a href="${extraItemToUrl(category, filename)}">${name}</a>`
+  // Use the full path for individual files, and the directory name for files in directories
+  const urlCategory = isOther ? filePath : path.basename(structurePath)
+  const anchor = `<a href="${extraItemToUrl(urlCategory, filename)}">${name}</a>`
   sidebarItem.items.push({ name, anchor, children: [] })
 }
 
@@ -986,7 +1019,6 @@ function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', si
   else {
     structure = readStructureJson(dirPath)
     if (!structure) {
-      // If no structure.json, use all .md files in the directory
       const files = fs.readdirSync(dirPath).filter((file) => file.endsWith('.md'))
       structure = files.map((file) => ({ filename: path.basename(file, '.md') }))
     }
@@ -1001,7 +1033,7 @@ function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', si
       const parsedContent = markdown.getParser()(processedContent)
 
       const templateData = {
-        title: `${category}: ${data.title || filename}`,
+        title: data.title || filename,
         header: data.title || filename,
         content: parsedContent,
         children: [],
@@ -1020,7 +1052,11 @@ function saveExtraItems(category, dirPath, defaultTemplate = 'extra_md.tmpl', si
 }
 
 function extraItemToUrl(category, name) {
-  return category + '-' + name.replace(/\s+/g, '_').toLowerCase() + '.html'
+  // If the category is a full path, use only the filename
+  if (category.includes('/')) return `${path.basename(name, '.md').toLowerCase()}.html`
+
+  // For directories, use the category-name format
+  return `${category.toLowerCase()}-${name.replace(/\s+/g, '_').toLowerCase()}.html`
 }
 
 function copyImageAndUpdateLink(imagePath, mdFilePath, outdir) {
@@ -1110,7 +1146,7 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
 
         searchItems.push({
           title: title,
-          link: extraItemToUrl(item.title.toLowerCase(), fileName),
+          link: extraItemToUrl(path.basename(item.path), fileName),
           description: cleanupSearchDescription(content),
         })
       })
@@ -1118,7 +1154,7 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
       const content = fs.readFileSync(item.path, 'utf8')
       searchItems.push({
         title: item.title,
-        link: extraItemToUrl('other', path.basename(item.path, '.md')),
+        link: extraItemToUrl(item.path, path.basename(item.path, '.md')),
         description: cleanupSearchDescription(content),
       })
     }
