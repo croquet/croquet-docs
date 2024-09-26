@@ -366,15 +366,25 @@ function buildSidebarSubpackagesMember(subpackages, allpackages) {
 }
 
 function buildSearchListForData() {
+  const searchList = []
+
   data().each((item) => {
     if (item.kind !== 'package' && !item.inherited) {
       searchList.push({
         title: item.longname,
         link: linkto(item.longname, item.name),
-        description: item.description,
+        description: cleanupDescription(item.description || ''),
       })
     }
   })
+
+  // Add extra MD files to search list
+  if (themeOpts.extra_md) searchList.push(...processExtraMdForSearch(themeOpts.extra_md))
+
+  // Add extra sidebar items to search list
+  if (themeOpts.extra_sidebar_items) searchList.push(...processExtraSidebarItemsForSearch(themeOpts.extra_sidebar_items))
+
+  return searchList
 }
 
 function linktoTutorial(longName, name) { return tutoriallink(name) } //prettier-ignore
@@ -882,7 +892,7 @@ exports.publish = async function (taffyData, opts, tutorials) {
   // added by clean-jsdoc-theme-devs
   // output search file if search
   if (hasSearch) {
-    buildSearchListForData()
+    const searchList = buildSearchListForData()
     mkdirSync(path.join(outdir, 'data'))
     fs.writeFileSync(
       path.join(outdir, 'data', 'search.json'),
@@ -1065,4 +1075,104 @@ function processMarkdownContent(content, mdFilePath, outdir) {
     const newImagePath = copyImageAndUpdateLink(imagePath, mdFilePath, outdir)
     return `![${altText}](${newImagePath})`
   })
+}
+
+function processExtraMdForSearch(mdFiles) {
+  return mdFiles.map((md) => {
+    const { title, path: inputPath } = md
+    const content = fs.readFileSync(inputPath, 'utf8')
+    const processedContent = processMarkdownContent(content, inputPath, outdir)
+    return {
+      title: title,
+      link: path.basename(inputPath).replace(/\.md$/, '.html'),
+      description: processedContent.slice(0, 150), // Take first 150 characters as description
+    }
+  })
+}
+
+function processExtraSidebarItemsForSearch(sidebarItems) {
+  let searchItems = []
+
+  sidebarItems.forEach((item) => {
+    const isDir = fs.lstatSync(item.path).isDirectory()
+    const structure = isDir ? readStructureJson(item.path) : null
+
+    if (isDir) {
+      const files = fs.readdirSync(item.path).filter((file) => file.endsWith('.md'))
+      files.forEach((file) => {
+        const filePath = path.join(item.path, file)
+        const content = fs.readFileSync(filePath, 'utf8')
+        const fileName = path.basename(file, '.md')
+
+        // Find the correct title from the structure
+        const structureItem = structure ? structure.find((s) => s.filename === fileName) : null
+        const title = structureItem ? structureItem.title : fileName
+
+        searchItems.push({
+          title: title,
+          link: extraItemToUrl(item.title.toLowerCase(), fileName),
+          description: cleanupSearchDescription(content),
+        })
+      })
+    } else {
+      const content = fs.readFileSync(item.path, 'utf8')
+      searchItems.push({
+        title: item.title,
+        link: extraItemToUrl('other', path.basename(item.path, '.md')),
+        description: cleanupSearchDescription(content),
+      })
+    }
+  })
+
+  return searchItems
+}
+
+function cleanupSearchDescription(content, maxLength = 150) {
+  content = content.replace(/!\[([^\]]*)\]\([^\)]+\)/g, '') // Remove image references
+  content = content.replace(/^(-{3,}|\*{3,}|_{3,})$/gm, '') // Remove horizontal rules
+  content = content.replace(/^#+\s+.*$/gm, '') // Remove Markdown headers
+  content = content.replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Remove Markdown links, keeping the link text
+  content = content.replace(/[*_`#]/g, '') // Remove special Markdown characters
+  content = content.replace(/\s+/g, ' ') // Replace newlines and multiple spaces with a single space
+  content = content.trim()
+
+  if (content.length <= maxLength) return content
+
+  // Find the last occurrence of a sentence-ending punctuation within the maxLength
+  const lastPeriod = content.lastIndexOf('.', maxLength)
+  const lastQuestion = content.lastIndexOf('?', maxLength)
+  const lastExclamation = content.lastIndexOf('!', maxLength)
+
+  let cutoff = Math.max(lastPeriod, lastQuestion, lastExclamation)
+
+  // If no sentence-ending punctuation found, look for the last comma or space
+  if (cutoff === -1) {
+    const lastComma = content.lastIndexOf(',', maxLength)
+    cutoff = Math.max(lastComma, content.lastIndexOf(' ', maxLength))
+  }
+
+  // If still no suitable cutoff point, cut at maxLength and then at the last space
+  if (cutoff === -1) {
+    content = content.slice(0, maxLength)
+    cutoff = content.lastIndexOf(' ')
+  }
+
+  // Ensure we don't cut off mid-word or leave hanging punctuation
+  if (cutoff > 0) content = content.slice(0, cutoff + 1).trim()
+
+  // Remove any trailing punctuation except for periods, question marks, and exclamation points
+  content = content.replace(/[,;:\-]+$/, '')
+
+  if (content.length < maxLength) content += '...' // Add ellipsis if we've truncated the content
+
+  return content
+}
+
+function readStructureJson(dirPath) {
+  const structurePath = path.join(dirPath, 'structure.json')
+  if (fs.existsSync(structurePath)) {
+    const structure = JSON.parse(fs.readFileSync(structurePath, 'utf8'))
+    return Object.entries(structure).map(([filename, data]) => ({ filename, ...data }))
+  }
+  return null
 }
