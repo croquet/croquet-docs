@@ -115,18 +115,34 @@ function buildSearchResult(result) {
     const _description = description.replace(removeHTMLTagsRegExp, '')
 
     output += `
-    <a onclick="onClickSearchItem(event)" href="${_link}" class="search-result-item">
-      <div class="search-result-item-title">${_title}</div>
-      <div class="search-result-item-p">${_description || 'No description available.'}</div>
+    <div class="search-result-item">
+      <a onclick="onClickSearchItem(event)" href="${_link}" class="search-result-item-content">
+        <div class="search-result-item-title">${_title}</div>
+        <div class="search-result-item-p">${_description || 'No description available.'}</div>
     `
 
-    if (subtitles.length > 0) output += `<div class="search-result-item-subtitles">Subtitles: ${subtitles.join(', ')}</div>`
-    if (keywords.length > 0)
-      output += `<div class="search-result-item-keywords">Keywords: ${keywords.slice(0, 5).join(', ')}${keywords.length > 5 ? '...' : ''}</div>`
-    if (links.length > 0)
-      output += `<div class="search-result-item-links">Related links: ${links.map((link) => `<a href="${link.url}">${link.text}</a>`).join(', ')}</div>`
+    if (subtitles.length > 0) {
+      output += `<div class="search-result-item-subtitles">Topics: ${subtitles.join(', ')}</div>`
+    }
 
-    output += `</a>`
+    // if (keywords.length > 0) {
+    //   output += `<div class="search-result-item-keywords">Keywords: ${keywords.slice(0, 5).join(', ')}${keywords.length > 5 ? '...' : ''}</div>`
+    // }
+
+    output += `</a>` // Close the clickable area
+
+    if (links.length > 0) {
+      output += `
+        <div class="search-result-item-links">
+          <strong>Related links:</strong>
+          <ul style="margin-left: 1rem;">
+            ${links.map((link) => `<li><a href="${link.url}" target="_blank">${link.text}</a></li>`).join('')}
+          </ul>
+        </div>
+      `
+    }
+
+    output += `</div>` // Close the search-result-item div
   }
 
   return output
