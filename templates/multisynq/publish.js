@@ -370,11 +370,15 @@ function buildSearchListForData() {
 
   data().each((item) => {
     if (item.kind !== 'package' && !item.inherited) {
+      const content = item.description || ''
       searchList.push({
         title: item.longname,
         link: linkto(item.longname, item.name),
-        description: cleanupDescription(item.description || ''),
-        titles: [item.name], // Add this line
+        description: cleanupDescription(content),
+        titles: [item.name],
+        subtitles: [], // JSDoc items don't typically have subtitles
+        links: [], // Extract links from the description if needed
+        keywords: generateKeywords(content, 50),
       })
     }
   })
@@ -894,17 +898,27 @@ exports.publish = async function (taffyData, opts, tutorials) {
     const extraMdSearchList = processExtraMdForSearch(extra_md)
     const extraSidebarSearchList = processExtraSidebarItemsForSearch(themeOpts.extra_sidebar_items || [])
 
-    const allTitles = [...searchList, ...extraMdSearchList, ...extraSidebarSearchList].reduce((acc, item) => {
-      if (item.titles) acc.push(...item.titles)
-      return acc
-    }, [])
+    const allTitles = []
+    const allSubtitles = []
+    const allLinks = []
+    const allKeywords = []
+
+    ;[...searchList, ...extraMdSearchList, ...extraSidebarSearchList].forEach((item) => {
+      allTitles.push(...(item.titles || []))
+      allSubtitles.push(...(item.subtitles || []))
+      allLinks.push(...(item.links || []))
+      allKeywords.push(...(item.keywords || []))
+    })
 
     mkdirSync(path.join(outdir, 'data'))
     fs.writeFileSync(
       path.join(outdir, 'data', 'search.json'),
       JSON.stringify({
         list: [...searchList, ...extraMdSearchList, ...extraSidebarSearchList],
-        titles: [...new Set(allTitles)], // Remove duplicates
+        titles: [...new Set(allTitles)],
+        subtitles: [...new Set(allSubtitles)],
+        links: allLinks.filter((link, index, self) => index === self.findIndex((t) => t.url === link.url && t.text === link.text)),
+        keywords: [...new Set(allKeywords)],
       })
     )
   }
@@ -1122,13 +1136,19 @@ function processExtraMdForSearch(mdFiles) {
     const content = fs.readFileSync(inputPath, 'utf8')
     const processedContent = processMarkdownContent(content, inputPath, outdir)
 
-    const titles = content.match(/^#+\s+(.*)$/gm) || []
+    const { titles, subtitles, links, keywords } = analyzeContent(content)
 
     return {
       title: title,
       link: path.basename(inputPath).replace(/\.md$/, '.html'),
       description: processedContent.slice(0, 150),
-      titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
+      titles: titles.map((t) => t.replace(/^#\s+/, '')),
+      subtitles: subtitles.map((t) => t.replace(/^##\s+/, '')),
+      links: links.map((l) => {
+        const [, text, url] = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
+        return { text, url }
+      }),
+      keywords,
     }
   })
 }
@@ -1150,30 +1170,76 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
         const structureItem = structure ? structure.find((s) => s.filename === fileName) : null
         const title = structureItem ? structureItem.title : fileName
 
-        // Extract all titles from the content
-        const titles = content.match(/^#+\s+(.*)$/gm) || []
+        const { titles, subtitles, links, keywords } = analyzeContent(content)
 
         searchItems.push({
           title: title,
           link: extraItemToUrl(path.basename(item.path), fileName),
           description: cleanupSearchDescription(content),
-          titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
+          titles: titles.map((t) => t.replace(/^#\s+/, '')),
+          subtitles: subtitles.map((t) => t.replace(/^##\s+/, '')),
+          links: links.map((l) => {
+            const [, text, url] = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
+            return { text, url }
+          }),
+          keywords,
         })
       })
     } else {
       const content = fs.readFileSync(item.path, 'utf8')
-      const titles = content.match(/^#+\s+(.*)$/gm) || []
+
+      const { titles, subtitles, links, keywords } = analyzeContent(content)
 
       searchItems.push({
         title: item.title,
         link: extraItemToUrl(item.path, path.basename(item.path, '.md')),
         description: cleanupSearchDescription(content),
-        titles: titles.map((t) => t.replace(/^#+\s+/, '')), // Remove the Markdown header syntax
+        titles: titles.map((t) => t.replace(/^#\s+/, '')),
+        subtitles: subtitles.map((t) => t.replace(/^##\s+/, '')),
+        links: links.map((l) => {
+          const [, text, url] = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
+          return { text, url }
+        }),
+        keywords,
       })
     }
   })
 
   return searchItems
+}
+
+function analyzeContent(content) {
+  const titles = content.match(/^#\s+(.*)$/gm) || []
+  const subtitles = content.match(/^##\s+(.*)$/gm) || []
+  const links = content.match(/\[([^\]]+)\]\(([^\)]+)\)/g) || []
+  const keywords = generateKeywords(content, 50)
+
+  return { titles, subtitles, links, keywords }
+}
+
+function generateKeywords(content, count) {
+  // Remove code blocks, links, and special characters
+  const cleanContent = content
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    .replace(/[^a-zA-Z\s]/g, ' ')
+
+  // Split into words and remove common words
+  const words = cleanContent.toLowerCase().split(/\s+/)
+  const commonWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'])
+  const filteredWords = words.filter((word) => word.length > 2 && !commonWords.has(word))
+
+  // Count word frequency
+  const wordFreq = {}
+  filteredWords.forEach((word) => {
+    wordFreq[word] = (wordFreq[word] || 0) + 1
+  })
+
+  // Sort by frequency and return top 'count' words
+  return Object.entries(wordFreq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, count)
+    .map(([word]) => word)
 }
 
 function cleanupSearchDescription(content, maxLength = 150) {
