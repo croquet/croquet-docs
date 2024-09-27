@@ -1176,12 +1176,23 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
           title: title,
           link: extraItemToUrl(path.basename(item.path), fileName),
           description: cleanupSearchDescription(content),
-          titles: titles.map((t) => t.replace(/^#\s+/, '')),
-          subtitles: subtitles.map((t) => t.replace(/^##\s+/, '')),
-          links: links.map((l) => {
-            const [, text, url] = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
-            return { text, url }
-          }),
+          titles: Array.isArray(titles)
+            ? titles.map((t) => {
+                return typeof t === 'object' && t !== null ? t : { name: '', href: '' }
+              })
+            : [],
+          subtitles: Array.isArray(subtitles)
+            ? subtitles.map((t) => {
+                return typeof t === 'object' && t !== null ? t : { name: '', href: '' }
+              })
+            : [],
+          links: Array.isArray(links)
+            ? links.map((l) => {
+                if (typeof l !== 'string') return { text: '', url: '' }
+                const match = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
+                return match ? { text: match[1], url: match[2] } : { text: '', url: '' }
+              })
+            : [],
           keywords,
         })
       })
@@ -1209,8 +1220,22 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
 }
 
 function analyzeContent(content) {
-  const titles = content.match(/^#\s+(.*)$/gm) || []
-  const subtitles = content.match(/^##\s+(.*)$/gm) || []
+  const slugify = (str) =>
+    str
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '')
+
+  const titles = (content.match(/^#\s+(.*)$/gm) || []).map((title) => {
+    const name = title.replace(/^#\s+/, '')
+    return { name, href: `#${slugify(name)}` }
+  })
+
+  const subtitles = (content.match(/^##\s+(.*)$/gm) || []).map((subtitle) => {
+    const name = subtitle.replace(/^##\s+/, '')
+    return { name, href: `#${slugify(name)}` }
+  })
+
   const links = content.match(/\[([^\]]+)\]\(([^\)]+)\)/g) || []
   const keywords = generateKeywords(content, 50)
 

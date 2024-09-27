@@ -80,29 +80,6 @@ async function fetchAllData() {
   return list
 }
 
-// eslint-disable-next-line no-unused-vars
-function onClickSearchItem(event) {
-  const target = event.currentTarget
-
-  if (target) {
-    const href = target.getAttribute('href') || ''
-    let elementId = href.split('#')[1] || ''
-    let element = document.getElementById(elementId)
-
-    if (!element) {
-      elementId = decodeURI(elementId)
-      element = document.getElementById(elementId)
-    }
-
-    if (element) {
-      setTimeout(function () {
-        // eslint-disable-next-line no-undef
-        bringElementIntoView(element) // defined in core.js
-      }, 100)
-    }
-  }
-}
-
 function buildSearchResult(result) {
   let output = ''
   const removeHTMLTagsRegExp = /(<([^>]+)>)/gi
@@ -119,17 +96,16 @@ function buildSearchResult(result) {
       <a onclick="onClickSearchItem(event)" href="${_link}" class="search-result-item-content">
         <div class="search-result-item-title">${_title}</div>
         <div class="search-result-item-p">${_description || 'No description available.'}</div>
+      </a>
     `
 
     if (subtitles.length > 0) {
-      output += `<div class="search-result-item-subtitles">Topics: ${subtitles.join(', ')}</div>`
+      output += `<div class="search-result-item-subtitles">Topics: `
+      output += subtitles
+        .map((subtitle) => `<a href="${_link}${subtitle.href}" onclick="onClickSearchItem(event)" class="search-result-subtitle">${subtitle.name}</a>`)
+        .join(', ')
+      output += `</div>`
     }
-
-    // if (keywords.length > 0) {
-    //   output += `<div class="search-result-item-keywords">Keywords: ${keywords.slice(0, 5).join(', ')}${keywords.length > 5 ? '...' : ''}</div>`
-    // }
-
-    output += `</a>` // Close the clickable area
 
     if (links.length > 0) {
       output += `
@@ -146,6 +122,40 @@ function buildSearchResult(result) {
   }
 
   return output
+}
+
+function onClickSearchItem(event) {
+  event.preventDefault()
+  const target = event.currentTarget
+
+  if (target) {
+    const href = target.getAttribute('href') || ''
+    const [pagePath, encodedElementId] = href.split('#')
+
+    // Navigate to the page if it's different from the current page
+    if (pagePath && pagePath !== window.location.pathname) {
+      window.location.href = href
+      return
+    }
+
+    if (encodedElementId) {
+      const decodedId = decodeSubtitle(encodedElementId)
+      let element = document.getElementById(decodedId)
+
+      if (!element) {
+        // If exact ID not found, try finding by normalized id (lowercase, dashes)
+        const normalizedId = decodedId.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        element = document.getElementById(normalizedId)
+      }
+
+      if (element) {
+        setTimeout(function () {
+          // eslint-disable-next-line no-undef
+          bringElementIntoView(element) // defined in core.js
+        }, 100)
+      }
+    }
+  }
 }
 
 function getSearchResult(list, searchKey) {
