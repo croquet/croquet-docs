@@ -1220,11 +1220,16 @@ function processExtraSidebarItemsForSearch(sidebarItems) {
 }
 
 function analyzeContent(content) {
-  const slugify = (str) =>
-    str
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]+/g, '')
+  const escapableChars = ['/', ':']
+
+  const slugify = (str) => {
+    let slug = str.toLowerCase().trim()
+    // Handle escapable characters
+    escapableChars.forEach((c) => (slug = slug.replace(new RegExp('\\' + c, 'g'), '%' + c.charCodeAt(0).toString(16).toUpperCase())))
+    // Replace spaces with hyphens and remove other non-word characters
+    slug = slug.replace(/\s+/g, '-').replace(/[^\w-%.]+/g, '')
+    return slug
+  }
 
   const titles = (content.match(/^#\s+(.*)$/gm) || []).map((title) => {
     const name = title.replace(/^#\s+/, '')
