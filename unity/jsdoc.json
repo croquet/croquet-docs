@@ -1,9 +1,9 @@
 {
   "source": {
     "include": [
-        "../../croquet-for-unity-tutorials/docs/unity-doc.js",
-        "../../croquet-for-unity-tutorials/docs/top.md",
-        "../../croquet-for-unity-tutorials/docs/guide.md"
+        "../../m4u-tutorials/docs/unity-doc.js",
+        "../../m4u-tutorials/docs/top.md",
+        "../../m4u-tutorials/docs/guide.md"
     ]
   },
   "opts": {
@@ -17,28 +17,28 @@
       "extra_sidebar_items": [
         {
           "title": "The Build Assistant",
-          "path": "../../croquet-for-unity-tutorials/docs/build_assistant"
+          "path": "../../m4u-tutorials/docs/build_assistant"
         },
         {
           "title": "[SynqVar] & [SynqRPC]",
-          "path": "../../croquet-for-unity-tutorials/docs/synqvar_synqrpc"
+          "path": "../../m4u-tutorials/docs/synqvar_synqrpc"
         },
         {
           "title": "Migration",
-          "path": "../../croquet-for-unity-tutorials/docs/migration"
+          "path": "../../m4u-tutorials/docs/migration"
         },
         {
           "title": "Deterministic (Advanced)",
-          "path": "../../croquet-for-unity-tutorials/docs/advanced"
+          "path": "../../m4u-tutorials/docs/advanced"
         },
         {
           "title": "Advanced Projects",
-          "path": "../../croquet-for-unity-tutorials/docs/projects"
+          "path": "../../m4u-tutorials/docs/projects"
         }
       ],
       "extra_directories": [
         {
-          "path": "../../croquet-for-unity-tutorials/docs/images",
+          "path": "../../m4u-tutorials/docs/images",
           "destination": "images"
         }
       ]
