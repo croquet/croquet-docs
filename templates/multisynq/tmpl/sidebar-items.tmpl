@@ -1,6 +1,14 @@
 <?js
     var data = this.sidebar
 
+    if(data.home) { ?>
+        <a href="<?js= data.home.url ?>" target="<?js= data.home.target ?>">
+            <div class="sidebar-section-title" data-isopen="false" id="home">
+                <div><?js= data.home.name ?></div>
+            </div>
+        </a>
+    <?js }    
+
     if(Array.isArray(data.sections)) {
 
         data.sections.forEach(function(section) {

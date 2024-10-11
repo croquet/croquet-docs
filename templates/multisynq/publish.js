@@ -421,7 +421,9 @@ function buildNavbar() {
 function buildSidebar(members) {
   let home = themeOpts.subdirectory ? themeOpts.subdirectory : './'
   let logoSrc = `${home}/images/${themeOpts.logo || 'multisynq_vertical_blue.svg'}`
-  const title = themeOpts.title || `<div class="navbar-heading" id="navbar-heading"><a href="./"><img src="${logoSrc}"/></a></div>`
+  const title =
+    themeOpts.title ||
+    `<div class="navbar-heading" id="navbar-heading"><a href="https://multisynq.io/docs/"><img src="${logoSrc}"/></a></div>`
 
   const isHTML = RegExp.prototype.test.bind(/(<([^>]+)>)/i)
   const nav = { sections: [] }
@@ -430,7 +432,6 @@ function buildSidebar(members) {
   else nav.title = { title, isHTML: true }
 
   const seen = {}
-  const seenTutorials = {}
   const seenGlobal = {}
 
   const sectionsOrder = themeOpts.sections || defaultSections
@@ -545,6 +546,16 @@ function buildSidebar(members) {
 
       nav.sections.push(otherSidebarItem)
     }
+  }
+
+  if (themeOpts.home) {
+    const homeLink = {
+      name: themeOpts.home.name || 'Home',
+      url: themeOpts.home.url || './',
+      target: themeOpts.home.target || '_self',
+    }
+
+    nav.home = homeLink
   }
 
   // console.log('Debug: Final nav object', JSON.stringify(nav, null, 2))

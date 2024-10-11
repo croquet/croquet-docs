@@ -3,7 +3,7 @@
     "include": [
         "../../m4u-tutorials/docs/unity-doc.js",
         "../../m4u-tutorials/docs/remaining_from_old.md",
-        "../../m4u-tutorials/docs/guide.md"
+        "../../m4u-tutorials/docs/home.md"
     ]
   },
   "opts": {
@@ -14,6 +14,11 @@
     "destination": "../dist/unity/",
     "mainpagetitle": "Multisynq For Unity Documentation",
     "theme_opts": {
+      "home": {
+        "name": "Home",
+        "url": "./index.html",
+        "target": "_self"
+      },
       "extra_sidebar_items": [
         {
           "title": "The Build Assistant",
@@ -40,6 +45,10 @@
         {
           "path": "../../m4u-tutorials/docs/images",
           "destination": "images"
+        },
+        {
+          "path": "../../m4u-tutorials/docs/videos",
+          "destination": "videos"
         }
       ]
     }
