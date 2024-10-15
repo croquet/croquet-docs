@@ -4,12 +4,6 @@ set -euo pipefail
 
 jsdoc -c jsdoc.json $@
 
-# Check if we're on macOS and update sed_cmd if needed
-sed_cmd="sed -i"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed_cmd="sed -i ''"
-fi
-
 # Extract destination argument
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -33,7 +27,8 @@ do
     (
         cd $i;
         npx jsdoc -c jsdoc.json --template ${template} --destination ${destination}/${i}
-        # Patch sidebar logo to navigate to to worldcore main page
-        $sed_cmd '/id="navbar-heading"/ { :1 /id="navbar-heading"><a href=".\/"/s/\(id="navbar-heading"><a href="\).\/"/\1..\/"/; t1 }' ${destination}/${i}/*.html
+
+        # In the subpackages, the navbar-heading should point to the parent. Replacing href="./" -> href="../"
+        perl -i -pe 'if (/id="navbar-heading"/) { s#(id="navbar-heading"><a href=")\./#$1../#g while /id="navbar-heading"><a href="\.\//; }' ${destination}/${i}/*.html
     )
 done
