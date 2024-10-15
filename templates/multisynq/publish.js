@@ -374,7 +374,7 @@ function buildSearchListForData() {
       searchList.push({
         title: item.longname,
         link: linkto(item.longname, item.name),
-        description: cleanupDescription(content),
+        description: cleanupSearchDescription(content),
         titles: [item.name],
         subtitles: [], // JSDoc items don't typically have subtitles
         links: [], // Extract links from the description if needed
@@ -501,9 +501,10 @@ function buildSidebar(members) {
   // Add non-empty sections to nav
   sectionsOrder.forEach((section) => {
     if (sections[section] && sections[section].items && sections[section].items.length > 0) {
-      console.log(`Debug: Adding section ${section} with ${sections[section].items.length} items`)
+      // console.log(`Debug: Adding section ${section} with ${sections[section].items.length} items`)
       nav.sections.push(sections[section])
-    } else console.log(`Debug: Skipping empty section ${section}`)
+    // } else console.log(`Debug: Skipping empty section ${section}`)
+    }
   })
 
   // Add extra sidebar items
@@ -1153,8 +1154,8 @@ function processExtraMdForSearch(mdFiles) {
       title: title,
       link: path.basename(inputPath).replace(/\.md$/, '.html'),
       description: processedContent.slice(0, 150),
-      titles: titles.map((t) => t.replace(/^#\s+/, '')),
-      subtitles: subtitles.map((t) => t.replace(/^##\s+/, '')),
+      titles,
+      subtitles,
       links: links.map((l) => {
         const [, text, url] = l.match(/\[([^\]]+)\]\(([^\)]+)\)/)
         return { text, url }
