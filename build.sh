@@ -106,7 +106,7 @@ if [ -z "$PACKAGES" ] ; then
         PACKAGES="croquet $PACKAGES"
     else
         echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"
-        
+
         if wget --version > /dev/null 2>&1 ; then
             echo "    ...downloading teatime docs from croquet.io instead"
             # Here we should make sure if we are downloading for wanted targets
@@ -133,7 +133,7 @@ fi
 # right now images and styles go one directory above... but it is probably saner if it is kept
 # in docs
 
-# Setup 
+# Setup
 for t in ${TEMPLATES}
 do
     TEMPLATE_DIR=templates/${t}
@@ -148,6 +148,12 @@ do
     for t in ${TEMPLATES}
     do
         TEMPLATE_DIR=templates/${t}
+        UNLINK=""
+        for f in $(find . -name \*-$t.md) ; do
+            LINK_NAME=$(echo $f | sed "s/-$t.md/.md/")
+            UNLINK="$UNLINK $LINK_NAME"
+            (cd $(dirname $f); ln -sf $(basename $f) $(basename $LINK_NAME))
+        done
 
         OUTPUT_DIR="dist/${t}/${p}"
         VERSION=$(node -p -e "require('./"${p}/package.json"').version")
@@ -155,7 +161,9 @@ do
         echo Building $p $VERSION with theme ${t}
         (cd $p; npm run doBuild -- --template ../${TEMPLATE_DIR} --destination ../${OUTPUT_DIR}) || exit 1
         [ -f "${OUTPUT_DIR}/index.html" ] || exit 1
-        
+
+        rm -f $UNLINK
+
         if [[ "$OSTYPE" == "darwin"* ]]; then
             sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html
         else
