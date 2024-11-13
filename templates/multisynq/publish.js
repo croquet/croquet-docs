@@ -386,6 +386,7 @@ function buildSearchListForData() {
   return searchList
 }
 
+function linktoTutorial(longName, name) { return tutoriallink(name) } //prettier-ignore
 function linktoExternal(longName, name) { return linkto(longName, name.replace(/(^"|"$)/g, '')) } //prettier-ignore
 
 /**
