@@ -482,6 +482,13 @@ function buildSidebar(members) {
       linktoFn: linkto,
       sectionName: SECTION_TYPE.Mixins,
     }),
+    [SECTION_TYPE.Tutorials]: buildSidebarMembers({
+      itemHeading: 'Tutorials',
+      items: members.tutorials,
+      itemsSeen: seenTutorials,
+      linktoFn: linktoTutorial,
+      sectionName: SECTION_TYPE.Tutorials,
+    }),
     [SECTION_TYPE.Interfaces]: buildSidebarMembers({
       itemHeading: 'Interfaces',
       items: members.interfaces,
