@@ -432,6 +432,7 @@ function buildSidebar(members) {
   else nav.title = { title, isHTML: true }
 
   const seen = {}
+  const seenTutorials = {}
   const seenGlobal = {}
 
   const sectionsOrder = themeOpts.sections || defaultSections
