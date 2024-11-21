@@ -165,9 +165,9 @@ do
         rm -f $UNLINK
 
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -i '' "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html
+            sed -i '' "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;" ${OUTPUT_DIR}/*.html
         else
-            sed -i "s/@CROQUET_VERSION@/$VERSION/;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/;" ${OUTPUT_DIR}/*.html
+            sed -i "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;" ${OUTPUT_DIR}/*.html
         fi
 
         if [[ ${t} == "multisynq" ]]; then
