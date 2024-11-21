@@ -781,7 +781,7 @@ exports.publish = async function (taffyData, opts, tutorials) {
   view.navigationScript    = createNavigationScript() // prettier-ignore
   view.navigationStyles    = createNavigationStyles() // prettier-ignore
   // once for all
-  view.sidebar             = buildSidebar(view, members) // prettier-ignore
+  view.sidebar             = buildSidebar(members) // prettier-ignore
   view.navbar              = buildNavbar(themeOpts) // prettier-ignore
   view.resizeable          = resizeable(themeOpts) // prettier-ignore
   view.codepen             = codepen(themeOpts) // prettier-ignore
