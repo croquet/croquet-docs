@@ -102,7 +102,7 @@ rm -rf ./dist; mkdir ./dist
 PACKAGES="$@"
 if [ -z "$PACKAGES" ] ; then
     PACKAGES="virtual-dom worldcore microverse webshowcase"
-    if [ -d "../wonderland/croquet/teatime" ] ; then
+    if [ -d "../croquet/docs" ] ; then
         PACKAGES="croquet $PACKAGES"
     else
         echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"

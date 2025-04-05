@@ -1,6 +1,6 @@
 # Croquet Docs Generator
 
-This is a document generator that uses jsdoc to build the docs deployed at [croquet.io/docs](https://croquet.io/docs/)
+This is a document generator that uses jsdoc to build the docs deployed at [croquet.io/docs](https://croquet.io/docs/) and [multisynq.io/docs](https://multisynq.io/docs/)
 
 It accommodates multiple projects. Each project is a subdirectory.
 

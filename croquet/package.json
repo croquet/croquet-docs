@@ -1,18 +1,19 @@
 {
   "name": "croquet-client-docs",
-  "version": "2.0.0-40",
+  "version": "2.0.0-47",
   "description": "Croquet Client Documentation",
   "scripts": {
     "start": "npm-watch",
     "doBuild": "jsdoc -c jsdoc.json",
-    "build": "../build.sh croquet",
+    "build": "ln -sf ../../croquet/docs/tutorials .; ../build.sh croquet",
     "watch": "npm-watch"
   },
   "watch": {
     "build": {
       "patterns": [
         "..",
-        "../../wonderland/croquet/teatime"
+        "../../croquet/docs",
+        "../../croquet/packages/croquet/teatime"
       ],
       "ignore": [
         "dist/"
@@ -22,5 +23,5 @@
     }
   },
   "author": "Croquet Labs",
-  "license": "UNLICENSED"
+  "license": "Apache-2.0"
 }
