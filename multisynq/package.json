@@ -1,0 +1,27 @@
+{
+  "name": "multisynq-client-docs",
+  "version": "1.0.0",
+  "description": "Multisynq Client Documentation",
+  "scripts": {
+    "start": "npm-watch",
+    "doBuild": "jsdoc -c jsdoc.json",
+    "build": "ln -sf ../../multisynq-client/docs/tutorials .; ../build.sh multisynq",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "..",
+        "../../multisynq-client/docs",
+        "../../croquet/packages/croquet/teatime"
+      ],
+      "ignore": [
+        "../dist/"
+      ],
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Labs",
+  "license": "Apache-2.0"
+}

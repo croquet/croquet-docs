@@ -105,16 +105,18 @@ if [ -z "$PACKAGES" ] ; then
     if [ -d "../croquet/docs" ] ; then
         PACKAGES="croquet $PACKAGES"
     else
-        echo "Not building teatime docs because source not present in ../wonderland/croquet/teatime"
+        echo "Not building Croquet docs because source not present in ../croquet/docs"
+    fi
 
-        if wget --version > /dev/null 2>&1 ; then
-            echo "    ...downloading teatime docs from croquet.io instead"
-            # Here we should make sure if we are downloading for wanted targets
-            wget -q --show-progress -r -np -nH --cut-dirs 2 -P dist/croquet https://croquet.io/dev/docs/croquet/ || true
-            # wget -q --show-progress -r -np -nH --cut-dirs 2 -P dist/multisynq https://multisynq.io/dev/docs/multisynq/
+    if [ -d "../multisynq-client/docs" ] ; then
+        if [ -d "../croquet/packages/croquet" ] ; then
+            echo "Building Multisynq docs"
+            PACKAGES="multisynq $PACKAGES"
         else
-            echo "    ...not downloading teatime docs either because wget is not available"
+            echo "Not building Multisynq docs because Croquet source not present in ../croquet/packages/croquet"
         fi
+    else
+        echo "Not building Multisynq docs because source not present in ../multisynq-client/docs"
     fi
 
     if [ -d "../croquet-react/docs" ] ; then
@@ -165,9 +167,9 @@ do
         rm -f $UNLINK
 
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -i '' "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;" ${OUTPUT_DIR}/*.html
+            sed -i '' "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;s/@CLIENT_VERSION@/$VERSION/g" ${OUTPUT_DIR}/*.html
         else
-            sed -i "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;" ${OUTPUT_DIR}/*.html
+            sed -i "s/@CROQUET_VERSION@/$VERSION/g;s/@CROQUET_VERSION_MINOR@/$MINOR_VERSION/g;s/@CLIENT_VERSION@/$VERSION/g" ${OUTPUT_DIR}/*.html
         fi
 
         if [[ ${t} == "multisynq" ]]; then
@@ -189,6 +191,13 @@ do
                     sed -i "s|${l}|${NEW_LINK}|g" ${OUTPUT_DIR}/*.html
                 fi
             done
+
+            echo "===========> Replacing Croquet with Multisynq"
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                sed -i '' "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
+            else
+                sed -i "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
+            fi
         fi
     done
 done
