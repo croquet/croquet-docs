@@ -1,0 +1,26 @@
+{
+  "name": "multisynq-react-docs",
+  "version": "1.0.0",
+  "description": "Multisynq React Bindings",
+  "scripts": {
+    "start": "npm-watch",
+    "doBuild": "jsdoc -c jsdoc.json",
+    "build": "../build.sh multisynq-react",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "../",
+        "../../multisynq-react/docs"
+      ],
+      "ignore": [
+        "dist/"
+      ],
+      "extensions": "js,json,html,css,tmpl,md,png,jpg,gif,svg,ttf,woff",
+      "quiet": false
+    }
+  },
+  "author": "Croquet Labs",
+  "license": "Apache-2.0"
+}

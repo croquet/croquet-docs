@@ -192,11 +192,13 @@ do
                 fi
             done
 
-            echo "===========> Replacing Croquet with Multisynq"
-            if [[ "$OSTYPE" == "darwin"* ]]; then
-                sed -i '' "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
-            else
-                sed -i "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
+            if [[ "$p" == "croquet" ]]; then
+                echo "===========> Replacing Croquet with Multisynq"
+                if [[ "$OSTYPE" == "darwin"* ]]; then
+                    sed -i '' "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
+                else
+                    sed -i "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
+                fi
             fi
         fi
     done

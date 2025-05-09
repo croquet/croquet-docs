@@ -1,0 +1,34 @@
+{
+  "source": {
+    "include": [
+        "../../multisynq-react/docs/top.md",
+        "../../multisynq-react/docs/react-doc.js"
+    ]
+  },
+  "opts": {
+    "access": ["public"],
+    "tutorials": "../../multisynq-react/docs/tutorials",
+    "encoding": "utf8",
+    "recurse": false,
+    "verbose": true,
+    "mainpagetitle": "Multisynq React Bindings @CLIENT_VERSION@"
+  },
+  "plugins": ["plugins/markdown"],
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false,
+      "useLongnameInNav": true,
+      "staticFiles": {
+        "includePattern": "\\.(png|jpg|svg|gif)$"
+      }
+    }
+  }
+}
