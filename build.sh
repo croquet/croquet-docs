@@ -192,7 +192,12 @@ do
                 fi
             done
 
-            if [[ "$p" == "croquet" ]]; then
+            # Only in Multisynq client docs, and only in the files generated from Croquet source,
+            # and only uppercase "Croquet", gets changed to "Multisynq":
+            # because the source docs use lower-case "croquet" (like "croquet-in-a-box")
+            # and the multisynq tutorials use "Croquet" (like "Croquet Labs")
+            # and we don't want to change either of those
+            if [[ "$p" == "multisynq" ]]; then
                 echo "===========> Replacing Croquet with Multisynq"
                 if [[ "$OSTYPE" == "darwin"* ]]; then
                     sed -i '' "s|Croquet|Multisynq|g" ${OUTPUT_DIR}/{Model,View,Session,global}.html
